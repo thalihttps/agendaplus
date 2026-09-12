@@ -211,10 +211,23 @@
 
   <script>
     const DEFAULT_SERVICES = [
-      { id: 's1', providerName: 'Dra. Camilla Rocha', title: 'Consulta Dermatológica', category: 'Saúde', city: 'São Paulo', price: 250, description: 'Avaliação completa da pele, prevenção e tratamento.' },
-      { id: 's2', providerName: 'Dr. Lucas Sampaio', title: 'Sessão de Fisioterapia', category: 'Saúde', city: 'Rio de Janeiro', price: 180, description: 'Reabilitação ortopédica e recuperação funcional.' },
+      // --- SERVIÇOS INICIAIS ---
+      { id: 's1', providerName: 'Dra. Camilla Rocha', title: 'Consulta Dermatológica', category: 'Saúde', city: 'São Paulo', price: 250, description: 'Avaliação completa da pele, prevenção e tratamento. Reg: CRM 999999-SP' },
+      { id: 's2', providerName: 'Dr. Lucas Sampaio', title: 'Sessão de Fisioterapia', category: 'Saúde', city: 'Rio de Janeiro', price: 180, description: 'Reabilitação ortopédica e recuperação funcional. Reg: CREFITO 888888-RJ' },
       { id: 's3', providerName: 'Studio Beleza Viva', title: 'Limpeza de Pele Profunda', category: 'Estética', city: 'São Paulo', price: 120, description: 'Higienização, esfoliação e hidratação facial.' },
-      { id: 's4', providerName: 'Dr. Rafael Martins', title: 'Consultoria Jurídica Civil', category: 'Consultoria', city: 'Curitiba', price: 300, description: 'Orientação em contratos, direitos e processos.' }
+      { id: 's4', providerName: 'Dr. Rafael Martins', title: 'Consultoria Jurídica Civil', category: 'Consultoria', city: 'Curitiba', price: 300, description: 'Orientação em contratos, direitos e processos. Reg: OAB 777777-PR' },
+
+      // --- 10 NOVOS PROFISSIONAIS DA SAÚDE (R$ 30 a R$ 150) ---
+      { id: 's5', providerName: 'Dra. Ana Beatriz Lima', title: 'Consulta Clínica Geral', category: 'Saúde', city: 'São Paulo', price: 80, description: 'Atendimento médico geral, check-up e orientações de saúde. Reg: CRM 101010-SP' },
+      { id: 's6', providerName: 'Dr. Thiago Mendes', title: 'Acompanhamento Clínico Preventivo', category: 'Saúde', city: 'Campinas', price: 60, description: 'Avaliação de exames de rotina e receitas. Reg: CRM 202020-SP' },
+      { id: 's7', providerName: 'Psic. Fernanda Oliveira', title: 'Sessão de Psicoterapia Individual', category: 'Saúde', city: 'Rio de Janeiro', price: 90, description: 'Atendimento psicológico focado em ansiedade e autoconhecimento. Reg: CRP 06/303030' },
+      { id: 's8', providerName: 'Psic. Carlos Eduardo Luz', title: 'Terapia Cognitivo-Comportamental (TCC)', category: 'Saúde', city: 'Niterói', price: 110, description: 'Foco no tratamento de fobias, estresse e depressão. Reg: CRP 05/404040' },
+      { id: 's9', providerName: 'Dra. Patricia Souza', title: 'Consulta Médica Popular', category: 'Saúde', city: 'Curitiba', price: 50, description: 'Atendimento acessível para avaliação de sintomas básicos. Reg: CRM 505050-PR' },
+      { id: 's10', providerName: 'Psic. Juliana Costa', title: 'Plantão Psicológico e Escuta', category: 'Saúde', city: 'Belo Horizonte', price: 40, description: 'Atendimento psicológico pontual e acolhimento imediato. Reg: CRP 04/606060' },
+      { id: 's11', providerName: 'Dr. Roberto Alves', title: 'Consulta Clínico Geral - Terceira Idade', category: 'Saúde', city: 'Porto Alegre', price: 120, description: 'Acompanhamento médico contínuo voltado para idosos. Reg: CRM 707070-RS' },
+      { id: 's12', providerName: 'Psic. Mariana Rios', title: 'Orientação Vocacional & Carreira', category: 'Saúde', city: 'São Paulo', price: 130, description: 'Sessão de orientação profissional para jovens e estudantes. Reg: CRP 06/808080' },
+      { id: 's13', providerName: 'Dra. Sofia Martins', title: 'Consulta de Rotina e Triagem', category: 'Saúde', city: 'Guarulhos', price: 35, description: 'Triagem básica de saúde e encaminhamento para especialistas. Reg: CRM 909090-SP' },
+      { id: 's14', providerName: 'Psic. Gabriel Faria', title: 'Terapia de Casal e Família', category: 'Saúde', city: 'Salvador', price: 150, description: 'Mediação de conflitos e fortalecimento de relacionamentos. Reg: CRP 03/111222' }
     ];
 
     let dbServices = JSON.parse(localStorage.getItem('ap_services')) || DEFAULT_SERVICES;
