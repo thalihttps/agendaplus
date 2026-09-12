@@ -64,7 +64,7 @@
     <section id="viewCatalog" class="space-y-6">
       <div class="paper-card p-6 bg-gradient-to-r from-teal-50 to-emerald-50 border-teal-100">
         <h2 class="text-2xl font-bold text-teal-900 mb-2">Encontre o profissional ideal</h2>
-        <p class="text-teal-700 text-sm mb-4">Agende consultas médicas, atendimentos estéticos e consultorias com facilidade.</p>
+        <p class="text-teal-700 text-sm mb-4">Agende consultas médicas, atendimentos estéticos, veterinários e consultorias com facilidade.</p>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <input type="text" id="filterSearch" oninput="renderCatalog()" placeholder="Buscar por profissional ou serviço..." class="p-2.5 border rounded-lg w-full text-sm">
@@ -73,12 +73,20 @@
             <option value="Saúde">Saúde & Medicina</option>
             <option value="Estética">Estética & Bem-estar</option>
             <option value="Consultoria">Consultoria & Jurídico</option>
+            <option value="Veterinária">Veterinária & Pets</option>
+            <option value="Arquitetura & Engenharia">Arquitetura & Engenharia</option>
           </select>
           <select id="filterCity" onchange="renderCatalog()" class="p-2.5 border rounded-lg w-full text-sm">
             <option value="">Todas as Cidades</option>
             <option value="São Paulo">São Paulo</option>
             <option value="Rio de Janeiro">Rio de Janeiro</option>
             <option value="Curitiba">Curitiba</option>
+            <option value="Campinas">Campinas</option>
+            <option value="Belo Horizonte">Belo Horizonte</option>
+            <option value="Porto Alegre">Porto Alegre</option>
+            <option value="Salvador">Salvador</option>
+            <option value="Niterói">Niterói</option>
+            <option value="Guarulhos">Guarulhos</option>
           </select>
         </div>
       </div>
@@ -86,7 +94,7 @@
       <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- View: Login / Cadastro (Focado em Clientes para a AC1) -->
+    <!-- View: Login / Cadastro -->
     <section id="viewAuth" class="hidden max-w-md mx-auto my-10">
       <div class="paper-card p-6">
         <h2 id="authTitle" class="text-xl font-bold text-center text-gray-800 mb-6">Entrar no AgendaPlus</h2>
@@ -214,23 +222,83 @@
       // --- SERVIÇOS INICIAIS ---
       { id: 's1', providerName: 'Dra. Camilla Rocha', title: 'Consulta Dermatológica', category: 'Saúde', city: 'São Paulo', price: 250, description: 'Avaliação completa da pele, prevenção e tratamento. Reg: CRM 999999-SP' },
       { id: 's2', providerName: 'Dr. Lucas Sampaio', title: 'Sessão de Fisioterapia', category: 'Saúde', city: 'Rio de Janeiro', price: 180, description: 'Reabilitação ortopédica e recuperação funcional. Reg: CREFITO 888888-RJ' },
-      { id: 's3', providerName: 'Studio Beleza Viva', title: 'Limpeza de Pele Profunda', category: 'Estética', city: 'São Paulo', price: 120, description: 'Higienização, esfoliação e hidratação facial.' },
-      { id: 's4', providerName: 'Dr. Rafael Martins', title: 'Consultoria Jurídica Civil', category: 'Consultoria', city: 'Curitiba', price: 300, description: 'Orientação em contratos, direitos e processos. Reg: OAB 777777-PR' },
 
-      // --- 10 NOVOS PROFISSIONAIS DA SAÚDE (R$ 30 a R$ 150) ---
-      { id: 's5', providerName: 'Dra. Ana Beatriz Lima', title: 'Consulta Clínica Geral', category: 'Saúde', city: 'São Paulo', price: 80, description: 'Atendimento médico geral, check-up e orientações de saúde. Reg: CRM 101010-SP' },
+      // --- 10 PROFISSIONAIS DA SAÚDE (R$ 30 a R$ 150) ---
+      { id: 's5', providerName: 'Dra. Ana Beatriz Lima', title: 'Consulta Clínica Geral', category: 'Saúde', city: 'São Paulo', price: 80, description: 'Atendimento médico geral, check-up e orientações. Reg: CRM 101010-SP' },
       { id: 's6', providerName: 'Dr. Thiago Mendes', title: 'Acompanhamento Clínico Preventivo', category: 'Saúde', city: 'Campinas', price: 60, description: 'Avaliação de exames de rotina e receitas. Reg: CRM 202020-SP' },
-      { id: 's7', providerName: 'Psic. Fernanda Oliveira', title: 'Sessão de Psicoterapia Individual', category: 'Saúde', city: 'Rio de Janeiro', price: 90, description: 'Atendimento psicológico focado em ansiedade e autoconhecimento. Reg: CRP 06/303030' },
-      { id: 's8', providerName: 'Psic. Carlos Eduardo Luz', title: 'Terapia Cognitivo-Comportamental (TCC)', category: 'Saúde', city: 'Niterói', price: 110, description: 'Foco no tratamento de fobias, estresse e depressão. Reg: CRP 05/404040' },
-      { id: 's9', providerName: 'Dra. Patricia Souza', title: 'Consulta Médica Popular', category: 'Saúde', city: 'Curitiba', price: 50, description: 'Atendimento acessível para avaliação de sintomas básicos. Reg: CRM 505050-PR' },
-      { id: 's10', providerName: 'Psic. Juliana Costa', title: 'Plantão Psicológico e Escuta', category: 'Saúde', city: 'Belo Horizonte', price: 40, description: 'Atendimento psicológico pontual e acolhimento imediato. Reg: CRP 04/606060' },
-      { id: 's11', providerName: 'Dr. Roberto Alves', title: 'Consulta Clínico Geral - Terceira Idade', category: 'Saúde', city: 'Porto Alegre', price: 120, description: 'Acompanhamento médico contínuo voltado para idosos. Reg: CRM 707070-RS' },
-      { id: 's12', providerName: 'Psic. Mariana Rios', title: 'Orientação Vocacional & Carreira', category: 'Saúde', city: 'São Paulo', price: 130, description: 'Sessão de orientação profissional para jovens e estudantes. Reg: CRP 06/808080' },
-      { id: 's13', providerName: 'Dra. Sofia Martins', title: 'Consulta de Rotina e Triagem', category: 'Saúde', city: 'Guarulhos', price: 35, description: 'Triagem básica de saúde e encaminhamento para especialistas. Reg: CRM 909090-SP' },
-      { id: 's14', providerName: 'Psic. Gabriel Faria', title: 'Terapia de Casal e Família', category: 'Saúde', city: 'Salvador', price: 150, description: 'Mediação de conflitos e fortalecimento de relacionamentos. Reg: CRP 03/111222' }
+      { id: 's7', providerName: 'Psic. Fernanda Oliveira', title: 'Sessão de Psicoterapia Individual', category: 'Saúde', city: 'Rio de Janeiro', price: 90, description: 'Atendimento psicológico focado em ansiedade. Reg: CRP 06/303030' },
+      { id: 's8', providerName: 'Psic. Carlos Eduardo Luz', title: 'Terapia Cognitivo-Comportamental', category: 'Saúde', city: 'Niterói', price: 110, description: 'Foco no tratamento de fobias e estresse. Reg: CRP 05/404040' },
+      { id: 's9', providerName: 'Dra. Patricia Souza', title: 'Consulta Médica Popular', category: 'Saúde', city: 'Curitiba', price: 50, description: 'Atendimento acessível para triagem médica. Reg: CRM 505050-PR' },
+      { id: 's10', providerName: 'Psic. Juliana Costa', title: 'Plantão Psicológico e Escuta', category: 'Saúde', city: 'Belo Horizonte', price: 40, description: 'Atendimento psicológico pontual e acolhimento. Reg: CRP 04/606060' },
+      { id: 's11', providerName: 'Dr. Roberto Alves', title: 'Consulta Clínico Geral - Terceira Idade', category: 'Saúde', city: 'Porto Alegre', price: 120, description: 'Acompanhamento médico contínuo geriatria. Reg: CRM 707070-RS' },
+      { id: 's12', providerName: 'Psic. Mariana Rios', title: 'Orientação Vocacional & Carreira', category: 'Saúde', city: 'São Paulo', price: 130, description: 'Orientação profissional para estudantes. Reg: CRP 06/808080' },
+      { id: 's13', providerName: 'Dra. Sofia Martins', title: 'Consulta de Rotina e Triagem', category: 'Saúde', city: 'Guarulhos', price: 35, description: 'Triagem básica de saúde e encaminhamentos. Reg: CRM 909090-SP' },
+      { id: 's14', providerName: 'Psic. Gabriel Faria', title: 'Terapia de Casal e Família', category: 'Saúde', city: 'Salvador', price: 150, description: 'Mediação de conflitos e diálogo familiar. Reg: CRP 03/111222' },
+
+      // --- 10 PROFISSIONAIS JURÍDICOS ---
+      { id: 's15', providerName: 'Dr. Rafael Martins', title: 'Consultoria Jurídica Civil', category: 'Consultoria', city: 'Curitiba', price: 140, description: 'Orientação em contratos e direitos do consumidor. Reg: OAB 777777-PR' },
+      { id: 's16', providerName: 'Dra. Beatriz Toledo', title: 'Análise e Revisão de Contratos', category: 'Consultoria', city: 'São Paulo', price: 95, description: 'Análise preventiva de contratos de aluguel e compras. Reg: OAB 123456-SP' },
+      { id: 's17', providerName: 'Dr. Marcelo Neves', title: 'Orientação Trabalhista para Funcionários', category: 'Consultoria', city: 'Rio de Janeiro', price: 80, description: 'Esclarecimento sobre rescisão, horas extras e direitos. Reg: OAB 654321-RJ' },
+      { id: 's18', providerName: 'Dra. Camila Albuquerque', title: 'Consultoria sobre Direito de Família', category: 'Consultoria', city: 'Belo Horizonte', price: 120, description: 'Orientações sobre guarda, pensão e divórcio. Reg: OAB 987654-MG' },
+      { id: 's19', providerName: 'Dr. Fernando Dias', title: 'Orientação para MEI e Pequenas Empresas', category: 'Consultoria', city: 'Campinas', price: 70, description: 'Abertura de empresa, tributos e adequação jurídica. Reg: OAB 112233-SP' },
+      { id: 's20', providerName: 'Dra. Vanessa Ramos', title: 'Consultoria em Direito Previdenciário', category: 'Consultoria', city: 'Porto Alegre', price: 110, description: 'Análise de aposentadoria e auxílios do INSS. Reg: OAB 445566-RS' },
+      { id: 's21', providerName: 'Dr. Igor Carvalho', title: 'Defesa do Consumidor & Cobranças', category: 'Consultoria', city: 'Salvador', price: 65, description: 'Orientação para cobranças indevidas e cobrança abusiva. Reg: OAB 778899-BA' },
+      { id: 's22', providerName: 'Dra. Larissa Moreira', title: 'Consultoria Imobiliária Inicial', category: 'Consultoria', city: 'Niterói', price: 130, description: 'Orientações para compra, venda e usucapião. Reg: OAB 334455-RJ' },
+      { id: 's23', providerName: 'Dr. André Fonseca', title: 'Orientação Jurídica Geral (Popular)', category: 'Consultoria', city: 'Guarulhos', price: 45, description: 'Triagem e orientação sobre dúvidas legais diversas. Reg: OAB 556677-SP' },
+      { id: 's24', providerName: 'Dra. Helena Vasconcelos', title: 'Consultoria em Direito Digital', category: 'Consultoria', city: 'São Paulo', price: 150, description: 'Proteção de dados, crimes virtuais e LGPD. Reg: OAB 998877-SP' },
+
+      // --- 10 PROFISSIONAIS DE ESTÉTICA (Com Depilação a Laser) ---
+      { id: 's25', providerName: 'Studio Beleza Viva', title: 'Limpeza de Pele Profunda', category: 'Estética', city: 'São Paulo', price: 120, description: 'Higienização, esfoliação e hidratação facial.' },
+      { id: 's26', providerName: 'Clínica Laser Clean', title: 'Depilação a Laser - Axilas ou Buço', category: 'Estética', city: 'São Paulo', price: 49, description: 'Sessão de depilação a laser diodo rápida e indolor.' },
+      { id: 's27', providerName: 'Espaço Dermo Laser', title: 'Depilação a Laser - Pernas Inteiras', category: 'Estética', city: 'Rio de Janeiro', price: 139, description: 'Sessão completa com tecnologia de resfriamento.' },
+      { id: 's28', providerName: 'Estética Amanda Silva', title: 'Design de Sobrancelhas + Henna', category: 'Estética', city: 'Campinas', price: 35, description: 'Mapeamento facial e pigmentação de sobrancelhas.' },
+      { id: 's29', providerName: 'Espaço Drenagem & Cia', title: 'Massagem Modeladora ou Drenagem', category: 'Estética', city: 'Curitiba', price: 75, description: 'Redução de medidas e combate à retenção de líquidos.' },
+      { id: 's30', providerName: 'Clínica Renovare Laser', title: 'Depilação a Laser - Barba ou Pescoço', category: 'Estética', city: 'Belo Horizonte', price: 59, description: 'Remoção definitiva de pelos para o público masculino.' },
+      { id: 's31', providerName: 'Studio Glow Skin', title: 'Peeling Diamantado Facial', category: 'Estética', city: 'Porto Alegre', price: 85, description: 'Renovação celular e suavização de manchas da pele.' },
+      { id: 's32', providerName: 'Estética Bella Donna', title: 'Hydra Gloss Lips (Hidratação Labial)', category: 'Estética', city: 'Salvador', price: 90, description: 'Tratamento de super hidratação e volume labial.' },
+      { id: 's33', providerName: 'Depil Laser Express', title: 'Depilação a Laser - Virilha Completa', category: 'Estética', city: 'Niterói', price: 89, description: 'Sessão de depilação duradoura com segurança.' },
+      { id: 's34', providerName: 'Studio Harmonize', title: 'Revitalização e Lipo Enzimática de Papada', category: 'Estética', city: 'Guarulhos', price: 145, description: 'Aplicação de enzimas para redução de gordura localizada.' },
+
+      // --- 10 PROFISSIONAIS VETERINÁRIOS ---
+      { id: 's35', providerName: 'Dr. Bruno Vet Care', title: 'Consulta Veterinária de Rotina', category: 'Veterinária', city: 'São Paulo', price: 75, description: 'Exame clínico geral para cães e gatos. Reg: CRMV 12345-SP' },
+      { id: 's36', providerName: 'Dra. Camila Bichos', title: 'Aplicação de Vacinas Importadas (V10 / Raiva)', category: 'Veterinária', city: 'Campinas', price: 50, description: 'Imunização completa para seu pet com carteirinha. Reg: CRMV 67890-SP' },
+      { id: 's37', providerName: 'Clínica Vet Popular', title: 'Consulta Veterinária Acessível', category: 'Veterinária', city: 'Guarulhos', price: 40, description: 'Atendimento clínico primário para cães e gatos. Reg: CRMV 11223-SP' },
+      { id: 's38', providerName: 'Dr. Eduardo Pets', title: 'Consulta Dermatológica Veterinária', category: 'Veterinária', city: 'Rio de Janeiro', price: 110, description: 'Tratamento de coceiras, alergias e otites em pets. Reg: CRMV 44556-RJ' },
+      { id: 's39', providerName: 'Dra. Renata Felinos', title: 'Consulta Exclusiva para Gatos (Cat Friendly)', category: 'Veterinária', city: 'Niterói', price: 95, description: 'Atendimento sem estresse focado no comportamento felino. Reg: CRMV 77889-RJ' },
+      { id: 's40', providerName: 'Vet em Em Casa (Dr. Felipe)', title: 'Consulta Veterinária Domiciliar', category: 'Veterinária', city: 'Curitiba', price: 130, description: 'Atendimento no conforto da sua casa para pets idosos. Reg: CRMV 99001-PR' },
+      { id: 's41', providerName: 'Dra. Vanessa NutriPet', title: 'Consultoria em Nutrição Animal', category: 'Veterinária', city: 'Belo Horizonte', price: 120, description: 'Formulação de alimentação natural e dietas pet. Reg: CRMV 22334-MG' },
+      { id: 's42', providerName: 'Dr. Gustavo Pet Care', title: 'Limpeza de Ouvido e Cortar Unhas Pet', category: 'Veterinária', city: 'Porto Alegre', price: 30, description: 'Procedimentos de higiene e cuidados básicos. Reg: CRMV 55667-RS' },
+      { id: 's43', providerName: 'Clínica Amigo Fiel', title: 'Avaliação Pré-Operatória & Exames Pet', category: 'Veterinária', city: 'Salvador', price: 85, description: 'Triagem de exames laboratoriais e eletrocardiograma. Reg: CRMV 88990-BA' },
+      { id: 's44', providerName: 'Dra. Paula OftalmoPet', title: 'Avaliação Oftalmológica Veterinária', category: 'Veterinária', city: 'São Paulo', price: 140, description: 'Diagnóstico de catarata, úlceras de córnea e glaucoma. Reg: CRMV 33445-SP' },
+
+      // --- 10 ARQUITETOS ---
+      { id: 's45', providerName: 'Arq. Juliana Prado', title: 'Consultoria de Interiores (Por Ambiente)', category: 'Arquitetura & Engenharia', price: 140, description: 'Dicas de iluminação, cores e disposição de móveis. Reg: CAU A12345-6' },
+      { id: 's46', providerName: 'Arq. Lucas Medeiros', title: 'Projeto de Iluminação (Lighting Design)', category: 'Arquitetura & Engenharia', city: 'Rio de Janeiro', price: 120, description: 'Planejamento de pontos de luz e lâmpadas LED. Reg: CAU A65432-1' },
+      { id: 's47', providerName: 'Arq. Carla Nogueira', title: 'Visita Técnica e Diagnóstico de Reforma', category: 'Arquitetura & Engenharia', city: 'Campinas', price: 90, description: 'Avaliação no local para viabilidade de reformas. Reg: CAU A98765-4' },
+      { id: 's48', providerName: 'Arq. Fernando Rocha', title: 'Modelagem 3D e Maquete Eletrônica', category: 'Arquitetura & Engenharia', city: 'Belo Horizonte', price: 150, description: 'Criação de imagens realistas do seu ambiente em 3D. Reg: CAU A11223-3' },
+      { id: 's49', providerName: 'Arq. Mariana Paes', title: 'Consultoria de Decoração Express', category: 'Arquitetura & Engenharia', city: 'Curitiba', price: 75, description: 'Guia prático de quadros, plantas e objetos decorativos. Reg: CAU A44556-6' },
+      { id: 's50', providerName: 'Arq. Rodrigo Leite', title: 'Detalhamento de Marcenaria Sob Medida', category: 'Arquitetura & Engenharia', city: 'Porto Alegre', price: 130, description: 'Desenho de armários de cozinha e guarda-roupas. Reg: CAU A77889-9' },
+      { id: 's51', providerName: 'Arq. Tatiana Luz', title: 'Projeto de Paisagismo para Varandas', category: 'Arquitetura & Engenharia', city: 'Niterói', price: 85, description: 'Seleção de plantas adequadas para apartamentos. Reg: CAU A99001-1' },
+      { id: 's52', providerName: 'Arq. Diego Siqueira', title: 'Layout de Escritório / Home Office', category: 'Arquitetura & Engenharia', city: 'Guarulhos', price: 65, description: 'Organização ergonômica de espaço de trabalho. Reg: CAU A22334-4' },
+      { id: 's53', providerName: 'Arq. Camila Farias', title: 'Escolha de Revestimentos e Pisos', category: 'Arquitetura & Engenharia', city: 'Salvador', price: 95, description: 'Acompanhamento em lojas para escolha de materiais. Reg: CAU A55667-7' },
+      { id: 's54', providerName: 'Arq. Bruno Guimarães', title: 'Consultoria de Fachadas de Casas', category: 'Arquitetura & Engenharia', city: 'São Paulo', price: 110, description: 'Sugestões de pintura, revestimento e iluminação externa. Reg: CAU A88990-0' },
+
+      // --- 5 ENGENHEIROS ---
+      { id: 's55', providerName: 'Eng. Roberto Cardozo', title: 'Laudo Técnico de Reforma (ART / RRT)', category: 'Arquitetura & Engenharia', city: 'São Paulo', price: 150, description: 'Emissão de laudo obrigatório para reformas em condomínio. Reg: CREA 506070-SP' },
+      { id: 's56', providerName: 'Eng. Marcelo Peixoto', title: 'Vistoria de Imóvel Novo / Entregue pela Construtora', category: 'Arquitetura & Engenharia', city: 'Campinas', price: 130, description: 'Verificação de contraprovas, hidráulica e elétrica. Reg: CREA 102030-SP' },
+      { id: 's57', providerName: 'Eng. Patricia Aragão', title: 'Consultoria em Eficiência Energética', category: 'Arquitetura & Engenharia', city: 'Rio de Janeiro', price: 110, description: 'Dimensionamento de energia solar e redução de conta. Reg: CREA 405060-RJ' },
+      { id: 's58', providerName: 'Eng. Carlos Eduardo Viana', title: 'Inspeção de Instalações Elétricas', category: 'Arquitetura & Engenharia', city: 'Curitiba', price: 85, description: 'Diagnóstico de fiação antiga e prevenção de curtos. Reg: CREA 708090-PR' },
+      { id: 's59', providerName: 'Eng. Gabriel Santana', title: 'Cálculo Estrutural para Pequenas Ampliações', category: 'Arquitetura & Engenharia', city: 'Belo Horizonte', price: 140, description: 'Dimensionamento seguro de vigas, colunas e lajes. Reg: CREA 901020-MG' }
     ];
 
-    let dbServices = JSON.parse(localStorage.getItem('ap_services')) || DEFAULT_SERVICES;
+    // Atualização Inteligente do LocalStorage (Carrega a lista completa automaticamente)
+    let savedServices = JSON.parse(localStorage.getItem('ap_services'));
+    if (!savedServices || savedServices.length < DEFAULT_SERVICES.length) {
+      localStorage.setItem('ap_services', JSON.stringify(DEFAULT_SERVICES));
+      savedServices = DEFAULT_SERVICES;
+    }
+
+    let dbServices = savedServices;
     let dbUsers = JSON.parse(localStorage.getItem('ap_users')) || [];
     let dbAppointments = JSON.parse(localStorage.getItem('ap_appointments')) || [];
     let currentUser = JSON.parse(localStorage.getItem('ap_current_user')) || null;
@@ -298,7 +366,7 @@
       const filtered = dbServices.filter(s => {
         const matchSearch = s.title.toLowerCase().includes(search) || s.providerName.toLowerCase().includes(search);
         const matchCat = cat === '' || s.category === cat;
-        const matchCity = city === '' || s.city === city;
+        const matchCity = city === '' || (s.city && s.city === city);
         return matchSearch && matchCat && matchCity;
       });
 
@@ -313,7 +381,7 @@
           <div>
             <span class="text-xs bg-teal-100 text-teal-800 px-2.5 py-0.5 rounded-full font-semibold">${s.category}</span>
             <h3 class="font-bold text-gray-800 text-lg mt-2">${s.title}</h3>
-            <p class="text-xs text-gray-500 font-medium">${s.providerName} • ${s.city}</p>
+            <p class="text-xs text-gray-500 font-medium">${s.providerName} ${s.city ? `• ${s.city}` : ''}</p>
             <p class="text-sm text-gray-600 mt-2">${s.description}</p>
           </div>
           <div class="mt-4 pt-4 border-t flex justify-between items-center">
@@ -341,7 +409,7 @@
 
       if (isRegister) {
         const name = document.getElementById('authName').value;
-        const role = 'client'; // Padrão Cliente para AC1
+        const role = 'client';
         const newUser = { id: 'u' + Date.now(), name, email, pass, role };
         dbUsers.push(newUser);
         currentUser = newUser;
