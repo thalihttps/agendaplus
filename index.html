@@ -86,33 +86,25 @@
       <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
-    <!-- View: Login / Cadastro -->
+    <!-- View: Login / Cadastro (Focado em Clientes para a AC1) -->
     <section id="viewAuth" class="hidden max-w-md mx-auto my-10">
       <div class="paper-card p-6">
         <h2 id="authTitle" class="text-xl font-bold text-center text-gray-800 mb-6">Entrar no AgendaPlus</h2>
         
-        <form id="authForm" onsubmit="handleAuth(event)" class="space-y-4">
+        <form id="authForm" onsubmit="handleAuth(event)" autocomplete="off" class="space-y-4">
           <div id="nameField" class="hidden">
             <label class="block text-xs font-semibold text-gray-600 mb-1">Nome Completo</label>
-            <input type="text" id="authName" class="w-full p-2.5 border rounded-lg text-sm">
+            <input type="text" id="authName" autocomplete="off" class="w-full p-2.5 border rounded-lg text-sm">
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-gray-600 mb-1">E-mail</label>
-            <input type="email" id="authEmail" required class="w-full p-2.5 border rounded-lg text-sm">
+            <input type="email" id="authEmail" required autocomplete="off" class="w-full p-2.5 border rounded-lg text-sm">
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-gray-600 mb-1">Senha</label>
-            <input type="password" id="authPassword" required class="w-full p-2.5 border rounded-lg text-sm">
-          </div>
-
-          <div id="roleField" class="hidden">
-            <label class="block text-xs font-semibold text-gray-600 mb-1">Tipo de Conta</label>
-            <select id="authRole" class="w-full p-2.5 border rounded-lg text-sm">
-              <option value="client">Cliente / Paciente</option>
-              <option value="provider">Prestador de Serviço / Profissional</option>
-            </select>
+            <input type="password" id="authPassword" required autocomplete="new-password" class="w-full p-2.5 border rounded-lg text-sm">
           </div>
 
           <button type="submit" id="authSubmitBtn" class="w-full py-2.5 btn-primary rounded-lg font-semibold text-sm">Entrar</button>
@@ -236,6 +228,12 @@
     let currentCalMonth = 0;
     let selectedFullDate = null;
 
+    function resetAuthFields() {
+      document.getElementById('authName').value = '';
+      document.getElementById('authEmail').value = '';
+      document.getElementById('authPassword').value = '';
+    }
+
     function saveState() {
       localStorage.setItem('ap_services', JSON.stringify(dbServices));
       localStorage.setItem('ap_users', JSON.stringify(dbUsers));
@@ -249,6 +247,7 @@
         document.getElementById('viewCatalog').classList.remove('hidden');
         renderCatalog();
       } else if (view === 'auth') {
+        resetAuthFields();
         document.getElementById('viewAuth').classList.remove('hidden');
       } else if (view === 'clientAppointments') {
         document.getElementById('viewClientAppointments').classList.remove('hidden');
@@ -314,9 +313,9 @@
 
     function toggleAuthMode() {
       isRegister = !isRegister;
+      resetAuthFields();
       document.getElementById('authTitle').innerText = isRegister ? 'Criar Conta' : 'Entrar no AgendaPlus';
       document.getElementById('nameField').classList.toggle('hidden', !isRegister);
-      document.getElementById('roleField').classList.toggle('hidden', !isRegister);
       document.getElementById('authSubmitBtn').innerText = isRegister ? 'Cadastrar' : 'Entrar';
       document.getElementById('authToggleText').innerText = isRegister ? 'Já tem uma conta?' : 'Ainda não tem conta?';
       document.getElementById('authToggleBtn').innerText = isRegister ? 'Entrar' : 'Cadastre-se';
@@ -329,7 +328,7 @@
 
       if (isRegister) {
         const name = document.getElementById('authName').value;
-        const role = document.getElementById('authRole').value;
+        const role = 'client'; // Padrão Cliente para AC1
         const newUser = { id: 'u' + Date.now(), name, email, pass, role };
         dbUsers.push(newUser);
         currentUser = newUser;
@@ -343,7 +342,8 @@
       }
 
       saveState();
-      navigate(currentUser.role === 'provider' ? 'providerDashboard' : 'catalog');
+      resetAuthFields();
+      navigate('catalog');
     }
 
     function logout() {
