@@ -46,7 +46,7 @@
     .close-btn { position: absolute; top: 14px; right: 18px; font-size: 1.5rem; cursor: pointer; color: #999; }
     .input-group { margin-bottom: 14px; text-align: left; }
     .input-group label { display: block; font-size: 0.85rem; color: #444; margin-bottom: 4px; font-weight: 600; }
-    .input-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; }
+    .input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; }
     .switch-form { text-align: center; font-size: 0.85rem; margin-top: 14px; color: #666; }
     .switch-form a { color: #0d5c46; font-weight: 600; text-decoration: none; }
     @media (max-width: 768px) { .search-bar { border-radius: 12px; padding: 12px; flex-direction: column; } .filter-wrapper { border-left: none; border-top: 1px solid #eee; width: 100%; padding-left: 0; padding-top: 8px; } }
@@ -151,6 +151,7 @@
     <div id="profissionaisGrid" class="cards-grid"></div>
   </main>
 
+  <!-- MODAL DE LOGIN/CADASTRO -->
   <div id="authModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" onclick="fecharModalAuth()">&times;</span>
@@ -192,6 +193,37 @@
     </div>
   </div>
 
+  <!-- MODAL DE AGENDAMENTO -->
+  <div id="agendarModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="fecharModalAgendamento()">&times;</span>
+      
+      <div class="modal-header">
+        <h3 id="agendarProfNome" style="color: #0d5c46;">Agendar Consulta</h3>
+        <p id="agendarProfEspecialidade" style="font-size: 0.85rem; color: #666;"></p>
+      </div>
+
+      <form onsubmit="confirmarAgendamento(event)">
+        <div class="input-group">
+          <label>Selecione a Data</label>
+          <input type="date" id="agendarData" required>
+        </div>
+        <div class="input-group">
+          <label>Selecione o Horário</label>
+          <select id="agendarHorario" required>
+            <option value="">Escolha um horário</option>
+            <option value="09:00">09:00</option>
+            <option value="10:30">10:30</option>
+            <option value="14:00">14:00</option>
+            <option value="15:30">15:30</option>
+            <option value="17:00">17:00</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary full-width">Confirmar Agendamento</button>
+      </form>
+    </div>
+  </div>
+
   <script>
     const profissionais = [
       { nome: "Dra. Camila Santos", categoria: "Saúde & Medicina", especialidade: "Cardiologia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 250" },
@@ -225,6 +257,8 @@
       { nome: "Ricardo Antunes", categoria: "Manutenção & Serviços", especialidade: "Técnico em Ar Condicionado", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "Sob Consulta" }
     ];
 
+    let profissionalSelecionado = null;
+
     function renderizarCards(lista) {
       const grid = document.getElementById("profissionaisGrid");
       grid.innerHTML = "";
@@ -232,7 +266,7 @@
         grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888; padding: 20px;'>Nenhum profissional encontrado.</p>";
         return;
       }
-      lista.forEach(prof => {
+      lista.forEach((prof, idx) => {
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
@@ -245,7 +279,7 @@
           </div>
           <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
             <span style="font-weight: bold; color: #0d5c46;">${prof.preco}</span>
-            <button class="btn-primary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="alert('Funcionalidade de agendamento em breve!')">Agendar</button>
+            <button class="btn-primary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="abrirModalAgendamento('${prof.nome}', '${prof.especialidade}')">Agendar</button>
           </div>
         `;
         grid.appendChild(card);
@@ -269,6 +303,28 @@
 
     function abrirModalAuth() { document.getElementById("authModal").style.display = "flex"; }
     function fecharModalAuth() { document.getElementById("authModal").style.display = "none"; }
+    
+    function abrirModalAgendamento(nome, especialidade) {
+      profissionalSelecionado = nome;
+      document.getElementById("agendarProfNome").textContent = `Agendar com ${nome}`;
+      document.getElementById("agendarProfEspecialidade").textContent = especialidade;
+      document.getElementById("agendarModal").style.display = "flex";
+    }
+    function fecharModalAgendamento() { 
+      document.getElementById("agendarModal").style.display = "none"; 
+    }
+
+    function confirmarAgendamento(e) {
+      e.preventDefault();
+      const data = document.getElementById("agendarData").value;
+      const horario = document.getElementById("agendarHorario").value;
+      
+      const dataFormatada = new Date(data).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+      
+      alert(`🎉 Agendamento confirmado com sucesso!\n\nProfissional: ${profissionalSelecionado}\nData: ${dataFormatada}\nHorário: ${horario}`);
+      fecharModalAgendamento();
+    }
+
     function alternarFormulario(tipo) {
       const loginForm = document.getElementById("loginForm");
       const cadastroForm = document.getElementById("cadastroForm");
