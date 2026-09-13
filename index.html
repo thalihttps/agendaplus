@@ -4,11 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgendaPlus - Agendamento de Consultas & Serviços</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f8faf9; color: #333; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .header { background: #ffffff; border-bottom: 1px solid #e0f2e9; padding: 12px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); }
+    .header-content { display: flex; justify-content: space-between; align-items: center; }
+    .logo-area { display: flex; align-items: center; gap: 12px; }
+    .brand-logo { height: 48px; width: auto; object-fit: contain; }
+    .brand-text h1 { font-size: 1.3rem; color: #0d5c46; font-weight: 700; line-height: 1.1; }
+    .brand-text p { font-size: 0.75rem; color: #666; }
+    .nav-menu { display: flex; align-items: center; gap: 20px; }
+    .nav-link { text-decoration: none; color: #4a6158; font-weight: 600; font-size: 0.95rem; }
+    .btn-primary { background-color: #0d5c46; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; }
+    .full-width { width: 100%; padding: 12px; margin-top: 10px; }
+    .hero-section { background-color: #eef8f3; padding: 24px 16px; border-bottom: 1px solid #e0f2e9; text-align: center; }
+    .hero-content h2 { color: #0d5c46; font-size: 1.5rem; margin-bottom: 6px; font-weight: 700; }
+    .hero-content p { color: #4a6158; font-size: 0.95rem; margin-bottom: 18px; }
+    .search-bar { display: flex; flex-wrap: wrap; gap: 10px; max-width: 900px; margin: 0 auto; background: #ffffff; padding: 8px 16px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); border: 1px solid #d1e7dd; align-items: center; }
+    .search-input-wrapper { flex: 2; display: flex; align-items: center; min-width: 220px; }
+    .search-icon { margin-right: 8px; font-size: 0.9rem; opacity: 0.6; }
+    .search-input-wrapper input { width: 100%; border: none; outline: none; font-size: 0.95rem; background: transparent; color: #333; }
+    .filter-wrapper { flex: 1; min-width: 160px; border-left: 1px solid #eee; padding-left: 8px; }
+    .filter-wrapper select { width: 100%; border: none; outline: none; background: transparent; font-size: 0.9rem; color: #495057; cursor: pointer; padding: 6px 4px; }
+    .benefits-section { padding: 36px 20px; background-color: #ffffff; border-bottom: 1px solid #eee; }
+    .section-title { text-align: center; color: #0d5c46; font-size: 1.35rem; margin-bottom: 24px; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; }
+    .benefit-card { background: #f8fcf9; border: 1px solid #e1f0e8; border-radius: 12px; padding: 20px; }
+    .benefit-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .benefit-card h4 { color: #0d5c46; margin-bottom: 6px; font-size: 1.05rem; }
+    .benefit-card p { color: #666; font-size: 0.88rem; line-height: 1.4; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); border: 1px solid #eef2f0; display: flex; flex-direction: column; justify-content: space-between; }
+    .card h4 { color: #0d5c46; font-size: 1.1rem; margin-bottom: 6px; }
+    .card-category { display: inline-block; background: #eef8f3; color: #0d5c46; font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; font-weight: 600; margin-bottom: 8px; }
+    .card-info { font-size: 0.88rem; color: #666; margin-bottom: 4px; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; z-index: 1000; }
+    .modal-content { background: white; padding: 30px; border-radius: 16px; width: 100%; max-width: 380px; position: relative; }
+    .modal-header { text-align: center; margin-bottom: 20px; }
+    .modal-logo { height: 55px; margin-bottom: 8px; }
+    .close-btn { position: absolute; top: 14px; right: 18px; font-size: 1.5rem; cursor: pointer; color: #999; }
+    .input-group { margin-bottom: 14px; text-align: left; }
+    .input-group label { display: block; font-size: 0.85rem; color: #444; margin-bottom: 4px; font-weight: 600; }
+    .input-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; }
+    .switch-form { text-align: center; font-size: 0.85rem; margin-top: 14px; color: #666; }
+    .switch-form a { color: #0d5c46; font-weight: 600; text-decoration: none; }
+    @media (max-width: 768px) { .search-bar { border-radius: 12px; padding: 12px; flex-direction: column; } .filter-wrapper { border-left: none; border-top: 1px solid #eee; width: 100%; padding-left: 0; padding-top: 8px; } }
+  </style>
 </head>
 <body>
 
-  <!-- CABEÇALHO / NAVBAR COM LOGO -->
   <header class="header">
     <div class="container header-content">
       <div class="logo-area">
@@ -27,13 +72,11 @@
     </div>
   </header>
 
-  <!-- FAIXA DE PESQUISA COMPACTA (BARRA PÍLULA) -->
   <section class="hero-section">
     <div class="container hero-content">
       <h2>Encontre o profissional ideal</h2>
       <p>Agende consultas médicas, atendimentos estéticos, veterinários e consultorias com facilidade.</p>
       
-      <!-- Barra de Pesquisa Compacta -->
       <div class="search-bar">
         <div class="search-input-wrapper">
           <span class="search-icon">🔍</span>
@@ -71,7 +114,6 @@
     </div>
   </section>
 
-  <!-- SEÇÃO DE VANTAGENS (ESTILO CARTÃO DE TODOS) -->
   <section id="vantagens" class="benefits-section">
     <div class="container">
       <h3 class="section-title">Por que agendar pelo AgendaPlus?</h3>
@@ -104,15 +146,11 @@
     </div>
   </section>
 
-  <!-- CATÁLOGO DE PROFISSIONAIS -->
   <main class="container" id="catalogo" style="padding: 30px 16px;">
     <h3 style="color: #0d5c46; margin-bottom: 20px;">Profissionais Disponíveis</h3>
-    <div id="profissionaisGrid" class="cards-grid">
-      <!-- Carregado via script.js -->
-    </div>
+    <div id="profissionaisGrid" class="cards-grid"></div>
   </main>
 
-  <!-- MODAL DE AUTENTICAÇÃO (LOGIN / CADASTRO COM LOGO) -->
   <div id="authModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" onclick="fecharModalAuth()">&times;</span>
@@ -122,7 +160,6 @@
         <h3 id="modalTitle">Acessar AgendaPlus</h3>
       </div>
 
-      <!-- Formulário de Login -->
       <form id="loginForm" onsubmit="realizarLogin(event)">
         <div class="input-group">
           <label>E-mail</label>
@@ -136,7 +173,6 @@
         <p class="switch-form">Ainda não tem conta? <a href="#" onclick="alternarFormulario('cadastro')">Cadastre-se</a></p>
       </form>
 
-      <!-- Formulário de Cadastro -->
       <form id="cadastroForm" onsubmit="realizarCadastro(event)" style="display: none;">
         <div class="input-group">
           <label>Nome Completo</label>
@@ -156,6 +192,122 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const profissionais = [
+      { nome: "Dra. Camila Santos", categoria: "Saúde & Medicina", especialidade: "Cardiologia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 250" },
+      { nome: "Dr. Roberto Oliveira", categoria: "Saúde & Medicina", especialidade: "Pediatria", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 200" },
+      { nome: "Dra. Juliana Lima", categoria: "Saúde & Medicina", especialidade: "Dermatologia", cidade: "Belo Horizonte", atendimento: "Presencial e Online", preco: "R$ 280" },
+      { nome: "Dr. Marcelo Vieira", categoria: "Saúde & Medicina", especialidade: "Ortopedia", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 230" },
+      { nome: "Dra. Patricia Mendes", categoria: "Saúde & Medicina", especialidade: "Ginecologia", cidade: "Porto Alegre", atendimento: "Presencial", preco: "R$ 240" },
+      { nome: "Dr. Lucas Andrade", categoria: "Saúde & Medicina", especialidade: "Psiquiatria", cidade: "São Paulo", atendimento: "Online", preco: "R$ 300" },
+      { nome: "Dra. Renata Vasconcelos", categoria: "Saúde & Medicina", especialidade: "Endocrinologia", cidade: "Campinas", atendimento: "Presencial e Online", preco: "R$ 270" },
+      { nome: "Dr. Fernando Rocha", categoria: "Saúde & Medicina", especialidade: "Neurologia", cidade: "Brasília", atendimento: "Presencial", preco: "R$ 320" },
+      { nome: "Dr. Gustavo Alencar", categoria: "Odontologia", especialidade: "Ortodontia", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 180" },
+      { nome: "Dra. Beatriz Costa", categoria: "Odontologia", especialidade: "Endodontia", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 220" },
+      { nome: "Dr. Henrique Silveira", categoria: "Odontologia", especialidade: "Implantodontia", cidade: "Salvador", atendimento: "Presencial", preco: "R$ 350" },
+      { nome: "Dra. Vanessa Martins", categoria: "Odontologia", especialidade: "Odontopediatria", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 190" },
+      { nome: "Mariana Souza", categoria: "Estética & Bem-Estar", especialidade: "Esteticista & Biomedicina", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 150" },
+      { nome: "Dra. Aline Ferraz", categoria: "Estética & Bem-Estar", especialidade: "Harmonização Facial", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 450" },
+      { nome: "Carlos Eduardo", categoria: "Estética & Bem-Estar", especialidade: "Massoterapia", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 120" },
+      { nome: "Bruna Xavier", categoria: "Estética & Bem-Estar", especialidade: "Design de Sobrancelhas & Lash", cidade: "Campinas", atendimento: "Presencial", preco: "R$ 90" },
+      { nome: "Dr. André Martins", categoria: "Veterinária", especialidade: "Clínico Geral Vet", cidade: "São Paulo", atendimento: "Presencial e Domiciliar", preco: "R$ 160" },
+      { nome: "Dra. Sofia Ribeiro", categoria: "Veterinária", especialidade: "Dermatologia Veterinária", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 210" },
+      { nome: "Dr. Thiago Faria", categoria: "Veterinária", especialidade: "Cirurgia de Pequenos Animais", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 290" },
+      { nome: "Arq. Amanda Prado", categoria: "Arquitetura & Engenharia", especialidade: "Design de Interiores", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 200" },
+      { nome: "Eng. Rafael Torres", categoria: "Arquitetura & Engenharia", especialidade: "Projetos Estruturais", cidade: "Rio de Janeiro", atendimento: "Online", preco: "R$ 350" },
+      { nome: "Arq. Rodrigo Duarte", categoria: "Arquitetura & Engenharia", especialidade: "Arquitetura Residencial", cidade: "Brasília", atendimento: "Presencial", preco: "R$ 300" },
+      { nome: "Dr. Leonardo Farias", categoria: "Consultoria & Jurídico", especialidade: "Direito Trabalhista", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 300" },
+      { nome: "Dra. Helena Nogueira", categoria: "Consultoria & Jurídico", especialidade: "Direito de Família", cidade: "Belo Horizonte", atendimento: "Online", preco: "R$ 250" },
+      { nome: "Gabriel Siqueira", categoria: "Consultoria & Jurídico", especialidade: "Consultoria Financeira", cidade: "Porto Alegre", atendimento: "Online", preco: "R$ 200" },
+      { nome: "Prof. Marcos Vinicius", categoria: "Aulas & Treinamentos", especialidade: "Personal Trainer", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 100/aula" },
+      { nome: "Profª. Maria Clara", categoria: "Aulas & Treinamentos", especialidade: "Inglês Instrumental", cidade: "Curitiba", atendimento: "Online", preco: "R$ 80/aula" },
+      { nome: "Jorge Silva", categoria: "Manutenção & Serviços", especialidade: "Eletricista Residencial", cidade: "São Paulo", atendimento: "Presencial", preco: "Sob Consulta" },
+      { nome: "Ricardo Antunes", categoria: "Manutenção & Serviços", especialidade: "Técnico em Ar Condicionado", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "Sob Consulta" }
+    ];
+
+    function renderizarCards(lista) {
+      const grid = document.getElementById("profissionaisGrid");
+      grid.innerHTML = "";
+      if (lista.length === 0) {
+        grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888; padding: 20px;'>Nenhum profissional encontrado.</p>";
+        return;
+      }
+      lista.forEach(prof => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div>
+            <span class="card-category">${prof.categoria}</span>
+            <h4>${prof.nome}</h4>
+            <p class="card-info"><strong>Especialidade:</strong> ${prof.especialidade}</p>
+            <p class="card-info"><strong>Cidade:</strong> ${prof.cidade}</p>
+            <p class="card-info"><strong>Atendimento:</strong> ${prof.atendimento}</p>
+          </div>
+          <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: bold; color: #0d5c46;">${prof.preco}</span>
+            <button class="btn-primary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="alert('Funcionalidade de agendamento em breve!')">Agendar</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filtrarProfissionais() {
+      const busca = document.getElementById("searchInput").value.toLowerCase();
+      const categoria = document.getElementById("categoriaFilter").value;
+      const cidade = document.getElementById("cidadeFilter").value;
+
+      const resultado = profissionais.filter(prof => {
+        const atendeBusca = prof.nome.toLowerCase().includes(busca) || prof.especialidade.toLowerCase().includes(busca) || prof.categoria.toLowerCase().includes(busca);
+        const atendeCategoria = categoria === "" || prof.categoria === categoria;
+        const atendeCidade = cidade === "" || prof.cidade === cidade;
+        return atendeBusca && atendeCategoria && atendeCidade;
+      });
+
+      renderizarCards(resultado);
+    }
+
+    function abrirModalAuth() { document.getElementById("authModal").style.display = "flex"; }
+    function fecharModalAuth() { document.getElementById("authModal").style.display = "none"; }
+    function alternarFormulario(tipo) {
+      const loginForm = document.getElementById("loginForm");
+      const cadastroForm = document.getElementById("cadastroForm");
+      const modalTitle = document.getElementById("modalTitle");
+      if (tipo === 'cadastro') {
+        loginForm.style.display = "none";
+        cadastroForm.style.display = "block";
+        modalTitle.textContent = "Criar Conta no AgendaPlus";
+      } else {
+        cadastroForm.style.display = "none";
+        loginForm.style.display = "block";
+        modalTitle.textContent = "Acessar AgendaPlus";
+      }
+    }
+
+    function realizarLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      fecharModalAuth();
+      atualizarHeaderUsuario(email.split('@')[0]);
+    }
+
+    function realizarCadastro(e) {
+      e.preventDefault();
+      const nome = document.getElementById("cadNome").value;
+      fecharModalAuth();
+      atualizarHeaderUsuario(nome);
+    }
+
+    function atualizarHeaderUsuario(nome) {
+      const authBtn = document.getElementById("authBtn");
+      authBtn.textContent = `Olá, ${nome}`;
+      authBtn.onclick = null;
+      alert(`Bem-vindo(a), ${nome}! Login realizado com sucesso.`);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderizarCards(profissionais);
+    });
+  </script>
 </body>
 </html>
