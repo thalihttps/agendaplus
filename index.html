@@ -12,15 +12,20 @@
     /* HEADER */
     .header { background: #ffffff; border-bottom: 1px solid #e0f2e9; padding: 12px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); }
     .header-content { display: flex; justify-content: space-between; align-items: center; }
-    .logo-area { display: flex; align-items: center; gap: 12px; }
+    .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; }
     .brand-logo { height: 48px; width: auto; object-fit: contain; }
     .brand-text h1 { font-size: 1.3rem; color: #0d5c46; font-weight: 700; line-height: 1.1; }
     .brand-text p { font-size: 0.75rem; color: #666; }
-    .nav-menu { display: flex; align-items: center; gap: 20px; }
-    .nav-link { text-decoration: none; color: #4a6158; font-weight: 600; font-size: 0.95rem; }
+    .nav-menu { display: flex; align-items: center; gap: 15px; }
+    .nav-link { text-decoration: none; color: #4a6158; font-weight: 600; font-size: 0.95rem; cursor: pointer; }
     .btn-primary { background-color: #0d5c46; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: 0.2s; }
     .btn-primary:hover { background-color: #094736; }
+    .btn-secondary { background-color: transparent; color: #0d5c46; border: 1.5px solid #0d5c46; padding: 8px 18px; border-radius: 20px; font-weight: 600; cursor: pointer; }
     .full-width { width: 100%; padding: 12px; margin-top: 10px; }
+
+    /* CONTROLE DE TELAS (PÁGINAS) */
+    .page-section { display: none; }
+    .page-section.active { display: block; }
 
     /* HERO & BUSCA */
     .hero-section { background-color: #eef8f3; padding: 24px 16px; border-bottom: 1px solid #e0f2e9; text-align: center; }
@@ -49,26 +54,27 @@
     .card-category { display: inline-block; background: #eef8f3; color: #0d5c46; font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; font-weight: 600; margin-bottom: 8px; }
     .card-info { font-size: 0.88rem; color: #666; margin-bottom: 4px; }
 
-    /* MODAL BASE */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); justify-content: center; align-items: center; z-index: 1000; padding: 16px; overflow-y: auto; }
-    .modal-content { background: white; padding: 28px; border-radius: 16px; width: 100%; max-width: 420px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
-    .modal-header { text-align: center; margin-bottom: 18px; }
-    .modal-logo { height: 50px; margin-bottom: 8px; }
-    .close-btn { position: absolute; top: 14px; right: 18px; font-size: 1.5rem; cursor: pointer; color: #888; border: none; background: none; }
-    
-    .input-group { margin-bottom: 14px; text-align: left; }
-    .input-group label { display: block; font-size: 0.85rem; color: #444; margin-bottom: 4px; font-weight: 600; }
-    .input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; }
-    .switch-form { text-align: center; font-size: 0.85rem; margin-top: 14px; color: #666; }
-    .switch-form a { color: #0d5c46; font-weight: 600; text-decoration: none; }
+    /* ESTILO DAS PÁGINAS DE LOGIN / CADASTRO */
+    .auth-page-container { min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; padding: 30px 16px; background: linear-gradient(135deg, #eef8f3 0%, #f8faf9 100%); }
+    .auth-card { background: white; border-radius: 18px; padding: 36px 30px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e0f2e9; text-align: center; }
+    .auth-card img { height: 60px; margin-bottom: 12px; }
+    .auth-card h2 { color: #0d5c46; margin-bottom: 8px; font-size: 1.5rem; }
+    .auth-card p.subtitle { color: #666; font-size: 0.9rem; margin-bottom: 24px; }
+    .input-group { margin-bottom: 16px; text-align: left; }
+    .input-group label { display: block; font-size: 0.85rem; color: #444; margin-bottom: 6px; font-weight: 600; }
+    .input-group input, .input-group select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 0.95rem; outline: none; }
+    .input-group input:focus { border-color: #0d5c46; }
+    .switch-auth-link { margin-top: 18px; font-size: 0.9rem; color: #666; }
+    .switch-auth-link a { color: #0d5c46; font-weight: 700; text-decoration: none; cursor: pointer; }
 
-    /* ESTILOS DO NOVO AGENDA / CALENDÁRIO */
-    .modal-agendamento { max-width: 650px; }
+    /* MODAL DO CALENDÁRIO */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); justify-content: center; align-items: center; z-index: 1000; padding: 16px; overflow-y: auto; }
+    .modal-content { background: white; padding: 28px; border-radius: 16px; width: 100%; max-width: 650px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+    .close-btn { position: absolute; top: 14px; right: 18px; font-size: 1.5rem; cursor: pointer; color: #888; border: none; background: none; }
     .prof-header-box { background: #f0f8f4; border-radius: 10px; padding: 14px; margin-bottom: 18px; border: 1px solid #d8ede3; }
     .prof-header-box h3 { color: #0d5c46; font-size: 1.25rem; }
     .prof-header-box p { font-size: 0.85rem; color: #555; margin-top: 2px; }
     .tipo-atendimento-badge { display: inline-block; background: #0d5c46; color: white; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; margin-top: 6px; font-weight: 600; }
-
     .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 15px; }
     .day-column { background: #fafafa; border: 1px solid #e2e8e5; border-radius: 10px; padding: 10px; text-align: center; }
     .day-header { font-weight: 700; color: #0d5c46; font-size: 0.9rem; margin-bottom: 8px; border-bottom: 1px solid #e2e8e5; padding-bottom: 6px; }
@@ -83,9 +89,10 @@
 </head>
 <body>
 
+  <!-- HEADER FIXO -->
   <header class="header">
     <div class="container header-content">
-      <div class="logo-area">
+      <div class="logo-area" onclick="irParaTela('home')">
         <img src="logo_aplus_.png" alt="AgendaPlus Logo" class="brand-logo">
         <div class="brand-text">
           <h1>AgendaPlus</h1>
@@ -94,137 +101,154 @@
       </div>
       
       <nav class="nav-menu">
-        <a href="#catalogo" class="nav-link">Catálogo</a>
-        <a href="#vantagens" class="nav-link">Vantagens</a>
-        <button id="authBtn" class="btn-primary" onclick="abrirModalAuth()">Entrar / Cadastrar</button>
+        <span onclick="irParaTela('home')" class="nav-link">Catálogo</span>
+        <div id="navUserArea">
+          <button class="btn-secondary" onclick="irParaTela('login')">Entrar</button>
+          <button class="btn-primary" onclick="irParaTela('cadastro')" style="margin-left: 6px;">Cadastrar</button>
+        </div>
       </nav>
     </div>
   </header>
 
-  <section class="hero-section">
-    <div class="container hero-content">
-      <h2>Encontre o profissional ideal</h2>
-      <p>Agende consultas médicas, atendimentos estéticos, veterinários e consultorias com facilidade.</p>
-      
-      <div class="search-bar">
-        <div class="search-input-wrapper">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="Buscar por profissional ou serviço..." oninput="filtrarProfissionais()">
-        </div>
+  <!-- PÁGINA 1: HOME / CATÁLOGO DE PROFISSIONAIS -->
+  <div id="pageHome" class="page-section active">
+    <section class="hero-section">
+      <div class="container hero-content">
+        <h2>Encontre o profissional ideal</h2>
+        <p>Agende consultas médicas, atendimentos estéticos, veterinários e consultorias com facilidade.</p>
         
-        <div class="filter-wrapper">
-          <select id="categoriaFilter" onchange="filtrarProfissionais()">
-            <option value="">Todas as Especialidades</option>
-            <option value="Saúde & Medicina">Saúde & Medicina</option>
-            <option value="Odontologia">Odontologia</option>
-            <option value="Estética & Bem-Estar">Estética & Bem-Estar</option>
-            <option value="Veterinária">Veterinária</option>
-            <option value="Arquitetura & Engenharia">Arquitetura & Engenharia</option>
-            <option value="Consultoria & Jurídico">Consultoria & Jurídico</option>
-            <option value="Aulas & Treinamentos">Aulas & Treinamentos</option>
-            <option value="Manutenção & Serviços">Manutenção & Serviços</option>
-          </select>
-        </div>
+        <div class="search-bar">
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Buscar por profissional ou serviço..." oninput="filtrarProfissionais()">
+          </div>
+          
+          <div class="filter-wrapper">
+            <select id="categoriaFilter" onchange="filtrarProfissionais()">
+              <option value="">Todas as Especialidades</option>
+              <option value="Saúde & Medicina">Saúde & Medicina</option>
+              <option value="Odontologia">Odontologia</option>
+              <option value="Estética & Bem-Estar">Estética & Bem-Estar</option>
+              <option value="Veterinária">Veterinária</option>
+              <option value="Arquitetura & Engenharia">Arquitetura & Engenharia</option>
+              <option value="Consultoria & Jurídico">Consultoria & Jurídico</option>
+              <option value="Aulas & Treinamentos">Aulas & Treinamentos</option>
+              <option value="Manutenção & Serviços">Manutenção & Serviços</option>
+            </select>
+          </div>
 
-        <div class="filter-wrapper">
-          <select id="cidadeFilter" onchange="filtrarProfissionais()">
-            <option value="">Todas as Cidades</option>
-            <option value="São Paulo">São Paulo</option>
-            <option value="Rio de Janeiro">Rio de Janeiro</option>
-            <option value="Belo Horizonte">Belo Horizonte</option>
-            <option value="Curitiba">Curitiba</option>
-            <option value="Porto Alegre">Porto Alegre</option>
-            <option value="Salvador">Salvador</option>
-            <option value="Brasília">Brasília</option>
-            <option value="Campinas">Campinas</option>
-          </select>
+          <div class="filter-wrapper">
+            <select id="cidadeFilter" onchange="filtrarProfissionais()">
+              <option value="">Todas as Cidades</option>
+              <option value="São Paulo">São Paulo</option>
+              <option value="Rio de Janeiro">Rio de Janeiro</option>
+              <option value="Belo Horizonte">Belo Horizonte</option>
+              <option value="Curitiba">Curitiba</option>
+              <option value="Porto Alegre">Porto Alegre</option>
+              <option value="Salvador">Salvador</option>
+              <option value="Brasília">Brasília</option>
+              <option value="Campinas">Campinas</option>
+            </select>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="vantagens" class="benefits-section">
-    <div class="container">
-      <h3 class="section-title">Por que agendar pelo AgendaPlus?</h3>
-      
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="benefit-icon">💸</div>
-          <h4>Dinheiro de volta</h4>
-          <p>Cashback em consultas e exames com estabelecimentos parceiros pelo app.</p>
-        </div>
-        
-        <div class="benefit-card">
-          <div class="benefit-icon">🏥</div>
-          <h4>Rede de Unidades</h4>
-          <p>Mais de 150 clínicas e escritórios credenciados para atendimento presencial.</p>
-        </div>
-        
-        <div class="benefit-card">
-          <div class="benefit-icon">🩺</div>
-          <h4>Telemedicina 24h</h4>
-          <p>Consulta médica e psicológica online a qualquer hora, direto da plataforma.</p>
-        </div>
-        
-        <div class="benefit-card">
-          <div class="benefit-icon">💊</div>
-          <h4>Desconto em Farmácias</h4>
-          <p>Até 40% de desconto em medicamentos nas maiores redes parceiras.</p>
+    <section id="vantagens" class="benefits-section">
+      <div class="container">
+        <h3 class="section-title">Por que agendar pelo AgendaPlus?</h3>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">💸</div>
+            <h4>Dinheiro de volta</h4>
+            <p>Cashback em consultas e exames com estabelecimentos parceiros pelo app.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🏥</div>
+            <h4>Rede de Unidades</h4>
+            <p>Mais de 150 clínicas e escritórios credenciados para atendimento presencial.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🩺</div>
+            <h4>Telemedicina 24h</h4>
+            <p>Consulta médica e psicológica online a qualquer hora, direto da plataforma.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">💊</div>
+            <h4>Desconto em Farmácias</h4>
+            <p>Até 40% de desconto em medicamentos nas maiores redes parceiras.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <main class="container" id="catalogo" style="padding: 30px 16px;">
-    <h3 style="color: #0d5c46; margin-bottom: 20px;">Profissionais Disponíveis</h3>
-    <div id="profissionaisGrid" class="cards-grid"></div>
-  </main>
+    <main class="container" id="catalogo" style="padding: 30px 16px;">
+      <h3 style="color: #0d5c46; margin-bottom: 20px;">Profissionais Disponíveis</h3>
+      <div id="profissionaisGrid" class="cards-grid"></div>
+    </main>
+  </div>
 
-  <!-- MODAL DE LOGIN/CADASTRO -->
-  <div id="authModal" class="modal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="fecharModalAuth()">&times;</button>
-      
-      <div class="modal-header">
-        <img src="logo_aplus_.png" alt="AgendaPlus" class="modal-logo">
-        <h3 id="modalTitle">Acessar AgendaPlus</h3>
+  <!-- PÁGINA 2: TELA DEDICADA DE LOGIN -->
+  <div id="pageLogin" class="page-section">
+    <div class="auth-page-container">
+      <div class="auth-card">
+        <img src="logo_aplus_.png" alt="AgendaPlus">
+        <h2>Entrar na Conta</h2>
+        <p class="subtitle">Acesse para agendar suas consultas e horários</p>
+
+        <form onsubmit="executarLogin(event)">
+          <div class="input-group">
+            <label>E-mail</label>
+            <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+          </div>
+          <div class="input-group">
+            <label>Senha</label>
+            <input type="password" id="loginSenha" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn-primary full-width">Acessar Conta</button>
+        </form>
+
+        <p class="switch-auth-link">
+          Ainda não possui uma conta? <a onclick="irParaTela('cadastro')">Cadastre-se grátis</a>
+        </p>
       </div>
-
-      <form id="loginForm" onsubmit="realizarLogin(event)">
-        <div class="input-group">
-          <label>E-mail</label>
-          <input type="email" id="loginEmail" placeholder="seu@email.com" required>
-        </div>
-        <div class="input-group">
-          <label>Senha</label>
-          <input type="password" id="loginSenha" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn-primary full-width">Entrar</button>
-        <p class="switch-form">Ainda não tem conta? <a href="#" onclick="alternarFormulario('cadastro')">Cadastre-se</a></p>
-      </form>
-
-      <form id="cadastroForm" onsubmit="realizarCadastro(event)" style="display: none;">
-        <div class="input-group">
-          <label>Nome Completo</label>
-          <input type="text" id="cadNome" placeholder="Digite seu nome" required>
-        </div>
-        <div class="input-group">
-          <label>E-mail</label>
-          <input type="email" id="cadEmail" placeholder="seu@email.com" required>
-        </div>
-        <div class="input-group">
-          <label>Senha</label>
-          <input type="password" id="cadSenha" placeholder="Criar senha" required>
-        </div>
-        <button type="submit" class="btn-primary full-width">Criar Conta</button>
-        <p class="switch-form">Já tem uma conta? <a href="#" onclick="alternarFormulario('login')">Fazer Login</a></p>
-      </form>
     </div>
   </div>
 
-  <!-- NOVO MODAL DE CALENDÁRIO COM HORÁRIOS DISPONÍVEIS -->
+  <!-- PÁGINA 3: TELA DEDICADA DE CADASTRO -->
+  <div id="pageCadastro" class="page-section">
+    <div class="auth-page-container">
+      <div class="auth-card">
+        <img src="logo_aplus_.png" alt="AgendaPlus">
+        <h2>Criar Conta</h2>
+        <p class="subtitle">Cadastre-se em instantes para agendar com profissionais</p>
+
+        <form onsubmit="executarCadastro(event)">
+          <div class="input-group">
+            <label>Nome Completo</label>
+            <input type="text" id="cadNome" placeholder="Digite seu nome completo" required>
+          </div>
+          <div class="input-group">
+            <label>E-mail</label>
+            <input type="email" id="cadEmail" placeholder="seu@email.com" required>
+          </div>
+          <div class="input-group">
+            <label>Senha</label>
+            <input type="password" id="cadSenha" placeholder="Crie uma senha segura" required>
+          </div>
+          <button type="submit" class="btn-primary full-width">Finalizar Cadastro</button>
+        </form>
+
+        <p class="switch-auth-link">
+          Já possui uma conta? <a onclick="irParaTela('login')">Fazer Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CALENDÁRIO COM HORÁRIOS DISPONÍVEIS -->
   <div id="agendarModal" class="modal">
-    <div class="modal-content modal-agendamento">
+    <div class="modal-content">
       <button class="close-btn" onclick="fecharModalAgendamento()">&times;</button>
       
       <div class="prof-header-box">
@@ -234,7 +258,6 @@
         <span id="agendarProfTipo" class="tipo-atendimento-badge"></span>
       </div>
 
-      <!-- OPÇÃO DE MODALIDADE -->
       <div id="modalidadeContainer" class="input-group" style="display: none; margin-bottom: 15px;">
         <label>Selecione a Modalidade do Atendimento:</label>
         <select id="selectModalidade">
@@ -244,8 +267,6 @@
       </div>
 
       <p style="font-weight: 600; font-size: 0.95rem; color: #333; margin-top: 10px;">Selecione um dia e horário livre:</p>
-
-      <!-- GRADE DE HORÁRIOS -->
       <div class="schedule-grid" id="scheduleGrid"></div>
     </div>
   </div>
@@ -283,7 +304,6 @@
       { id: 29, nome: "Ricardo Antunes", categoria: "Manutenção & Serviços", especialidade: "Técnico em Ar Condicionado", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "Sob Consulta" }
     ];
 
-    // Dias e horários dinâmicos de exemplo
     const agendaExemplo = [
       { data: "Seg (14/09)", horarios: ["09:00", "10:30", "14:00", "16:00"] },
       { data: "Ter (15/09)", horarios: ["10:00", "11:30", "13:30", "15:00", "17:00"] },
@@ -291,7 +311,19 @@
       { data: "Qui (17/09)", horarios: ["10:00", "13:00", "13:30", "14:40"] }
     ];
 
+    let usuarioLogado = null;
     let profissionalAtual = null;
+
+    // SISTEMA DE TROCA DE PÁGINAS (TELAS)
+    function irParaTela(nomeTela) {
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+      
+      if (nomeTela === 'home') document.getElementById('pageHome').classList.add('active');
+      if (nomeTela === 'login') document.getElementById('pageLogin').classList.add('active');
+      if (nomeTela === 'cadastro') document.getElementById('pageCadastro').classList.add('active');
+      
+      window.scrollTo(0, 0);
+    }
 
     function renderizarCards(lista) {
       const grid = document.getElementById("profissionaisGrid");
@@ -313,7 +345,7 @@
           </div>
           <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
             <span style="font-weight: bold; color: #0d5c46;">${prof.preco}</span>
-            <button class="btn-primary" style="padding: 6px 14px; font-size: 0.85rem;" onclick="abrirModalAgendamento(${prof.id})">Agendar</button>
+            <button class="btn-primary" style="padding: 6px 14px; font-size: 0.85rem;" onclick="iniciarAgendamento(${prof.id})">Agendar</button>
           </div>
         `;
         grid.appendChild(card);
@@ -335,9 +367,16 @@
       renderizarCards(resultado);
     }
 
-    function abrirModalAuth() { document.getElementById("authModal").style.display = "flex"; }
-    function fecharModalAuth() { document.getElementById("authModal").style.display = "none"; }
-    
+    // VERIFICA SE O USUÁRIO ESTÁ LOGADO ANTES DE AGENDAR
+    function iniciarAgendamento(profId) {
+      if (!usuarioLogado) {
+        alert("🔒 Você precisa estar conectado para realizar um agendamento!\n\nDirecionando para a tela de login...");
+        irParaTela('login');
+        return;
+      }
+      abrirModalAgendamento(profId);
+    }
+
     function abrirModalAgendamento(profId) {
       profissionalAtual = profissionais.find(p => p.id === profId);
       
@@ -353,7 +392,6 @@
         modalidadeSelect.style.display = "none";
       }
 
-      // Renderiza os dias e horários livres
       const scheduleGrid = document.getElementById("scheduleGrid");
       scheduleGrid.innerHTML = "";
 
@@ -384,6 +422,7 @@
       }
 
       alert(`🎉 Agendamento Confirmado com Sucesso!\n\n` +
+            `Cliente: ${usuarioLogado.nome}\n` +
             `Profissional: ${profissionalAtual.nome}\n` +
             `Especialidade: ${profissionalAtual.especialidade}\n` +
             `Dia: ${dia}\n` +
@@ -394,40 +433,46 @@
       fecharModalAgendamento();
     }
 
-    function alternarFormulario(tipo) {
-      const loginForm = document.getElementById("loginForm");
-      const cadastroForm = document.getElementById("cadastroForm");
-      const modalTitle = document.getElementById("modalTitle");
-      if (tipo === 'cadastro') {
-        loginForm.style.display = "none";
-        cadastroForm.style.display = "block";
-        modalTitle.textContent = "Criar Conta no AgendaPlus";
-      } else {
-        cadastroForm.style.display = "none";
-        loginForm.style.display = "block";
-        modalTitle.textContent = "Acessar AgendaPlus";
-      }
-    }
-
-    function realizarLogin(e) {
+    // AUTENTICAÇÃO E LOGIN
+    function executarLogin(e) {
       e.preventDefault();
       const email = document.getElementById("loginEmail").value;
-      fecharModalAuth();
-      atualizarHeaderUsuario(email.split('@')[0]);
+      const nomeUsuario = email.split('@')[0];
+      
+      usuarioLogado = { nome: nomeUsuario, email: email };
+      atualizarNavUsuario();
+      alert(`Bem-vindo(a) de volta, ${nomeUsuario}!`);
+      irParaTela('home');
     }
 
-    function realizarCadastro(e) {
+    function executarCadastro(e) {
       e.preventDefault();
       const nome = document.getElementById("cadNome").value;
-      fecharModalAuth();
-      atualizarHeaderUsuario(nome);
+      const email = document.getElementById("cadEmail").value;
+      
+      usuarioLogado = { nome: nome, email: email };
+      atualizarNavUsuario();
+      alert(`Conta criada com sucesso! Seja bem-vindo(a), ${nome}.`);
+      irParaTela('home');
     }
 
-    function atualizarHeaderUsuario(nome) {
-      const authBtn = document.getElementById("authBtn");
-      authBtn.textContent = `Olá, ${nome}`;
-      authBtn.onclick = null;
-      alert(`Bem-vindo(a), ${nome}! Login realizado com sucesso.`);
+    function atualizarNavUsuario() {
+      const navArea = document.getElementById("navUserArea");
+      navArea.innerHTML = `
+        <span style="font-weight: 600; color: #0d5c46; margin-right: 12px;">Olá, ${usuarioLogado.nome}</span>
+        <button class="btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="deslogar()">Sair</button>
+      `;
+    }
+
+    function deslogar() {
+      usuarioLogado = null;
+      const navArea = document.getElementById("navUserArea");
+      navArea.innerHTML = `
+        <button class="btn-secondary" onclick="irParaTela('login')">Entrar</button>
+        <button class="btn-primary" onclick="irParaTela('cadastro')" style="margin-left: 6px;">Cadastrar</button>
+      `;
+      alert("Você saiu da sua conta.");
+      irParaTela('home');
     }
 
     document.addEventListener("DOMContentLoaded", () => {
