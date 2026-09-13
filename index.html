@@ -3,624 +3,159 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgendaPlus - Consultas e Serviços</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-  <style>
-    body { background-color: #f8f6f0; color: #2d3748; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    .paper-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-    .btn-primary { background-color: #0d9488; color: white; transition: all 0.2s; }
-    .btn-primary:hover { background-color: #0f766e; }
-
-    /* Estilos do Calendário Customizado */
-    .cal-day {
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.875rem;
-      font-weight: 600;
-      border-radius: 8px;
-      transition: all 0.2s;
-      cursor: pointer;
-      user-select: none;
-    }
-    .cal-day-available { background-color: #ffffff; border: 1px solid #cbd5e1; color: #1e293b; }
-    .cal-day-available:hover { background-color: #ccfbf1; border-color: #0d9488; }
-    
-    .cal-day-few { background-color: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
-    .cal-day-few:hover { background-color: #fee2e2; border-color: #ef4444; }
-
-    .cal-day-full { background-color: #e2e8f0; border: 1px solid #cbd5e1; color: #94a3b8; cursor: not-allowed; }
-
-    .cal-day-selected { background-color: #0d9488 !important; border-color: #0f766e !important; color: #ffffff !important; }
-  </style>
+  <title>AgendaPlus - Agendamento de Consultas & Serviços</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
 
-  <!-- Header Limpo -->
-  <header class="bg-white border-b border-gray-200 sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('catalog')">
-        <div class="bg-teal-600 text-white font-bold p-2 rounded-lg text-xl flex items-center justify-center w-10 h-10">A+</div>
-        <div>
-          <h1 class="font-bold text-xl text-gray-800 leading-tight">AgendaPlus</h1>
-          <p class="text-xs text-gray-500">Agendamento de Consultas & Serviços</p>
+  <!-- CABEÇALHO / NAVBAR COM LOGO -->
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo-area">
+        <img src="logo.png" alt="AgendaPlus Logo" class="brand-logo">
+        <div class="brand-text">
+          <h1>AgendaPlus</h1>
+          <p>Agendamento de Consultas & Serviços</p>
         </div>
       </div>
-
-      <nav class="flex items-center gap-4">
-        <button onclick="navigate('catalog')" class="text-gray-600 hover:text-teal-600 font-medium text-sm">Catálogo</button>
-        <div id="userNav" class="flex items-center gap-3"></div>
+      
+      <nav class="nav-menu">
+        <a href="#catalogo" class="nav-link">Catálogo</a>
+        <a href="#vantagens" class="nav-link">Vantagens</a>
+        <button id="authBtn" class="btn-primary" onclick="abrirModalAuth()">Entrar / Cadastrar</button>
       </nav>
     </div>
   </header>
 
-  <!-- Area Principal -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6">
-    
-    <!-- View: Catálogo -->
-    <section id="viewCatalog" class="space-y-6">
-      <div class="paper-card p-6 bg-gradient-to-r from-teal-50 to-emerald-50 border-teal-100">
-        <h2 class="text-2xl font-bold text-teal-900 mb-2">Encontre o profissional ideal</h2>
-        <p class="text-teal-700 text-sm mb-4">Agende consultas médicas, atendimentos estéticos, veterinários e consultorias com facilidade.</p>
+  <!-- FAIXA DE PESQUISA COMPACTA (BARRA PÍLULA) -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <h2>Encontre o profissional ideal</h2>
+      <p>Agende consultas médicas, atendimentos estéticos, veterinários e consultorias com facilidade.</p>
+      
+      <!-- Barra de Pesquisa Compacta -->
+      <div class="search-bar">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Buscar por profissional ou serviço..." oninput="filtrarProfissionais()">
+        </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <input type="text" id="filterSearch" oninput="renderCatalog()" placeholder="Buscar por profissional ou serviço..." class="p-2.5 border rounded-lg w-full text-sm">
-          <select id="filterCategory" onchange="renderCatalog()" class="p-2.5 border rounded-lg w-full text-sm">
+        <div class="filter-wrapper">
+          <select id="categoriaFilter" onchange="filtrarProfissionais()">
             <option value="">Todas as Especialidades</option>
-            <option value="Saúde">Saúde & Medicina</option>
-            <option value="Estética">Estética & Bem-estar</option>
-            <option value="Consultoria">Consultoria & Jurídico</option>
-            <option value="Veterinária">Veterinária & Pets</option>
+            <option value="Saúde & Medicina">Saúde & Medicina</option>
+            <option value="Odontologia">Odontologia</option>
+            <option value="Estética & Bem-Estar">Estética & Bem-Estar</option>
+            <option value="Veterinária">Veterinária</option>
             <option value="Arquitetura & Engenharia">Arquitetura & Engenharia</option>
+            <option value="Consultoria & Jurídico">Consultoria & Jurídico</option>
+            <option value="Aulas & Treinamentos">Aulas & Treinamentos</option>
+            <option value="Manutenção & Serviços">Manutenção & Serviços</option>
           </select>
-          <select id="filterCity" onchange="renderCatalog()" class="p-2.5 border rounded-lg w-full text-sm">
+        </div>
+
+        <div class="filter-wrapper">
+          <select id="cidadeFilter" onchange="filtrarProfissionais()">
             <option value="">Todas as Cidades</option>
             <option value="São Paulo">São Paulo</option>
             <option value="Rio de Janeiro">Rio de Janeiro</option>
-            <option value="Curitiba">Curitiba</option>
-            <option value="Campinas">Campinas</option>
             <option value="Belo Horizonte">Belo Horizonte</option>
+            <option value="Curitiba">Curitiba</option>
             <option value="Porto Alegre">Porto Alegre</option>
             <option value="Salvador">Salvador</option>
-            <option value="Niterói">Niterói</option>
-            <option value="Guarulhos">Guarulhos</option>
+            <option value="Brasília">Brasília</option>
+            <option value="Campinas">Campinas</option>
           </select>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-    </section>
-
-    <!-- View: Login / Cadastro -->
-    <section id="viewAuth" class="hidden max-w-md mx-auto my-10">
-      <div class="paper-card p-6">
-        <h2 id="authTitle" class="text-xl font-bold text-center text-gray-800 mb-6">Entrar no AgendaPlus</h2>
+  <!-- SEÇÃO DE VANTAGENS (ESTILO CARTÃO DE TODOS) -->
+  <section id="vantagens" class="benefits-section">
+    <div class="container">
+      <h3 class="section-title">Por que agendar pelo AgendaPlus?</h3>
+      
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">💸</div>
+          <h4>Dinheiro de volta</h4>
+          <p>Cashback em consultas e exames com estabelecimentos parceiros pelo app.</p>
+        </div>
         
-        <form id="authForm" onsubmit="handleAuth(event)" autocomplete="off" class="space-y-4">
-          <div id="nameField" class="hidden">
-            <label class="block text-xs font-semibold text-gray-600 mb-1">Nome Completo</label>
-            <input type="text" id="authName" autocomplete="off" class="w-full p-2.5 border rounded-lg text-sm">
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-gray-600 mb-1">E-mail</label>
-            <input type="email" id="authEmail" required autocomplete="off" class="w-full p-2.5 border rounded-lg text-sm">
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-gray-600 mb-1">Senha</label>
-            <input type="password" id="authPassword" required autocomplete="new-password" class="w-full p-2.5 border rounded-lg text-sm">
-          </div>
-
-          <button type="submit" id="authSubmitBtn" class="w-full py-2.5 btn-primary rounded-lg font-semibold text-sm">Entrar</button>
-        </form>
-
-        <p class="text-xs text-center text-gray-500 mt-4">
-          <span id="authToggleText">Ainda não tem conta?</span>
-          <button onclick="toggleAuthMode()" class="text-teal-600 font-semibold underline ml-1" id="authToggleBtn">Cadastre-se</button>
-        </p>
-      </div>
-    </section>
-
-    <!-- View: Agendamentos do Cliente -->
-    <section id="viewClientAppointments" class="hidden space-y-6">
-      <h2 class="text-xl font-bold text-gray-800">Minhas Consultas e Agendamentos</h2>
-      <div id="clientAppointmentsList" class="space-y-4"></div>
-    </section>
-
-    <!-- View: Painel do Prestador -->
-    <section id="viewProviderDashboard" class="hidden space-y-6">
-      <div class="flex justify-between items-center">
-        <h2 class="text-xl font-bold text-gray-800">Painel do Profissional</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="paper-card p-4 border-l-4 border-teal-500">
-          <p class="text-xs text-gray-500 font-medium">Total de Atendimentos</p>
-          <p id="statTotalAppointments" class="text-2xl font-bold text-gray-800">0</p>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏥</div>
+          <h4>Rede de Unidades</h4>
+          <p>Mais de 150 clínicas e escritórios credenciados para atendimento presencial.</p>
         </div>
-        <div class="paper-card p-4 border-l-4 border-emerald-500">
-          <p class="text-xs text-gray-500 font-medium">Faturamento Estimado</p>
-          <p id="statTotalRevenue" class="text-2xl font-bold text-gray-800">R$ 0,00</p>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">🩺</div>
+          <h4>Telemedicina 24h</h4>
+          <p>Consulta médica e psicológica online a qualquer hora, direto da plataforma.</p>
         </div>
-        <div class="paper-card p-4 border-l-4 border-blue-500">
-          <p class="text-xs text-gray-500 font-medium">Serviços Ativos</p>
-          <p id="statActiveServices" class="text-2xl font-bold text-gray-800">0</p>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">💊</div>
+          <h4>Desconto em Farmácias</h4>
+          <p>Até 40% de desconto em medicamentos nas maiores redes parceiras.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <h3 class="text-lg font-semibold text-gray-700 mt-6">Consultas Agendadas pelos Clientes</h3>
-      <div id="providerAppointmentsList" class="space-y-4"></div>
-    </section>
-
+  <!-- CATÁLOGO DE PROFISSIONAIS -->
+  <main class="container" id="catalogo" style="padding: 30px 16px;">
+    <h3 style="color: #0d5c46; margin-bottom: 20px;">Profissionais Disponíveis</h3>
+    <div id="profissionaisGrid" class="cards-grid">
+      <!-- Carregado via script.js -->
+    </div>
   </main>
 
-  <!-- Modal Agendamento com Calendário (2026/2027) -->
-  <div id="bookingModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
-    <div class="paper-card max-w-xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeModal('bookingModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-      <h3 id="bookingTitle" class="text-lg font-bold text-gray-800 mb-2">Confirmar Agendamento</h3>
-      <div id="bookingDetails" class="text-sm text-gray-600 mb-4 bg-gray-50 p-3 rounded-lg border"></div>
-
-      <!-- Legenda de Cores de Disponibilidade -->
-      <div class="mb-4 bg-white p-3 rounded-lg border border-gray-200">
-        <p class="text-xs font-semibold text-gray-700 mb-2">Legenda de Disponibilidade:</p>
-        <div class="flex flex-wrap gap-4 text-xs">
-          <div class="flex items-center gap-1.5">
-            <span class="w-4 h-4 bg-white border border-gray-400 rounded"></span>
-            <span class="text-gray-600">Com Vagas</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="w-4 h-4 bg-red-100 border border-red-400 rounded"></span>
-            <span class="text-gray-600">Quase Acabando</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="w-4 h-4 bg-slate-300 border border-slate-400 rounded"></span>
-            <span class="text-gray-600">Sem Horário</span>
-          </div>
-        </div>
+  <!-- MODAL DE AUTENTICAÇÃO (LOGIN / CADASTRO COM LOGO) -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="fecharModalAuth()">&times;</span>
+      
+      <div class="modal-header">
+        <img src="logo.png" alt="AgendaPlus" class="modal-logo">
+        <h3 id="modalTitle">Acessar AgendaPlus</h3>
       </div>
 
-      <!-- Componente Calendário -->
-      <div class="mb-5 border rounded-lg p-4 bg-white">
-        <div class="flex justify-between items-center mb-3">
-          <button type="button" onclick="changeMonth(-1)" class="px-2 py-1 text-gray-600 hover:bg-gray-100 rounded"><i class="fa-solid fa-chevron-left"></i></button>
-          <span id="calMonthYear" class="font-bold text-gray-800 text-sm"></span>
-          <button type="button" onclick="changeMonth(1)" class="px-2 py-1 text-gray-600 hover:bg-gray-100 rounded"><i class="fa-solid fa-chevron-right"></i></button>
+      <!-- Formulário de Login -->
+      <form id="loginForm" onsubmit="realizarLogin(event)">
+        <div class="input-group">
+          <label>E-mail</label>
+          <input type="email" id="loginEmail" placeholder="seu@email.com" required>
         </div>
-
-        <div class="grid grid-cols-7 gap-1 text-center font-bold text-xs text-gray-500 mb-2">
-          <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+        <div class="input-group">
+          <label>Senha</label>
+          <input type="password" id="loginSenha" placeholder="••••••••" required>
         </div>
+        <button type="submit" class="btn-primary full-width">Entrar</button>
+        <p class="switch-form">Ainda não tem conta? <a href="#" onclick="alternarFormulario('cadastro')">Cadastre-se</a></p>
+      </form>
 
-        <div id="calGrid" class="grid grid-cols-7 gap-1"></div>
-      </div>
-
-      <form onsubmit="confirmBooking(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-gray-600 mb-1">Data Selecionada</label>
-          <input type="text" id="selectedDateDisplay" readonly required placeholder="Clique em um dia no calendário acima" class="w-full p-2.5 border rounded-lg text-sm bg-gray-100 font-semibold text-teal-800">
+      <!-- Formulário de Cadastro -->
+      <form id="cadastroForm" onsubmit="realizarCadastro(event)" style="display: none;">
+        <div class="input-group">
+          <label>Nome Completo</label>
+          <input type="text" id="cadNome" placeholder="Digite seu nome" required>
         </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-gray-600 mb-1">Horário Disponível</label>
-          <select id="bookingTime" required class="w-full p-2.5 border rounded-lg text-sm">
-            <option value="">Selecione primeiro uma data válida</option>
-          </select>
+        <div class="input-group">
+          <label>E-mail</label>
+          <input type="email" id="cadEmail" placeholder="seu@email.com" required>
         </div>
-
-        <button type="submit" class="w-full py-2.5 btn-primary rounded-lg font-semibold text-sm">Finalizar Agendamento</button>
+        <div class="input-group">
+          <label>Senha</label>
+          <input type="password" id="cadSenha" placeholder="Criar senha" required>
+        </div>
+        <button type="submit" class="btn-primary full-width">Criar Conta</button>
+        <p class="switch-form">Já tem uma conta? <a href="#" onclick="alternarFormulario('login')">Fazer Login</a></p>
       </form>
     </div>
   </div>
 
-  <script>
-    const DEFAULT_SERVICES = [
-      // --- SERVIÇOS INICIAIS ---
-      { id: 's1', providerName: 'Dra. Camilla Rocha', title: 'Consulta Dermatológica', category: 'Saúde', city: 'São Paulo', price: 250, description: 'Avaliação completa da pele, prevenção e tratamento. Reg: CRM 999999-SP' },
-      { id: 's2', providerName: 'Dr. Lucas Sampaio', title: 'Sessão de Fisioterapia', category: 'Saúde', city: 'Rio de Janeiro', price: 180, description: 'Reabilitação ortopédica e recuperação funcional. Reg: CREFITO 888888-RJ' },
-
-      // --- 10 PROFISSIONAIS DA SAÚDE (R$ 30 a R$ 150) ---
-      { id: 's5', providerName: 'Dra. Ana Beatriz Lima', title: 'Consulta Clínica Geral', category: 'Saúde', city: 'São Paulo', price: 80, description: 'Atendimento médico geral, check-up e orientações. Reg: CRM 101010-SP' },
-      { id: 's6', providerName: 'Dr. Thiago Mendes', title: 'Acompanhamento Clínico Preventivo', category: 'Saúde', city: 'Campinas', price: 60, description: 'Avaliação de exames de rotina e receitas. Reg: CRM 202020-SP' },
-      { id: 's7', providerName: 'Psic. Fernanda Oliveira', title: 'Sessão de Psicoterapia Individual', category: 'Saúde', city: 'Rio de Janeiro', price: 90, description: 'Atendimento psicológico focado em ansiedade. Reg: CRP 06/303030' },
-      { id: 's8', providerName: 'Psic. Carlos Eduardo Luz', title: 'Terapia Cognitivo-Comportamental', category: 'Saúde', city: 'Niterói', price: 110, description: 'Foco no tratamento de fobias e estresse. Reg: CRP 05/404040' },
-      { id: 's9', providerName: 'Dra. Patricia Souza', title: 'Consulta Médica Popular', category: 'Saúde', city: 'Curitiba', price: 50, description: 'Atendimento acessível para triagem médica. Reg: CRM 505050-PR' },
-      { id: 's10', providerName: 'Psic. Juliana Costa', title: 'Plantão Psicológico e Escuta', category: 'Saúde', city: 'Belo Horizonte', price: 40, description: 'Atendimento psicológico pontual e acolhimento. Reg: CRP 04/606060' },
-      { id: 's11', providerName: 'Dr. Roberto Alves', title: 'Consulta Clínico Geral - Terceira Idade', category: 'Saúde', city: 'Porto Alegre', price: 120, description: 'Acompanhamento médico contínuo geriatria. Reg: CRM 707070-RS' },
-      { id: 's12', providerName: 'Psic. Mariana Rios', title: 'Orientação Vocacional & Carreira', category: 'Saúde', city: 'São Paulo', price: 130, description: 'Orientação profissional para estudantes. Reg: CRP 06/808080' },
-      { id: 's13', providerName: 'Dra. Sofia Martins', title: 'Consulta de Rotina e Triagem', category: 'Saúde', city: 'Guarulhos', price: 35, description: 'Triagem básica de saúde e encaminhamentos. Reg: CRM 909090-SP' },
-      { id: 's14', providerName: 'Psic. Gabriel Faria', title: 'Terapia de Casal e Família', category: 'Saúde', city: 'Salvador', price: 150, description: 'Mediação de conflitos e diálogo familiar. Reg: CRP 03/111222' },
-
-      // --- 10 PROFISSIONAIS JURÍDICOS ---
-      { id: 's15', providerName: 'Dr. Rafael Martins', title: 'Consultoria Jurídica Civil', category: 'Consultoria', city: 'Curitiba', price: 140, description: 'Orientação em contratos e direitos do consumidor. Reg: OAB 777777-PR' },
-      { id: 's16', providerName: 'Dra. Beatriz Toledo', title: 'Análise e Revisão de Contratos', category: 'Consultoria', city: 'São Paulo', price: 95, description: 'Análise preventiva de contratos de aluguel e compras. Reg: OAB 123456-SP' },
-      { id: 's17', providerName: 'Dr. Marcelo Neves', title: 'Orientação Trabalhista para Funcionários', category: 'Consultoria', city: 'Rio de Janeiro', price: 80, description: 'Esclarecimento sobre rescisão, horas extras e direitos. Reg: OAB 654321-RJ' },
-      { id: 's18', providerName: 'Dra. Camila Albuquerque', title: 'Consultoria sobre Direito de Família', category: 'Consultoria', city: 'Belo Horizonte', price: 120, description: 'Orientações sobre guarda, pensão e divórcio. Reg: OAB 987654-MG' },
-      { id: 's19', providerName: 'Dr. Fernando Dias', title: 'Orientação para MEI e Pequenas Empresas', category: 'Consultoria', city: 'Campinas', price: 70, description: 'Abertura de empresa, tributos e adequação jurídica. Reg: OAB 112233-SP' },
-      { id: 's20', providerName: 'Dra. Vanessa Ramos', title: 'Consultoria em Direito Previdenciário', category: 'Consultoria', city: 'Porto Alegre', price: 110, description: 'Análise de aposentadoria e auxílios do INSS. Reg: OAB 445566-RS' },
-      { id: 's21', providerName: 'Dr. Igor Carvalho', title: 'Defesa do Consumidor & Cobranças', category: 'Consultoria', city: 'Salvador', price: 65, description: 'Orientação para cobranças indevidas e cobrança abusiva. Reg: OAB 778899-BA' },
-      { id: 's22', providerName: 'Dra. Larissa Moreira', title: 'Consultoria Imobiliária Inicial', category: 'Consultoria', city: 'Niterói', price: 130, description: 'Orientações para compra, venda e usucapião. Reg: OAB 334455-RJ' },
-      { id: 's23', providerName: 'Dr. André Fonseca', title: 'Orientação Jurídica Geral (Popular)', category: 'Consultoria', city: 'Guarulhos', price: 45, description: 'Triagem e orientação sobre dúvidas legais diversas. Reg: OAB 556677-SP' },
-      { id: 's24', providerName: 'Dra. Helena Vasconcelos', title: 'Consultoria em Direito Digital', category: 'Consultoria', city: 'São Paulo', price: 150, description: 'Proteção de dados, crimes virtuais e LGPD. Reg: OAB 998877-SP' },
-
-      // --- 10 PROFISSIONAIS DE ESTÉTICA (Com Depilação a Laser) ---
-      { id: 's25', providerName: 'Studio Beleza Viva', title: 'Limpeza de Pele Profunda', category: 'Estética', city: 'São Paulo', price: 120, description: 'Higienização, esfoliação e hidratação facial.' },
-      { id: 's26', providerName: 'Clínica Laser Clean', title: 'Depilação a Laser - Axilas ou Buço', category: 'Estética', city: 'São Paulo', price: 49, description: 'Sessão de depilação a laser diodo rápida e indolor.' },
-      { id: 's27', providerName: 'Espaço Dermo Laser', title: 'Depilação a Laser - Pernas Inteiras', category: 'Estética', city: 'Rio de Janeiro', price: 139, description: 'Sessão completa com tecnologia de resfriamento.' },
-      { id: 's28', providerName: 'Estética Amanda Silva', title: 'Design de Sobrancelhas + Henna', category: 'Estética', city: 'Campinas', price: 35, description: 'Mapeamento facial e pigmentação de sobrancelhas.' },
-      { id: 's29', providerName: 'Espaço Drenagem & Cia', title: 'Massagem Modeladora ou Drenagem', category: 'Estética', city: 'Curitiba', price: 75, description: 'Redução de medidas e combate à retenção de líquidos.' },
-      { id: 's30', providerName: 'Clínica Renovare Laser', title: 'Depilação a Laser - Barba ou Pescoço', category: 'Estética', city: 'Belo Horizonte', price: 59, description: 'Remoção definitiva de pelos para o público masculino.' },
-      { id: 's31', providerName: 'Studio Glow Skin', title: 'Peeling Diamantado Facial', category: 'Estética', city: 'Porto Alegre', price: 85, description: 'Renovação celular e suavização de manchas da pele.' },
-      { id: 's32', providerName: 'Estética Bella Donna', title: 'Hydra Gloss Lips (Hidratação Labial)', category: 'Estética', city: 'Salvador', price: 90, description: 'Tratamento de super hidratação e volume labial.' },
-      { id: 's33', providerName: 'Depil Laser Express', title: 'Depilação a Laser - Virilha Completa', category: 'Estética', city: 'Niterói', price: 89, description: 'Sessão de depilação duradoura com segurança.' },
-      { id: 's34', providerName: 'Studio Harmonize', title: 'Revitalização e Lipo Enzimática de Papada', category: 'Estética', city: 'Guarulhos', price: 145, description: 'Aplicação de enzimas para redução de gordura localizada.' },
-
-      // --- 10 PROFISSIONAIS VETERINÁRIOS ---
-      { id: 's35', providerName: 'Dr. Bruno Vet Care', title: 'Consulta Veterinária de Rotina', category: 'Veterinária', city: 'São Paulo', price: 75, description: 'Exame clínico geral para cães e gatos. Reg: CRMV 12345-SP' },
-      { id: 's36', providerName: 'Dra. Camila Bichos', title: 'Aplicação de Vacinas Importadas (V10 / Raiva)', category: 'Veterinária', city: 'Campinas', price: 50, description: 'Imunização completa para seu pet com carteirinha. Reg: CRMV 67890-SP' },
-      { id: 's37', providerName: 'Clínica Vet Popular', title: 'Consulta Veterinária Acessível', category: 'Veterinária', city: 'Guarulhos', price: 40, description: 'Atendimento clínico primário para cães e gatos. Reg: CRMV 11223-SP' },
-      { id: 's38', providerName: 'Dr. Eduardo Pets', title: 'Consulta Dermatológica Veterinária', category: 'Veterinária', city: 'Rio de Janeiro', price: 110, description: 'Tratamento de coceiras, alergias e otites em pets. Reg: CRMV 44556-RJ' },
-      { id: 's39', providerName: 'Dra. Renata Felinos', title: 'Consulta Exclusiva para Gatos (Cat Friendly)', category: 'Veterinária', city: 'Niterói', price: 95, description: 'Atendimento sem estresse focado no comportamento felino. Reg: CRMV 77889-RJ' },
-      { id: 's40', providerName: 'Vet em Em Casa (Dr. Felipe)', title: 'Consulta Veterinária Domiciliar', category: 'Veterinária', city: 'Curitiba', price: 130, description: 'Atendimento no conforto da sua casa para pets idosos. Reg: CRMV 99001-PR' },
-      { id: 's41', providerName: 'Dra. Vanessa NutriPet', title: 'Consultoria em Nutrição Animal', category: 'Veterinária', city: 'Belo Horizonte', price: 120, description: 'Formulação de alimentação natural e dietas pet. Reg: CRMV 22334-MG' },
-      { id: 's42', providerName: 'Dr. Gustavo Pet Care', title: 'Limpeza de Ouvido e Cortar Unhas Pet', category: 'Veterinária', city: 'Porto Alegre', price: 30, description: 'Procedimentos de higiene e cuidados básicos. Reg: CRMV 55667-RS' },
-      { id: 's43', providerName: 'Clínica Amigo Fiel', title: 'Avaliação Pré-Operatória & Exames Pet', category: 'Veterinária', city: 'Salvador', price: 85, description: 'Triagem de exames laboratoriais e eletrocardiograma. Reg: CRMV 88990-BA' },
-      { id: 's44', providerName: 'Dra. Paula OftalmoPet', title: 'Avaliação Oftalmológica Veterinária', category: 'Veterinária', city: 'São Paulo', price: 140, description: 'Diagnóstico de catarata, úlceras de córnea e glaucoma. Reg: CRMV 33445-SP' },
-
-      // --- 10 ARQUITETOS ---
-      { id: 's45', providerName: 'Arq. Juliana Prado', title: 'Consultoria de Interiores (Por Ambiente)', category: 'Arquitetura & Engenharia', price: 140, description: 'Dicas de iluminação, cores e disposição de móveis. Reg: CAU A12345-6' },
-      { id: 's46', providerName: 'Arq. Lucas Medeiros', title: 'Projeto de Iluminação (Lighting Design)', category: 'Arquitetura & Engenharia', city: 'Rio de Janeiro', price: 120, description: 'Planejamento de pontos de luz e lâmpadas LED. Reg: CAU A65432-1' },
-      { id: 's47', providerName: 'Arq. Carla Nogueira', title: 'Visita Técnica e Diagnóstico de Reforma', category: 'Arquitetura & Engenharia', city: 'Campinas', price: 90, description: 'Avaliação no local para viabilidade de reformas. Reg: CAU A98765-4' },
-      { id: 's48', providerName: 'Arq. Fernando Rocha', title: 'Modelagem 3D e Maquete Eletrônica', category: 'Arquitetura & Engenharia', city: 'Belo Horizonte', price: 150, description: 'Criação de imagens realistas do seu ambiente em 3D. Reg: CAU A11223-3' },
-      { id: 's49', providerName: 'Arq. Mariana Paes', title: 'Consultoria de Decoração Express', category: 'Arquitetura & Engenharia', city: 'Curitiba', price: 75, description: 'Guia prático de quadros, plantas e objetos decorativos. Reg: CAU A44556-6' },
-      { id: 's50', providerName: 'Arq. Rodrigo Leite', title: 'Detalhamento de Marcenaria Sob Medida', category: 'Arquitetura & Engenharia', city: 'Porto Alegre', price: 130, description: 'Desenho de armários de cozinha e guarda-roupas. Reg: CAU A77889-9' },
-      { id: 's51', providerName: 'Arq. Tatiana Luz', title: 'Projeto de Paisagismo para Varandas', category: 'Arquitetura & Engenharia', city: 'Niterói', price: 85, description: 'Seleção de plantas adequadas para apartamentos. Reg: CAU A99001-1' },
-      { id: 's52', providerName: 'Arq. Diego Siqueira', title: 'Layout de Escritório / Home Office', category: 'Arquitetura & Engenharia', city: 'Guarulhos', price: 65, description: 'Organização ergonômica de espaço de trabalho. Reg: CAU A22334-4' },
-      { id: 's53', providerName: 'Arq. Camila Farias', title: 'Escolha de Revestimentos e Pisos', category: 'Arquitetura & Engenharia', city: 'Salvador', price: 95, description: 'Acompanhamento em lojas para escolha de materiais. Reg: CAU A55667-7' },
-      { id: 's54', providerName: 'Arq. Bruno Guimarães', title: 'Consultoria de Fachadas de Casas', category: 'Arquitetura & Engenharia', city: 'São Paulo', price: 110, description: 'Sugestões de pintura, revestimento e iluminação externa. Reg: CAU A88990-0' },
-
-      // --- 5 ENGENHEIROS ---
-      { id: 's55', providerName: 'Eng. Roberto Cardozo', title: 'Laudo Técnico de Reforma (ART / RRT)', category: 'Arquitetura & Engenharia', city: 'São Paulo', price: 150, description: 'Emissão de laudo obrigatório para reformas em condomínio. Reg: CREA 506070-SP' },
-      { id: 's56', providerName: 'Eng. Marcelo Peixoto', title: 'Vistoria de Imóvel Novo / Entregue pela Construtora', category: 'Arquitetura & Engenharia', city: 'Campinas', price: 130, description: 'Verificação de contraprovas, hidráulica e elétrica. Reg: CREA 102030-SP' },
-      { id: 's57', providerName: 'Eng. Patricia Aragão', title: 'Consultoria em Eficiência Energética', category: 'Arquitetura & Engenharia', city: 'Rio de Janeiro', price: 110, description: 'Dimensionamento de energia solar e redução de conta. Reg: CREA 405060-RJ' },
-      { id: 's58', providerName: 'Eng. Carlos Eduardo Viana', title: 'Inspeção de Instalações Elétricas', category: 'Arquitetura & Engenharia', city: 'Curitiba', price: 85, description: 'Diagnóstico de fiação antiga e prevenção de curtos. Reg: CREA 708090-PR' },
-      { id: 's59', providerName: 'Eng. Gabriel Santana', title: 'Cálculo Estrutural para Pequenas Ampliações', category: 'Arquitetura & Engenharia', city: 'Belo Horizonte', price: 140, description: 'Dimensionamento seguro de vigas, colunas e lajes. Reg: CREA 901020-MG' }
-    ];
-
-    // Atualização Inteligente do LocalStorage (Carrega a lista completa automaticamente)
-    let savedServices = JSON.parse(localStorage.getItem('ap_services'));
-    if (!savedServices || savedServices.length < DEFAULT_SERVICES.length) {
-      localStorage.setItem('ap_services', JSON.stringify(DEFAULT_SERVICES));
-      savedServices = DEFAULT_SERVICES;
-    }
-
-    let dbServices = savedServices;
-    let dbUsers = JSON.parse(localStorage.getItem('ap_users')) || [];
-    let dbAppointments = JSON.parse(localStorage.getItem('ap_appointments')) || [];
-    let currentUser = JSON.parse(localStorage.getItem('ap_current_user')) || null;
-    let selectedService = null;
-    let isRegister = false;
-
-    let currentCalYear = 2026;
-    let currentCalMonth = 0;
-    let selectedFullDate = null;
-
-    function resetAuthFields() {
-      document.getElementById('authName').value = '';
-      document.getElementById('authEmail').value = '';
-      document.getElementById('authPassword').value = '';
-    }
-
-    function saveState() {
-      localStorage.setItem('ap_services', JSON.stringify(dbServices));
-      localStorage.setItem('ap_users', JSON.stringify(dbUsers));
-      localStorage.setItem('ap_appointments', JSON.stringify(dbAppointments));
-      localStorage.setItem('ap_current_user', JSON.stringify(currentUser));
-    }
-
-    function navigate(view) {
-      document.querySelectorAll('main > section').forEach(el => el.classList.add('hidden'));
-      if (view === 'catalog') {
-        document.getElementById('viewCatalog').classList.remove('hidden');
-        renderCatalog();
-      } else if (view === 'auth') {
-        resetAuthFields();
-        document.getElementById('viewAuth').classList.remove('hidden');
-      } else if (view === 'clientAppointments') {
-        document.getElementById('viewClientAppointments').classList.remove('hidden');
-        renderClientAppointments();
-      } else if (view === 'providerDashboard') {
-        document.getElementById('viewProviderDashboard').classList.remove('hidden');
-        renderProviderDashboard();
-      }
-      updateNav();
-    }
-
-    function updateNav() {
-      const container = document.getElementById('userNav');
-      if (currentUser) {
-        container.innerHTML = `
-          <span class="text-xs font-semibold text-gray-700">Olá, ${currentUser.name}</span>
-          ${currentUser.role === 'client' 
-            ? `<button onclick="navigate('clientAppointments')" class="text-xs text-teal-600 font-semibold underline">Meus Agendamentos</button>`
-            : `<button onclick="navigate('providerDashboard')" class="text-xs text-teal-600 font-semibold underline">Meu Painel</button>`
-          }
-          <button onclick="logout()" class="text-xs text-red-500 hover:underline">Sair</button>
-        `;
-      } else {
-        container.innerHTML = `
-          <button onclick="navigate('auth')" class="btn-primary text-xs px-3 py-1.5 rounded-md font-semibold">Entrar / Cadastrar</button>
-        `;
-      }
-    }
-
-    function renderCatalog() {
-      const search = document.getElementById('filterSearch').value.toLowerCase();
-      const cat = document.getElementById('filterCategory').value;
-      const city = document.getElementById('filterCity').value;
-
-      const filtered = dbServices.filter(s => {
-        const matchSearch = s.title.toLowerCase().includes(search) || s.providerName.toLowerCase().includes(search);
-        const matchCat = cat === '' || s.category === cat;
-        const matchCity = city === '' || (s.city && s.city === city);
-        return matchSearch && matchCat && matchCity;
-      });
-
-      const grid = document.getElementById('servicesGrid');
-      if (filtered.length === 0) {
-        grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">Nenhum serviço encontrado.</p>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(s => `
-        <div class="paper-card p-5 flex flex-col justify-between">
-          <div>
-            <span class="text-xs bg-teal-100 text-teal-800 px-2.5 py-0.5 rounded-full font-semibold">${s.category}</span>
-            <h3 class="font-bold text-gray-800 text-lg mt-2">${s.title}</h3>
-            <p class="text-xs text-gray-500 font-medium">${s.providerName} ${s.city ? `• ${s.city}` : ''}</p>
-            <p class="text-sm text-gray-600 mt-2">${s.description}</p>
-          </div>
-          <div class="mt-4 pt-4 border-t flex justify-between items-center">
-            <span class="text-lg font-bold text-teal-700">R$ ${s.price.toFixed(2)}</span>
-            <button onclick="startBooking('${s.id}')" class="btn-primary px-3 py-1.5 rounded-lg text-xs font-semibold">Agendar</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function toggleAuthMode() {
-      isRegister = !isRegister;
-      resetAuthFields();
-      document.getElementById('authTitle').innerText = isRegister ? 'Criar Conta' : 'Entrar no AgendaPlus';
-      document.getElementById('nameField').classList.toggle('hidden', !isRegister);
-      document.getElementById('authSubmitBtn').innerText = isRegister ? 'Cadastrar' : 'Entrar';
-      document.getElementById('authToggleText').innerText = isRegister ? 'Já tem uma conta?' : 'Ainda não tem conta?';
-      document.getElementById('authToggleBtn').innerText = isRegister ? 'Entrar' : 'Cadastre-se';
-    }
-
-    function handleAuth(e) {
-      e.preventDefault();
-      const email = document.getElementById('authEmail').value;
-      const pass = document.getElementById('authPassword').value;
-
-      if (isRegister) {
-        const name = document.getElementById('authName').value;
-        const role = 'client';
-        const newUser = { id: 'u' + Date.now(), name, email, pass, role };
-        dbUsers.push(newUser);
-        currentUser = newUser;
-      } else {
-        const user = dbUsers.find(u => u.email === email && u.pass === pass);
-        if (!user) {
-          alert('Usuário não localizado ou senha incorreta.');
-          return;
-        }
-        currentUser = user;
-      }
-
-      saveState();
-      resetAuthFields();
-      navigate('catalog');
-    }
-
-    function logout() {
-      currentUser = null;
-      saveState();
-      navigate('catalog');
-    }
-
-    function startBooking(serviceId) {
-      if (!currentUser) {
-        alert('Faça login ou cadastre-se para realizar um agendamento.');
-        navigate('auth');
-        return;
-      }
-      selectedService = dbServices.find(s => s.id === serviceId);
-      document.getElementById('bookingDetails').innerHTML = `
-        <p><strong>Serviço:</strong> ${selectedService.title}</p>
-        <p><strong>Profissional:</strong> ${selectedService.providerName}</p>
-        <p><strong>Valor:</strong> R$ ${selectedService.price.toFixed(2)}</p>
-      `;
-
-      currentCalYear = 2026;
-      currentCalMonth = 0;
-      selectedFullDate = null;
-      document.getElementById('selectedDateDisplay').value = '';
-      document.getElementById('bookingTime').innerHTML = '<option value="">Selecione primeiro uma data válida</option>';
-
-      renderCalendar();
-      document.getElementById('bookingModal').classList.remove('hidden');
-      document.getElementById('bookingModal').classList.add('flex');
-    }
-
-    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-
-    function changeMonth(delta) {
-      currentCalMonth += delta;
-      if (currentCalMonth > 11) {
-        currentCalMonth = 0;
-        currentCalYear++;
-      } else if (currentCalMonth < 0) {
-        currentCalMonth = 11;
-        currentCalYear--;
-      }
-      if (currentCalYear < 2026) { currentCalYear = 2026; currentCalMonth = 0; }
-      if (currentCalYear > 2027) { currentCalYear = 2027; currentCalMonth = 11; }
-
-      renderCalendar();
-    }
-
-    function renderCalendar() {
-      document.getElementById('calMonthYear').innerText = `${monthNames[currentCalMonth]} de ${currentCalYear}`;
-      const grid = document.getElementById('calGrid');
-      grid.innerHTML = '';
-
-      const firstDay = new Date(currentCalYear, currentCalMonth, 1).getDay();
-      const totalDays = new Date(currentCalYear, currentCalMonth + 1, 0).getDate();
-
-      for (let i = 0; i < firstDay; i++) {
-        grid.innerHTML += `<div></div>`;
-      }
-
-      for (let day = 1; day <= totalDays; day++) {
-        const monthStr = String(currentCalMonth + 1).padStart(2, '0');
-        const dayStr = String(day).padStart(2, '0');
-        const dateKey = `${currentCalYear}-${monthStr}-${dayStr}`;
-
-        let statusClass = 'cal-day-available';
-        let isClickable = true;
-
-        if (day % 7 === 0 || day % 9 === 0) {
-          statusClass = 'cal-day-full';
-          isClickable = false;
-        } else if (day % 3 === 0) {
-          statusClass = 'cal-day-few';
-        }
-
-        const isSelected = selectedFullDate === dateKey;
-
-        grid.innerHTML += `
-          <div 
-            onclick="${isClickable ? `selectCalDate('${dateKey}')` : ''}" 
-            class="cal-day ${statusClass} ${isSelected ? 'cal-day-selected' : ''}"
-          >
-            ${day}
-          </div>
-        `;
-      }
-    }
-
-    function selectCalDate(dateKey) {
-      selectedFullDate = dateKey;
-      document.getElementById('selectedDateDisplay').value = dateKey;
-      
-      renderCalendar();
-
-      const timeSelect = document.getElementById('bookingTime');
-      timeSelect.innerHTML = `
-        <option value="09:00">09:00 - Disponível</option>
-        <option value="11:00">11:00 - Disponível</option>
-        <option value="14:30">14:30 - Disponível</option>
-        <option value="16:00">16:00 - Última vaga</option>
-      `;
-    }
-
-    function confirmBooking(e) {
-      e.preventDefault();
-      const date = selectedFullDate;
-      const time = document.getElementById('bookingTime').value;
-
-      if (!date || !time) {
-        alert('Selecione uma data no calendário e um horário válido.');
-        return;
-      }
-
-      const app = {
-        id: 'AP-' + Math.random().toString(36).substr(2, 6).toUpperCase(),
-        serviceId: selectedService.id,
-        serviceTitle: selectedService.title,
-        providerName: selectedService.providerName,
-        clientName: currentUser.name,
-        clientId: currentUser.id,
-        date,
-        time,
-        price: selectedService.price,
-        status: 'CONFIRMADO'
-      };
-
-      dbAppointments.push(app);
-      saveState();
-      closeModal('bookingModal');
-      alert('Agendamento realizado com sucesso!');
-      navigate('clientAppointments');
-    }
-
-    function renderClientAppointments() {
-      const list = document.getElementById('clientAppointmentsList');
-      const myApps = dbAppointments.filter(a => a.clientId === currentUser.id);
-
-      if (myApps.length === 0) {
-        list.innerHTML = `<p class="text-gray-500 text-sm">Você ainda não tem consultas agendadas.</p>`;
-        return;
-      }
-
-      list.innerHTML = myApps.map(a => `
-        <div class="paper-card p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <span class="text-xs bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded">${a.status}</span>
-            <h4 class="font-bold text-gray-800 mt-1">${a.serviceTitle}</h4>
-            <p class="text-xs text-gray-500">${a.providerName} • Data: ${a.date} às ${a.time}</p>
-            <p class="text-xs text-gray-400 font-mono mt-1">Cód: ${a.id}</p>
-          </div>
-          <div id="qr-${a.id}" class="bg-white p-2 border rounded"></div>
-        </div>
-      `).join('');
-
-      myApps.forEach(a => {
-        const qr = qrcode(0, 'M');
-        qr.addData(a.id);
-        qr.make();
-        document.getElementById(`qr-${a.id}`).innerHTML = qr.createImgTag(3);
-      });
-    }
-
-    function renderProviderDashboard() {
-      const myApps = dbAppointments.filter(a => a.providerName === currentUser.name);
-      document.getElementById('statTotalAppointments').innerText = myApps.length;
-      const rev = myApps.reduce((acc, curr) => acc + curr.price, 0);
-      document.getElementById('statTotalRevenue').innerText = `R$ ${rev.toFixed(2)}`;
-      
-      const activeServ = dbServices.filter(s => s.providerName === currentUser.name).length;
-      document.getElementById('statActiveServices').innerText = activeServ;
-
-      const list = document.getElementById('providerAppointmentsList');
-      if (myApps.length === 0) {
-        list.innerHTML = `<p class="text-gray-500 text-sm">Nenhuma consulta agendada para seus serviços até o momento.</p>`;
-        return;
-      }
-
-      list.innerHTML = myApps.map(a => `
-        <div class="paper-card p-4 flex justify-between items-center">
-          <div>
-            <h4 class="font-bold text-gray-800">${a.serviceTitle}</h4>
-            <p class="text-xs text-gray-600">Cliente: <strong>${a.clientName}</strong></p>
-            <p class="text-xs text-gray-500">Data: ${a.date} às ${a.time}</p>
-          </div>
-          <span class="text-xs bg-teal-100 text-teal-800 font-bold px-2.5 py-1 rounded-full">R$ ${a.price.toFixed(2)}</span>
-        </div>
-      `).join('');
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.add('hidden');
-      document.getElementById(id).classList.remove('flex');
-    }
-
-    navigate('catalog');
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
