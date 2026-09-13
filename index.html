@@ -196,14 +196,14 @@
         <h2>Entrar na Conta</h2>
         <p class="subtitle">Acesse para agendar suas consultas e horários</p>
 
-        <form onsubmit="executarLogin(event)">
+        <form id="formLogin" onsubmit="executarLogin(event)" autocomplete="off">
           <div class="input-group">
             <label>E-mail</label>
-            <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+            <input type="email" id="loginEmail" placeholder="seu@email.com" required autocomplete="new-password">
           </div>
           <div class="input-group">
             <label>Senha</label>
-            <input type="password" id="loginSenha" placeholder="••••••••" required>
+            <input type="password" id="loginSenha" placeholder="••••••••" required autocomplete="new-password">
           </div>
           <button type="submit" class="btn-primary full-width">Acessar Conta</button>
         </form>
@@ -223,18 +223,18 @@
         <h2>Criar Conta</h2>
         <p class="subtitle">Cadastre-se em instantes para agendar com profissionais</p>
 
-        <form onsubmit="executarCadastro(event)">
+        <form id="formCadastro" onsubmit="executarCadastro(event)" autocomplete="off">
           <div class="input-group">
             <label>Nome Completo</label>
-            <input type="text" id="cadNome" placeholder="Digite seu nome completo" required>
+            <input type="text" id="cadNome" placeholder="Digite seu nome completo" required autocomplete="new-password">
           </div>
           <div class="input-group">
             <label>E-mail</label>
-            <input type="email" id="cadEmail" placeholder="seu@email.com" required>
+            <input type="email" id="cadEmail" placeholder="seu@email.com" required autocomplete="new-password">
           </div>
           <div class="input-group">
             <label>Senha</label>
-            <input type="password" id="cadSenha" placeholder="Crie uma senha segura" required>
+            <input type="password" id="cadSenha" placeholder="Crie uma senha segura" required autocomplete="new-password">
           </div>
           <button type="submit" class="btn-primary full-width">Finalizar Cadastro</button>
         </form>
@@ -314,15 +314,30 @@
     let usuarioLogado = null;
     let profissionalAtual = null;
 
-    // SISTEMA DE TROCA DE PÁGINAS (TELAS)
+    // SISTEMA DE TROCA DE PÁGINAS (TELAS) COM LIMPEZA DE FORMULÁRIOS
     function irParaTela(nomeTela) {
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
       
-      if (nomeTela === 'home') document.getElementById('pageHome').classList.add('active');
-      if (nomeTela === 'login') document.getElementById('pageLogin').classList.add('active');
-      if (nomeTela === 'cadastro') document.getElementById('pageCadastro').classList.add('active');
+      if (nomeTela === 'home') {
+        document.getElementById('pageHome').classList.add('active');
+      }
+      if (nomeTela === 'login') {
+        limparFormularios();
+        document.getElementById('pageLogin').classList.add('active');
+      }
+      if (nomeTela === 'cadastro') {
+        limparFormularios();
+        document.getElementById('pageCadastro').classList.add('active');
+      }
       
       window.scrollTo(0, 0);
+    }
+
+    function limparFormularios() {
+      const formCad = document.getElementById("formCadastro");
+      const formLog = document.getElementById("formLogin");
+      if (formCad) formCad.reset();
+      if (formLog) formLog.reset();
     }
 
     function renderizarCards(lista) {
@@ -433,7 +448,7 @@
       fecharModalAgendamento();
     }
 
-    // AUTENTICAÇÃO E LOGIN
+    // AUTENTICAÇÃO E LOGIN COM LIMPEZA AUTOMÁTICA
     function executarLogin(e) {
       e.preventDefault();
       const email = document.getElementById("loginEmail").value;
@@ -442,6 +457,7 @@
       usuarioLogado = { nome: nomeUsuario, email: email };
       atualizarNavUsuario();
       alert(`Bem-vindo(a) de volta, ${nomeUsuario}!`);
+      limparFormularios();
       irParaTela('home');
     }
 
@@ -453,6 +469,7 @@
       usuarioLogado = { nome: nome, email: email };
       atualizarNavUsuario();
       alert(`Conta criada com sucesso! Seja bem-vindo(a), ${nome}.`);
+      limparFormularios();
       irParaTela('home');
     }
 
@@ -472,11 +489,13 @@
         <button class="btn-primary" onclick="irParaTela('cadastro')" style="margin-left: 6px;">Cadastrar</button>
       `;
       alert("Você saiu da sua conta.");
+      limparFormularios();
       irParaTela('home');
     }
 
     document.addEventListener("DOMContentLoaded", () => {
       renderizarCards(profissionais);
+      limparFormularios();
     });
   </script>
 </body>
