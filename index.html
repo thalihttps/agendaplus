@@ -285,6 +285,7 @@
             <label>E-mail</label>
             <input type="text" id="cadEmail" placeholder="seuemail@gmail.com" required autocomplete="off">
             <span id="cadEmailError" class="error-msg">⚠️ Por favor, insira um e-mail válido (@gmail, @outlook, @yahoo, @hotmail, etc).</span>
+            <span id="cadEmailExistsError" class="error-msg">⚠️ Este e-mail já está cadastrado em nosso sistema! Faça login.</span>
           </div>
           <div class="input-group">
             <label>Crie uma Senha</label>
@@ -482,7 +483,7 @@
     let usuarioLogado = JSON.parse(localStorage.getItem("agendaplus_sessao")) || null;
     let profissionalAtual = null;
 
-    // FUNÇÃO VALIDADORA DE EMAIL REAL
+    // VALIDADOR RIGOROSO DE EMAIL
     function validarEmailReal(email) {
       if (!email) return false;
       const emailLower = email.trim().toLowerCase();
@@ -706,7 +707,7 @@
         preco: profissionalAtual.preco
       });
 
-      const idx = bancoUsuarios.findIndex(u => u.email === usuarioLogado.email);
+      const idx = bancoUsuarios.findIndex(u => u.email.toLowerCase() === usuarioLogado.email.toLowerCase());
       if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
 
       salvarBanco();
@@ -750,7 +751,7 @@
 
     function cancelarAgendamento(id) {
       usuarioLogado.agendamentos = usuarioLogado.agendamentos.filter(a => a.id !== id);
-      const idx = bancoUsuarios.findIndex(u => u.email === usuarioLogado.email);
+      const idx = bancoUsuarios.findIndex(u => u.email.toLowerCase() === usuarioLogado.email.toLowerCase());
       if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
       salvarBanco();
       renderizarMeusAgendamentos();
@@ -772,7 +773,7 @@
 
       const novoNome = document.getElementById("perfilNome").value;
       const novoNascimento = document.getElementById("perfilNascimento").value;
-      const novoEmail = document.getElementById("perfilEmail").value.trim();
+      const novoEmail = document.getElementById("perfilEmail").value.trim().toLowerCase();
       const senhaInformada = document.getElementById("perfilSenhaAtual").value;
 
       if (!validarEmailReal(novoEmail)) {
@@ -786,17 +787,17 @@
         return;
       }
 
-      if (novoEmail !== usuarioLogado.email && bancoUsuarios.some(u => u.email === novoEmail)) {
+      if (novoEmail !== usuarioLogado.email.toLowerCase() && bancoUsuarios.some(u => u.email.toLowerCase() === novoEmail)) {
         alert("⚠️ Este e-mail já está sendo utilizado por outra conta!");
         return;
       }
 
-      const emailAntigo = usuarioLogado.email;
+      const emailAntigo = usuarioLogado.email.toLowerCase();
       usuarioLogado.nome = novoNome;
       usuarioLogado.nascimento = novoNascimento;
       usuarioLogado.email = novoEmail;
 
-      const idx = bancoUsuarios.findIndex(u => u.email === emailAntigo);
+      const idx = bancoUsuarios.findIndex(u => u.email.toLowerCase() === emailAntigo);
       if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
 
       salvarBanco();
@@ -824,7 +825,7 @@
 
       usuarioLogado.exames.push({ id: Date.now(), tipo, nome, data, obs, arquivo: nomeArquivo });
 
-      const idx = bancoUsuarios.findIndex(u => u.email === usuarioLogado.email);
+      const idx = bancoUsuarios.findIndex(u => u.email.toLowerCase() === usuarioLogado.email.toLowerCase());
       if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
 
       salvarBanco();
@@ -866,7 +867,7 @@
 
     function removerExame(id) {
       usuarioLogado.exames = usuarioLogado.exames.filter(e => e.id !== id);
-      const idx = bancoUsuarios.findIndex(u => u.email === usuarioLogado.email);
+      const idx = bancoUsuarios.findIndex(u => u.email.toLowerCase() === usuarioLogado.email.toLowerCase());
       if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
       salvarBanco();
       renderizarExames();
@@ -877,7 +878,7 @@
       const errSpan = document.getElementById("loginEmailError");
       errSpan.style.display = "none";
 
-      const email = document.getElementById("loginEmail").value.trim();
+      const email = document.getElementById("loginEmail").value.trim().toLowerCase();
       const senha = document.getElementById("loginSenha").value;
 
       if (!validarEmailReal(email)) {
@@ -886,7 +887,7 @@
         return;
       }
       
-      const usuarioEncontrado = bancoUsuarios.find(u => u.email === email && u.senha === senha);
+      const usuarioEncontrado = bancoUsuarios.find(u => u.email.toLowerCase() === email && u.senha === senha);
 
       if (!usuarioEncontrado) {
         alert("❌ E-mail ou senha incorretos! Verifique suas credenciais.");
@@ -903,26 +904,32 @@
 
     function executarCadastro(e) {
       e.preventDefault();
-      const errSpan = document.getElementById("cadEmailError");
-      errSpan.style.display = "none";
+      const errFormatSpan = document.getElementById("cadEmailError");
+      const errExistsSpan = document.getElementById("cadEmailExistsError");
+      errFormatSpan.style.display = "none";
+      errExistsSpan.style.display = "none";
 
       const nome = document.getElementById("cadNome").value;
       const nascimento = document.getElementById("cadNascimento").value;
-      const email = document.getElementById("cadEmail").value.trim();
+      const email = document.getElementById("cadEmail").value.trim().toLowerCase();
       const senha = document.getElementById("cadSenha").value;
 
+      // 1. Validação de formato de e-mail real
       if (!validarEmailReal(email)) {
-        errSpan.style.display = "block";
+        errFormatSpan.style.display = "block";
         alert("⚠️ Por favor, insira um e-mail válido (@gmail, @outlook, @yahoo, @hotmail, etc).");
         return;
       }
 
-      const existeEmail = bancoUsuarios.some(u => u.email === email);
-      if (existeEmail) {
-        alert("⚠️ Este e-mail já está cadastrado em nosso sistema! Faça login ou utilize outro e-mail.");
+      // 2. Validação rigorosa de duplicidade no banco de dados
+      const jaExiste = bancoUsuarios.some(u => u.email.toLowerCase() === email);
+      if (jaExiste) {
+        errExistsSpan.style.display = "block";
+        alert("⚠️ Este e-mail já está cadastrado em nosso sistema! Faça login com suas credenciais.");
         return;
       }
 
+      // Registro do novo usuário no banco
       const novoUsuario = { nome, nascimento, email, senha, agendamentos: [], exames: [] };
       bancoUsuarios.push(novoUsuario);
       usuarioLogado = novoUsuario;
