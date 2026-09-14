@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgendaPlus - Agendamento de Consultas & Serviços</title>
+  <title>AgendaPlus - Agendamento de Saúde & Bem-Estar</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: #f8faf9; color: #333; }
@@ -96,12 +96,12 @@
         <img src="logo_aplus_.png" alt="AgendaPlus Logo" class="brand-logo">
         <div class="brand-text">
           <h1>AgendaPlus</h1>
-          <p>Agendamento de Consultas & Serviços</p>
+          <p>Saúde, Odontologia & Bem-Estar</p>
         </div>
       </div>
       
       <nav class="nav-menu">
-        <span onclick="irParaTela('home')" class="nav-link">Catálogo</span>
+        <span onclick="irParaTela('home')" class="nav-link">Profissionais</span>
         <div id="navUserArea">
           <button class="btn-secondary" onclick="irParaTela('login')">Entrar</button>
           <button class="btn-primary" onclick="irParaTela('cadastro')" style="margin-left: 6px;">Cadastrar</button>
@@ -114,26 +114,22 @@
   <div id="pageHome" class="page-section active">
     <section class="hero-section">
       <div class="container hero-content">
-        <h2>Encontre o profissional ideal</h2>
-        <p>Agende consultas médicas, atendimentos estéticos, veterinários e consultorias com facilidade.</p>
+        <h2>Encontre profissionais de saúde e estética</h2>
+        <p>Agende consultas médicas, exames, procedimentos estéticos e consultas veterinárias com facilidade.</p>
         
         <div class="search-bar">
           <div class="search-input-wrapper">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="Buscar por profissional ou serviço..." oninput="filtrarProfissionais()">
+            <input type="text" id="searchInput" placeholder="Buscar por médico, especialidade ou exame..." oninput="filtrarProfissionais()">
           </div>
           
           <div class="filter-wrapper">
             <select id="categoriaFilter" onchange="filtrarProfissionais()">
-              <option value="">Todas as Especialidades</option>
+              <option value="">Todas as Áreas de Saúde</option>
               <option value="Saúde & Medicina">Saúde & Medicina</option>
               <option value="Odontologia">Odontologia</option>
               <option value="Estética & Bem-Estar">Estética & Bem-Estar</option>
               <option value="Veterinária">Veterinária</option>
-              <option value="Arquitetura & Engenharia">Arquitetura & Engenharia</option>
-              <option value="Consultoria & Jurídico">Consultoria & Jurídico</option>
-              <option value="Aulas & Treinamentos">Aulas & Treinamentos</option>
-              <option value="Manutenção & Serviços">Manutenção & Serviços</option>
             </select>
           </div>
 
@@ -156,34 +152,34 @@
 
     <section id="vantagens" class="benefits-section">
       <div class="container">
-        <h3 class="section-title">Por que agendar pelo AgendaPlus?</h3>
+        <h3 class="section-title">Por que agendar suas consultas pelo AgendaPlus?</h3>
         <div class="benefits-grid">
           <div class="benefit-card">
             <div class="benefit-icon">💸</div>
-            <h4>Dinheiro de volta</h4>
-            <p>Cashback em consultas e exames com estabelecimentos parceiros pelo app.</p>
+            <h4>Cashback em Saúde</h4>
+            <p>Ganhe dinheiro de volta em consultas, exames e procedimentos com clínicas parceiras.</p>
           </div>
           <div class="benefit-card">
             <div class="benefit-icon">🏥</div>
-            <h4>Rede de Unidades</h4>
-            <p>Mais de 150 clínicas e escritórios credenciados para atendimento presencial.</p>
+            <h4>Rede Credenciada</h4>
+            <p>Mais de 150 clínicas, hospitais e consultórios verificados e bem avaliados.</p>
           </div>
           <div class="benefit-card">
             <div class="benefit-icon">🩺</div>
             <h4>Telemedicina 24h</h4>
-            <p>Consulta médica e psicológica online a qualquer hora, direto da plataforma.</p>
+            <p>Atendimento médico, psicológico e nutricional online rápido e seguro.</p>
           </div>
           <div class="benefit-card">
             <div class="benefit-icon">💊</div>
-            <h4>Desconto em Farmácias</h4>
-            <p>Até 40% de desconto em medicamentos nas maiores redes parceiras.</p>
+            <h4>Desconto em Medicamentos</h4>
+            <p>Até 40% de desconto nas maiores redes de farmácias do país.</p>
           </div>
         </div>
       </div>
     </section>
 
     <main class="container" id="catalogo" style="padding: 30px 16px;">
-      <h3 style="color: #0d5c46; margin-bottom: 20px;">Profissionais Disponíveis</h3>
+      <h3 style="color: #0d5c46; margin-bottom: 20px;">Especialistas Disponíveis</h3>
       <div id="profissionaisGrid" class="cards-grid"></div>
     </main>
   </div>
@@ -194,7 +190,7 @@
       <div class="auth-card">
         <img src="logo_aplus_.png" alt="AgendaPlus">
         <h2>Entrar na Conta</h2>
-        <p class="subtitle">Acesse para agendar suas consultas e horários</p>
+        <p class="subtitle">Acesse para agendar suas consultas e exames</p>
 
         <form id="formLogin" onsubmit="executarLogin(event)" autocomplete="off">
           <div class="input-group">
@@ -221,7 +217,7 @@
       <div class="auth-card">
         <img src="logo_aplus_.png" alt="AgendaPlus">
         <h2>Criar Conta</h2>
-        <p class="subtitle">Cadastre-se em instantes para agendar com profissionais</p>
+        <p class="subtitle">Cadastre-se em instantes para agendar com profissionais de saúde</p>
 
         <form id="formCadastro" onsubmit="executarCadastro(event)" autocomplete="off">
           <div class="input-group">
@@ -261,8 +257,8 @@
       <div id="modalidadeContainer" class="input-group" style="display: none; margin-bottom: 15px;">
         <label>Selecione a Modalidade do Atendimento:</label>
         <select id="selectModalidade">
-          <option value="Presencial">Presencial (No consultório/local)</option>
-          <option value="Online">Online (Atendimento por vídeo)</option>
+          <option value="Presencial">Presencial (No consultório/clínica)</option>
+          <option value="Online">Online (Telemedicina por vídeo)</option>
         </select>
       </div>
 
@@ -272,36 +268,42 @@
   </div>
 
   <script>
+    // LISTA REVISADA: APENAS SAÚDE, ODONTOLOGIA, VETERINÁRIA E ESTÉTICA
     const profissionais = [
+      // --- SAÚDE & MEDICINA ---
       { id: 1, nome: "Dra. Camila Santos", categoria: "Saúde & Medicina", especialidade: "Cardiologia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 250" },
       { id: 2, nome: "Dr. Roberto Oliveira", categoria: "Saúde & Medicina", especialidade: "Pediatria", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 200" },
-      { id: 3, nome: "Dra. Juliana Lima", categoria: "Saúde & Medicina", especialidade: "Dermatologia", cidade: "Belo Horizonte", atendimento: "Presencial e Online", preco: "R$ 280" },
-      { id: 4, nome: "Dr. Marcelo Vieira", categoria: "Saúde & Medicina", especialidade: "Ortopedia", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 230" },
-      { id: 5, nome: "Dra. Patricia Mendes", categoria: "Saúde & Medicina", especialidade: "Ginecologia", cidade: "Porto Alegre", atendimento: "Presencial", preco: "R$ 240" },
+      { id: 3, nome: "Dra. Juliana Lima", categoria: "Saúde & Medicina", especialidade: "Dermatologia Médica", cidade: "Belo Horizonte", atendimento: "Presencial e Online", preco: "R$ 280" },
+      { id: 4, nome: "Dr. Marcelo Vieira", categoria: "Saúde & Medicina", especialidade: "Ortopedia & Traumatologia", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 230" },
+      { id: 5, nome: "Dra. Patricia Mendes", categoria: "Saúde & Medicina", especialidade: "Ginecologia & Obstetrícia", cidade: "Porto Alegre", atendimento: "Presencial", preco: "R$ 240" },
       { id: 6, nome: "Dr. Lucas Andrade", categoria: "Saúde & Medicina", especialidade: "Psiquiatria", cidade: "São Paulo", atendimento: "Online", preco: "R$ 300" },
       { id: 7, nome: "Dra. Renata Vasconcelos", categoria: "Saúde & Medicina", especialidade: "Endocrinologia", cidade: "Campinas", atendimento: "Presencial e Online", preco: "R$ 270" },
       { id: 8, nome: "Dr. Fernando Rocha", categoria: "Saúde & Medicina", especialidade: "Neurologia", cidade: "Brasília", atendimento: "Presencial", preco: "R$ 320" },
-      { id: 9, nome: "Dr. Gustavo Alencar", categoria: "Odontologia", especialidade: "Ortodontia", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 180" },
-      { id: 10, nome: "Dra. Beatriz Costa", categoria: "Odontologia", especialidade: "Endodontia", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 220" },
-      { id: 11, nome: "Dr. Henrique Silveira", categoria: "Odontologia", especialidade: "Implantodontia", cidade: "Salvador", atendimento: "Presencial", preco: "R$ 350" },
-      { id: 12, nome: "Dra. Vanessa Martins", categoria: "Odontologia", especialidade: "Odontopediatria", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 190" },
-      { id: 13, nome: "Mariana Souza", categoria: "Estética & Bem-Estar", especialidade: "Esteticista & Biomedicina", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 150" },
-      { id: 14, nome: "Dra. Aline Ferraz", categoria: "Estética & Bem-Estar", especialidade: "Harmonização Facial", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 450" },
-      { id: 15, nome: "Carlos Eduardo", categoria: "Estética & Bem-Estar", especialidade: "Massoterapia", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 120" },
-      { id: 16, nome: "Bruna Xavier", categoria: "Estética & Bem-Estar", especialidade: "Design de Sobrancelhas & Lash", cidade: "Campinas", atendimento: "Presencial", preco: "R$ 90" },
-      { id: 17, nome: "Dr. André Martins", categoria: "Veterinária", especialidade: "Clínico Geral Vet", cidade: "São Paulo", atendimento: "Presencial e Domiciliar", preco: "R$ 160" },
-      { id: 18, nome: "Dra. Sofia Ribeiro", categoria: "Veterinária", especialidade: "Dermatologia Veterinária", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 210" },
-      { id: 19, nome: "Dr. Thiago Faria", categoria: "Veterinária", especialidade: "Cirurgia de Pequenos Animais", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 290" },
-      { id: 20, nome: "Arq. Amanda Prado", categoria: "Arquitetura & Engenharia", especialidade: "Design de Interiores", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 200" },
-      { id: 21, nome: "Eng. Rafael Torres", categoria: "Arquitetura & Engenharia", especialidade: "Projetos Estruturais", cidade: "Rio de Janeiro", atendimento: "Online", preco: "R$ 350" },
-      { id: 22, nome: "Arq. Rodrigo Duarte", categoria: "Arquitetura & Engenharia", especialidade: "Arquitetura Residencial", cidade: "Brasília", atendimento: "Presencial", preco: "R$ 300" },
-      { id: 23, nome: "Dr. Leonardo Farias", categoria: "Consultoria & Jurídico", especialidade: "Direito Trabalhista", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 300" },
-      { id: 24, nome: "Dra. Helena Nogueira", categoria: "Consultoria & Jurídico", especialidade: "Direito de Família", cidade: "Belo Horizonte", atendimento: "Online", preco: "R$ 250" },
-      { id: 25, nome: "Gabriel Siqueira", categoria: "Consultoria & Jurídico", especialidade: "Consultoria Financeira", cidade: "Porto Alegre", atendimento: "Online", preco: "R$ 200" },
-      { id: 26, nome: "Prof. Marcos Vinicius", categoria: "Aulas & Treinamentos", especialidade: "Personal Trainer", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 100/aula" },
-      { id: 27, nome: "Profª. Maria Clara", categoria: "Aulas & Treinamentos", especialidade: "Inglês Instrumental", cidade: "Curitiba", atendimento: "Online", preco: "R$ 80/aula" },
-      { id: 28, nome: "Jorge Silva", categoria: "Manutenção & Serviços", especialidade: "Eletricista Residencial", cidade: "São Paulo", atendimento: "Presencial", preco: "Sob Consulta" },
-      { id: 29, nome: "Ricardo Antunes", categoria: "Manutenção & Serviços", especialidade: "Técnico em Ar Condicionado", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "Sob Consulta" }
+      { id: 9, nome: "Dra. Vanessa Carmo", categoria: "Saúde & Medicina", especialidade: "Nutrição Clínica", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 180" },
+      { id: 10, nome: "Dr. Gabriel Rezende", categoria: "Saúde & Medicina", especialidade: "Fisioterapia Desportiva", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 160" },
+      { id: 11, nome: "Dra. Mariana Fontes", categoria: "Saúde & Medicina", especialidade: "Psicologia Clínica", cidade: "Salvador", atendimento: "Online", preco: "R$ 150" },
+      { id: 12, nome: "Dr. Carlos Eduardo", categoria: "Saúde & Medicina", especialidade: "Oftalmologia", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 220" },
+
+      // --- ODONTOLOGIA ---
+      { id: 13, nome: "Dr. Gustavo Alencar", categoria: "Odontologia", especialidade: "Ortodontia", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 180" },
+      { id: 14, nome: "Dra. Beatriz Costa", categoria: "Odontologia", especialidade: "Endodontia (Tratamento de Canal)", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 220" },
+      { id: 15, nome: "Dr. Henrique Silveira", categoria: "Odontologia", especialidade: "Implantodontia", cidade: "Salvador", atendimento: "Presencial", preco: "R$ 350" },
+      { id: 16, nome: "Dra. Vanessa Martins", categoria: "Odontologia", especialidade: "Odontopediatria", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 190" },
+      { id: 17, nome: "Dr. Rafael Guimarães", categoria: "Odontologia", especialidade: "Estética Dental & Lentes", cidade: "Campinas", atendimento: "Presencial", preco: "R$ 400" },
+
+      // --- ESTÉTICA & BEM-ESTAR ---
+      { id: 18, nome: "Mariana Souza", categoria: "Estética & Bem-Estar", especialidade: "Esteticista & Biomedicina", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 150" },
+      { id: 19, nome: "Dra. Aline Ferraz", categoria: "Estética & Bem-Estar", especialidade: "Harmonização Facial", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 450" },
+      { id: 20, nome: "Carlos Eduardo", categoria: "Estética & Bem-Estar", especialidade: "Massoterapia & Drenagem", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 120" },
+      { id: 21, nome: "Bruna Xavier", categoria: "Estética & Bem-Estar", especialidade: "Design de Sobrancelhas & Micropigmentação", cidade: "Campinas", atendimento: "Presencial", preco: "R$ 90" },
+      { id: 22, nome: "Dra. Camila Toledo", categoria: "Estética & Bem-Estar", especialidade: "Toxina Botulínica (Botox) & Preenchimento", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 500" },
+
+      // --- VETERINÁRIA ---
+      { id: 23, nome: "Dr. André Martins", categoria: "Veterinária", especialidade: "Clínico Geral Vet", cidade: "São Paulo", atendimento: "Presencial e Domiciliar", preco: "R$ 160" },
+      { id: 24, nome: "Dra. Sofia Ribeiro", categoria: "Veterinária", especialidade: "Dermatologia Veterinária", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 210" },
+      { id: 25, nome: "Dr. Thiago Faria", categoria: "Veterinária", especialidade: "Cirurgia de Pequenos Animais", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 290" },
+      { id: 26, nome: "Dra. Luana Paiva", categoria: "Veterinária", especialidade: "Oftalmologia Veterinária", cidade: "Porto Alegre", atendimento: "Presencial", preco: "R$ 230" },
+      { id: 27, nome: "Dr. Rodrigo Neves", categoria: "Veterinária", especialidade: "Cardiologia Veterinária", cidade: "Brasília", atendimento: "Presencial", preco: "R$ 260" }
     ];
 
     const agendaExemplo = [
@@ -314,7 +316,7 @@
     let usuarioLogado = null;
     let profissionalAtual = null;
 
-    // SISTEMA DE TROCA DE PÁGINAS (TELAS) COM LIMPEZA DE FORMULÁRIOS
+    // SISTEMA DE TROCA DE PÁGINAS COM LIMPEZA DE CAMPOS
     function irParaTela(nomeTela) {
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
       
@@ -437,8 +439,8 @@
       }
 
       alert(`🎉 Agendamento Confirmado com Sucesso!\n\n` +
-            `Cliente: ${usuarioLogado.nome}\n` +
-            `Profissional: ${profissionalAtual.nome}\n` +
+            `Paciente/Cliente: ${usuarioLogado.nome}\n` +
+            `Especialista: ${profissionalAtual.nome}\n` +
             `Especialidade: ${profissionalAtual.especialidade}\n` +
             `Dia: ${dia}\n` +
             `Horário: ${horario}\n` +
@@ -448,7 +450,7 @@
       fecharModalAgendamento();
     }
 
-    // AUTENTICAÇÃO E LOGIN COM LIMPEZA AUTOMÁTICA
+    // AUTENTICAÇÃO E LOGIN
     function executarLogin(e) {
       e.preventDefault();
       const email = document.getElementById("loginEmail").value;
