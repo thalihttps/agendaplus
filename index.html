@@ -45,43 +45,43 @@
     .card-category { display: inline-block; background: #eef8f3; color: #0d5c46; font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; font-weight: 600; margin-bottom: 8px; }
     .card-info { font-size: 0.88rem; color: #666; margin-bottom: 4px; }
 
-    /* BARRA LATERAL OCULTA (SIDEBAR / DRAWER) */
-    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: 1000; transition: opacity 0.3s; }
+    /* SIDEBAR */
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: 1000; }
     .sidebar-overlay.active { display: block; }
     .sidebar { position: fixed; top: 0; right: -420px; width: 100%; max-width: 400px; height: 100vh; background: #ffffff; z-index: 1001; box-shadow: -5px 0 25px rgba(0,0,0,0.15); transition: right 0.3s ease-in-out; display: flex; flex-direction: column; overflow-y: auto; }
     .sidebar.active { right: 0; }
     .sidebar-header { padding: 20px; background: #0d5c46; color: white; display: flex; justify-content: space-between; align-items: center; }
-    .sidebar-header h3 { font-size: 1.2rem; }
     .sidebar-close { background: none; border: none; color: white; font-size: 1.6rem; cursor: pointer; }
     .sidebar-body { padding: 20px; flex: 1; }
 
-    /* COMPONENTES DA SIDEBAR */
+    /* COMPONENTES SIDEBAR */
     .sidebar-section { background: #f8faf9; border: 1px solid #e1f0e8; border-radius: 12px; padding: 16px; margin-bottom: 20px; }
     .sidebar-section h4 { color: #0d5c46; font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
     .input-group-sm { margin-bottom: 12px; text-align: left; }
     .input-group-sm label { display: block; font-size: 0.8rem; color: #555; margin-bottom: 4px; font-weight: 600; }
     .input-group-sm input, .input-group-sm select { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.88rem; outline: none; }
 
-    /* ACCORDION UNIDADES DE EXAME */
+    /* ACCORDION */
     .accordion-item { border: 1px solid #d1e7dd; border-radius: 8px; margin-bottom: 8px; overflow: hidden; background: white; }
     .accordion-btn { width: 100%; padding: 10px 14px; text-align: left; background: #eef8f3; border: none; font-weight: 700; color: #0d5c46; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
     .accordion-content { display: none; padding: 12px; font-size: 0.85rem; color: #555; background: white; line-height: 1.4; border-top: 1px solid #eef8f3; }
     .accordion-content.open { display: block; }
 
-    /* LISTA DE EXAMES ENVIADOS */
-    .exame-item { background: white; border: 1px solid #e0e0e0; border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 0.82rem; display: flex; justify-content: space-between; align-items: center; }
+    /* BADGES & EXAMES */
+    .badge-status { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
+    .badge-pedido { background: #e3f2fd; color: #0d47a1; }
+    .badge-exame { background: #e8f5e9; color: #1b5e20; }
+    .badge-laudo { background: #fff3e0; color: #e65100; }
+    .exame-item { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px; margin-top: 8px; font-size: 0.82rem; display: flex; justify-content: space-between; align-items: flex-start; }
 
-    /* AUTH TELAS */
+    /* AUTH & MODAL */
     .auth-page-container { min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; padding: 30px 16px; background: linear-gradient(135deg, #eef8f3 0%, #f8faf9 100%); }
     .auth-card { background: white; border-radius: 18px; padding: 36px 30px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e0f2e9; text-align: center; }
     .auth-card img { height: 50px; margin-bottom: 12px; }
-    .auth-card h2 { color: #0d5c46; margin-bottom: 8px; font-size: 1.5rem; }
     .input-group { margin-bottom: 16px; text-align: left; }
     .input-group label { display: block; font-size: 0.85rem; color: #444; margin-bottom: 6px; font-weight: 600; }
     .input-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 0.95rem; outline: none; }
-
-    /* MODAL AGENDA */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); justify-content: center; align-items: center; z-index: 1000; padding: 16px; overflow-y: auto; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); justify-content: center; align-items: center; z-index: 1000; padding: 16px; }
     .modal-content { background: white; padding: 28px; border-radius: 16px; width: 100%; max-width: 650px; position: relative; }
     .close-btn { position: absolute; top: 14px; right: 18px; font-size: 1.5rem; cursor: pointer; color: #888; border: none; background: none; }
     .prof-header-box { background: #f0f8f4; border-radius: 10px; padding: 14px; margin-bottom: 18px; border: 1px solid #d8ede3; }
@@ -122,21 +122,21 @@
     </div>
   </header>
 
-  <!-- BARRA LATERAL OCULTA (SIDEBAR / DRAWER) -->
+  <!-- SIDEBAR -->
   <div id="sidebarOverlay" class="sidebar-overlay" onclick="fecharSidebar()"></div>
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">
-      <h3>Central do Paciente & Unidades</h3>
+      <h3 style="font-size:1.1rem;">Central do Paciente & Unidades</h3>
       <button class="sidebar-close" onclick="fecharSidebar()">&times;</button>
     </div>
     
     <div class="sidebar-body">
       
-      <!-- SEÇÃO 1: PERFIL E TROCA DE E-MAIL (REQUER SENHA ATUAL) -->
+      <!-- PERFIL & SEGURA - TROCA DE EMAIL -->
       <div id="sidebarPerfilSection" class="sidebar-section">
-        <h4>👤 Meu Perfil de Cadastro</h4>
-        <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;" id="sidebarUserStatus">Faça login para gerenciar seu e-mail e exames.</p>
-        
+        <h4>👤 Perfil do Paciente</h4>
+        <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;" id="sidebarUserStatus">Faça login para gerenciar suas preferências.</p>
+
         <div id="formAlterarEmailContainer" style="display: none;">
           <form onsubmit="alterarEmail(event)">
             <div class="input-group-sm">
@@ -144,22 +144,22 @@
               <input type="email" id="novoEmailInput" placeholder="novo@email.com" required>
             </div>
             <div class="input-group-sm">
-              <label>Confirme sua Senha Atual</label>
+              <label>Confirme com sua Senha Atual</label>
               <input type="password" id="senhaConfirmacaoInput" placeholder="••••••••" required>
             </div>
-            <button type="submit" class="btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem;">Atualizar E-mail</button>
+            <button type="submit" class="btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem;">Salvar Alteração</button>
           </form>
         </div>
       </div>
 
-      <!-- SEÇÃO 2: UPLOAD DE EXAMES E PEDIDOS MÉDICOS -->
+      <!-- EXAMES E PEDIDOS MÉDICOS -->
       <div id="sidebarExamesSection" class="sidebar-section">
-        <h4>📋 Anexar Exames / Pedidos Médicos</h4>
-        <p style="font-size: 0.8rem; color: #666; margin-bottom: 12px;">Envie documentos para compartilhar com a equipe médica.</p>
+        <h4>📋 Anexar Exame / Pedido Médico</h4>
+        <p style="font-size: 0.8rem; color: #666; margin-bottom: 12px;">Envie arquivos para análise da equipe clínica.</p>
 
         <form id="formUploadExame" onsubmit="salvarExame(event)">
           <div class="input-group-sm">
-            <label>Tipo de Documento</label>
+            <label>Tipo do Documento</label>
             <select id="tipoDocSelect" required>
               <option value="Pedido Médico">Pedido Médico</option>
               <option value="Resultado de Exame">Resultado de Exame</option>
@@ -168,83 +168,70 @@
           </div>
 
           <div class="input-group-sm">
-            <label>Nome do Exame / Especialidade</label>
-            <input type="text" id="nomeExameInput" placeholder="Ex: Hemograma, Raio-X, ECG" required>
+            <label>Especialidade / Descrição</label>
+            <input type="text" id="nomeExameInput" placeholder="Ex: Hemograma, Tomografia, Exame de Sangue" required>
           </div>
 
           <div class="input-group-sm">
-            <label>Data do Documento</label>
+            <label>Data do Pedido/Exame</label>
             <input type="date" id="dataExameInput" required>
           </div>
 
           <div class="input-group-sm">
-            <label>Arquivo (PDF ou Imagem)</label>
+            <label>Anexo (Imagem ou PDF)</label>
             <input type="file" id="arquivoInput" accept="image/*,.pdf" required>
           </div>
 
           <div class="input-group-sm">
-            <label>Observações / Instruções</label>
-            <input type="text" id="obsExameInput" placeholder="Ex: Jejum de 8h necessário">
+            <label>Observações Adicionais</label>
+            <input type="text" id="obsExameInput" placeholder="Ex: Jejum de 8 horas, medicação contínua">
           </div>
 
           <button type="submit" class="btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem; background: #074735;">
-            📤 Anexar ao Perfil
+            📤 Enviar para Prontuário
           </button>
         </form>
 
-        <!-- Lista de Exames Anexados -->
         <div style="margin-top: 15px;">
-          <h5 style="font-size: 0.85rem; color: #0d5c46; margin-bottom: 6px;">Documentos Anexados:</h5>
+          <h5 style="font-size: 0.85rem; color: #0d5c46; margin-bottom: 6px;">Documentos Enviados:</h5>
           <div id="listaExamesAnexados">
-            <p style="font-size: 0.78rem; color: #888;">Nenhum exame cadastrado no momento.</p>
+            <p style="font-size: 0.78rem; color: #888;">Nenhum documento anexado.</p>
           </div>
         </div>
       </div>
 
-      <!-- SEÇÃO 3: UNIDADES DE ATENDIMENTO E EXAMES (BH, SP, RJ) -->
+      <!-- UNIDADES DE ATENDIMENTO -->
       <div class="sidebar-section">
-        <h4>🏥 Unidades de Atendimento & Exames</h4>
-        <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Clique na cidade para ver o endereço completo:</p>
+        <h4>🏥 Unidades de Atendimento</h4>
+        <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Endereços completos para exames presenciais:</p>
 
-        <!-- Belo Horizonte -->
         <div class="accordion-item">
-          <button class="accordion-btn" onclick="toggleAccordion('unidadeBH')">
-            📍 Belo Horizonte (BH) <span>▼</span>
-          </button>
+          <button class="accordion-btn" onclick="toggleAccordion('unidadeBH')">📍 Belo Horizonte (BH) <span>▼</span></button>
           <div id="unidadeBH" class="accordion-content">
-            <p><strong>Unidade Savassi - Exames & Consultas</strong></p>
-            <p><strong>Rua:</strong> Av. Getúlio Vargas, 1420 - Savassi</p>
-            <p><strong>Cidade:</strong> Belo Horizonte - MG</p>
-            <p><strong>CEP:</strong> 30112-021</p>
-            <p><strong>Tel / WhatsApp:</strong> (31) 3344-5566</p>
+            <p><strong>Unidade Savassi</strong></p>
+            <p>Rua Av. Getúlio Vargas, 1420 - Savassi</p>
+            <p>CEP: 30112-021 • Belo Horizonte - MG</p>
+            <p>Tel: (31) 3344-5566</p>
           </div>
         </div>
 
-        <!-- São Paulo -->
         <div class="accordion-item">
-          <button class="accordion-btn" onclick="toggleAccordion('unidadeSP')">
-            📍 São Paulo (SP) <span>▼</span>
-          </button>
+          <button class="accordion-btn" onclick="toggleAccordion('unidadeSP')">📍 São Paulo (SP) <span>▼</span></button>
           <div id="unidadeSP" class="accordion-content">
-            <p><strong>Unidade Paulista - Centro Diagnóstico</strong></p>
-            <p><strong>Rua:</strong> Av. Paulista, 1842 - Bela Vista</p>
-            <p><strong>Cidade:</strong> São Paulo - SP</p>
-            <p><strong>CEP:</strong> 01310-200</p>
-            <p><strong>Tel / WhatsApp:</strong> (11) 4003-8899</p>
+            <p><strong>Unidade Paulista</strong></p>
+            <p>Av. Paulista, 1842 - Bela Vista</p>
+            <p>CEP: 01310-200 • São Paulo - SP</p>
+            <p>Tel: (11) 4003-8899</p>
           </div>
         </div>
 
-        <!-- Rio de Janeiro -->
         <div class="accordion-item">
-          <button class="accordion-btn" onclick="toggleAccordion('unidadeRJ')">
-            📍 Rio de Janeiro (RJ) <span>▼</span>
-          </button>
+          <button class="accordion-btn" onclick="toggleAccordion('unidadeRJ')">📍 Rio de Janeiro (RJ) <span>▼</span></button>
           <div id="unidadeRJ" class="accordion-content">
-            <p><strong>Unidade Copacabana - Pronto Atendimento</strong></p>
-            <p><strong>Rua:</strong> Av. Nossa Senhora de Copacabana, 680</p>
-            <p><strong>Cidade:</strong> Rio de Janeiro - RJ</p>
-            <p><strong>CEP:</strong> 22050-001</p>
-            <p><strong>Tel / WhatsApp:</strong> (21) 3210-7788</p>
+            <p><strong>Unidade Copacabana</strong></p>
+            <p>Av. Nossa Senhora de Copacabana, 680</p>
+            <p>CEP: 22050-001 • Rio de Janeiro - RJ</p>
+            <p>Tel: (21) 3210-7788</p>
           </div>
         </div>
 
@@ -253,22 +240,22 @@
     </div>
   </aside>
 
-  <!-- PÁGINA HOME -->
+  <!-- HOME -->
   <div id="pageHome" class="page-section active">
     <section class="hero-section">
       <div class="container hero-content">
         <h2>Encontre profissionais de saúde e estética</h2>
-        <p>Agende consultas médicas, exames, procedimentos estéticos e consultas veterinárias com facilidade.</p>
+        <p>Agende consultas médicas, exames e tratamentos com rapidez.</p>
         
         <div class="search-bar">
           <div class="search-input-wrapper">
             <span style="margin-right:8px;">🔍</span>
-            <input type="text" id="searchInput" placeholder="Buscar por médico, especialidade ou exame..." oninput="filtrarProfissionais()">
+            <input type="text" id="searchInput" placeholder="Buscar por profissional, especialidade ou procedimento..." oninput="filtrarProfissionais()">
           </div>
           
           <div class="filter-wrapper">
             <select id="categoriaFilter" onchange="filtrarProfissionais()">
-              <option value="">Todas as Áreas</option>
+              <option value="">Todas as Categoria</option>
               <option value="Saúde & Medicina">Saúde & Medicina</option>
               <option value="Odontologia">Odontologia</option>
               <option value="Estética & Bem-Estar">Estética & Bem-Estar</option>
@@ -283,7 +270,6 @@
               <option value="Rio de Janeiro">Rio de Janeiro</option>
               <option value="Belo Horizonte">Belo Horizonte</option>
               <option value="Curitiba">Curitiba</option>
-              <option value="Campinas">Campinas</option>
             </select>
           </div>
         </div>
@@ -291,18 +277,18 @@
     </section>
 
     <main class="container" style="padding: 30px 16px;">
-      <h3 style="color: #0d5c46; margin-bottom: 20px;">Especialistas Disponíveis</h3>
+      <h3 style="color: #0d5c46; margin-bottom: 20px;">Profissionais em Destaque</h3>
       <div id="profissionaisGrid" class="cards-grid"></div>
     </main>
   </div>
 
-  <!-- AUTH TELAS -->
+  <!-- AUTH -->
   <div id="pageLogin" class="page-section">
     <div class="auth-page-container">
       <div class="auth-card">
         <img src="logo_aplus_.png" alt="AgendaPlus">
-        <h2>Entrar na Conta</h2>
-        <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Acesse para agendar suas consultas e exames</p>
+        <h2>Entrar no Sistema</h2>
+        <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Acesse para agendar e visualizar exames</p>
         <form id="formLogin" onsubmit="executarLogin(event)">
           <div class="input-group">
             <label>E-mail</label>
@@ -322,12 +308,12 @@
     <div class="auth-page-container">
       <div class="auth-card">
         <img src="logo_aplus_.png" alt="AgendaPlus">
-        <h2>Criar Conta</h2>
-        <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Cadastre-se para agendar consultas</p>
+        <h2>Nova Conta</h2>
+        <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Cadastre-se no AgendaPlus</p>
         <form id="formCadastro" onsubmit="executarCadastro(event)">
           <div class="input-group">
             <label>Nome Completo</label>
-            <input type="text" id="cadNome" placeholder="Seu nome completo" required>
+            <input type="text" id="cadNome" placeholder="Seu nome" required>
           </div>
           <div class="input-group">
             <label>E-mail</label>
@@ -335,24 +321,24 @@
           </div>
           <div class="input-group">
             <label>Crie uma Senha</label>
-            <input type="password" id="cadSenha" placeholder="Senha segura" required>
+            <input type="password" id="cadSenha" placeholder="Crie sua senha" required>
           </div>
-          <button type="submit" class="btn-primary" style="width: 100%; padding: 12px;">Finalizar Cadastro</button>
+          <button type="submit" class="btn-primary" style="width: 100%; padding: 12px;">Concluir Cadastro</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- TELA MEUS AGENDAMENTOS -->
+  <!-- MEUS AGENDAMENTOS -->
   <div id="pageMeusAgendamentos" class="page-section">
     <main class="container" style="padding: 40px 16px;">
       <h2 style="color: #0d5c46; margin-bottom: 8px;">Meus Agendamentos</h2>
-      <p style="color: #666; margin-bottom: 24px;">Confira suas consultas e procedimentos marcados.</p>
+      <p style="color: #666; margin-bottom: 24px;">Acompanhe o status e os detalhes das suas consultas.</p>
       <div id="meusAgendamentosGrid" class="cards-grid"></div>
     </main>
   </div>
 
-  <!-- MODAL DE AGENDA -->
+  <!-- MODAL DE AGENDAMENTO -->
   <div id="agendarModal" class="modal">
     <div class="modal-content">
       <button class="close-btn" onclick="fecharModalAgendamento()">&times;</button>
@@ -366,12 +352,12 @@
       <div id="modalidadeContainer" class="input-group" style="display: none; margin-bottom: 15px;">
         <label>Selecione a Modalidade do Atendimento:</label>
         <select id="selectModalidade" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc;">
-          <option value="Presencial">Presencial (No consultório)</option>
-          <option value="Online">Online (Telemedicina por vídeo)</option>
+          <option value="Presencial">Presencial (No Consultório)</option>
+          <option value="Online">Online (Telemedicina)</option>
         </select>
       </div>
 
-      <p style="font-weight: 600; font-size: 0.95rem; color: #333; margin-top: 10px;">Selecione um dia e horário livre:</p>
+      <p style="font-weight: 600; font-size: 0.95rem; color: #333; margin-top: 10px;">Selecione o Horário Desejado:</p>
       <div class="schedule-grid" id="scheduleGrid"></div>
     </div>
   </div>
@@ -397,7 +383,6 @@
     let listaAgendamentos = [];
     let listaExames = [];
 
-    // NAVEGAÇÃO DE TELAS
     function irParaTela(nomeTela) {
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
       if (nomeTela === 'home') document.getElementById('pageHome').classList.add('active');
@@ -410,7 +395,6 @@
       window.scrollTo(0, 0);
     }
 
-    // CONTROLE DA SIDEBAR (BARRA LATERAL)
     function abrirSidebar() {
       document.getElementById('sidebar').classList.add('active');
       document.getElementById('sidebarOverlay').classList.add('active');
@@ -422,11 +406,9 @@
     }
 
     function toggleAccordion(id) {
-      const el = document.getElementById(id);
-      el.classList.toggle('open');
+      document.getElementById(id).classList.toggle('open');
     }
 
-    // LISTAR PROFISSIONAIS
     function renderizarCards(lista) {
       const grid = document.getElementById("profissionaisGrid");
       grid.innerHTML = "";
@@ -465,10 +447,9 @@
       renderizarCards(resultado);
     }
 
-    // AGENDAMENTO DE CONSULTA
     function iniciarAgendamento(profId) {
       if (!usuarioLogado) {
-        alert("🔒 Você precisa estar conectado para agendar!\n\nRedirecionando para o login...");
+        alert("🔒 É necessário fazer login para agendar uma consulta!");
         irParaTela('login');
         return;
       }
@@ -524,7 +505,7 @@
         preco: profissionalAtual.preco
       });
 
-      alert(`🎉 Agendamento Confirmado!`);
+      alert(`🎉 Consulta agendada com sucesso com ${profissionalAtual.nome}!`);
       fecharModalAgendamento();
       irParaTela('meusAgendamentos');
     }
@@ -533,7 +514,7 @@
       const grid = document.getElementById("meusAgendamentosGrid");
       grid.innerHTML = "";
       if (listaAgendamentos.length === 0) {
-        grid.innerHTML = "<p style='color: #888; grid-column: 1/-1;'>Nenhuma consulta agendada.</p>";
+        grid.innerHTML = "<p style='color: #888; grid-column: 1/-1;'>Você ainda não possui consultas ou exames agendados.</p>";
         return;
       }
       listaAgendamentos.forEach((ag) => {
@@ -541,15 +522,16 @@
         card.className = "card";
         card.innerHTML = `
           <div>
-            <span class="card-category">Consulta Confirmada</span>
+            <span class="card-category">🟢 Agendamento Confirmado</span>
             <h4>${ag.profissional}</h4>
             <p class="card-info"><strong>Especialidade:</strong> ${ag.especialidade}</p>
             <p class="card-info"><strong>Data/Hora:</strong> ${ag.dia} às ${ag.horario}</p>
             <p class="card-info"><strong>Modalidade:</strong> ${ag.modalidade}</p>
             <p class="card-info"><strong>Valor:</strong> ${ag.preco}</p>
           </div>
-          <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; text-align: right;">
-            <button class="btn-danger" onclick="cancelarAgendamento(${ag.id})">Cancelar Consulta</button>
+          <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; display:flex; justify-content:space-between; align-items:center;">
+            <button class="btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="alert('📄 Comprovante baixado!')">Comprovante</button>
+            <button class="btn-danger" onclick="cancelarAgendamento(${ag.id})">Cancelar</button>
           </div>
         `;
         grid.appendChild(card);
@@ -561,7 +543,6 @@
       renderizarMeusAgendamentos();
     }
 
-    // ALTERAR E-MAIL COM VALIDAÇÃO DE SENHA
     function alterarEmail(e) {
       e.preventDefault();
       const novoEmail = document.getElementById("novoEmailInput").value;
@@ -572,9 +553,8 @@
         return;
       }
 
-      // Validação da senha atual
       if (senhaInformada !== usuarioLogado.senha) {
-        alert("❌ Senha incorreta! O e-mail NÃO foi alterado.");
+        alert("❌ Senha incorreta! O e-mail não foi alterado.");
         return;
       }
 
@@ -582,14 +562,13 @@
       atualizarNavUsuario();
       document.getElementById("novoEmailInput").value = "";
       document.getElementById("senhaConfirmacaoInput").value = "";
-      alert(`✅ E-mail alterado com sucesso para: ${novoEmail}`);
+      alert(`✅ E-mail alterado para: ${novoEmail}`);
     }
 
-    // ENVIAR / CADASTRAR EXAMES NA SIDEBAR
     function salvarExame(e) {
       e.preventDefault();
       if (!usuarioLogado) {
-        alert("🔒 Faça login para salvar seus exames!");
+        alert("🔒 Faça login para salvar seus documentos!");
         fecharSidebar();
         irParaTela('login');
         return;
@@ -602,12 +581,11 @@
       const fileInput = document.getElementById("arquivoInput");
       const nomeArquivo = fileInput.files[0] ? fileInput.files[0].name : "documento.pdf";
 
-      const novoExame = { id: Date.now(), tipo, nome, data, obs, arquivo: nomeArquivo };
-      listaExames.push(novoExame);
+      listaExames.push({ id: Date.now(), tipo, nome, data, obs, arquivo: nomeArquivo });
 
       document.getElementById("formUploadExame").reset();
       renderizarExames();
-      alert(`✅ ${tipo} anexado com sucesso ao perfil!`);
+      alert(`✅ ${tipo} salvo com sucesso!`);
     }
 
     function renderizarExames() {
@@ -615,20 +593,25 @@
       container.innerHTML = "";
       
       if (listaExames.length === 0) {
-        container.innerHTML = `<p style="font-size: 0.78rem; color: #888;">Nenhum exame cadastrado no momento.</p>`;
+        container.innerHTML = `<p style="font-size: 0.78rem; color: #888;">Nenhum documento anexado.</p>`;
         return;
       }
 
       listaExames.forEach(ex => {
+        let classBadge = "badge-pedido";
+        if(ex.tipo.includes("Exame")) classBadge = "badge-exame";
+        if(ex.tipo.includes("Laudo")) classBadge = "badge-laudo";
+
         const item = document.createElement("div");
         item.className = "exame-item";
         item.innerHTML = `
           <div>
-            <strong>[${ex.tipo}] ${ex.nome}</strong><br>
-            <span style="color:#666;">Data: ${ex.data} • 📎 ${ex.arquivo}</span><br>
-            <span style="color:#888; font-style:italic;">Obs: ${ex.obs}</span>
+            <span class="badge-status ${classBadge}">${ex.tipo}</span><br>
+            <strong style="color:#0d5c46;">${ex.nome}</strong><br>
+            <span style="color:#555;">📅 ${ex.data} • 📎 ${ex.arquivo}</span><br>
+            <span style="color:#777; font-style:italic;">Obs: ${ex.obs}</span>
           </div>
-          <button style="background:none; border:none; color:#d9534f; cursor:pointer; font-size:1.1rem;" onclick="removerExame(${ex.id})">&times;</button>
+          <button style="background:none; border:none; color:#d9534f; cursor:pointer; font-size:1.2rem; font-weight:bold;" onclick="removerExame(${ex.id})">&times;</button>
         `;
         container.appendChild(item);
       });
@@ -639,7 +622,6 @@
       renderizarExames();
     }
 
-    // LOGIN & CADASTRO
     function executarLogin(e) {
       e.preventDefault();
       const email = document.getElementById("loginEmail").value;
@@ -668,7 +650,7 @@
         <button class="btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="deslogar()">Sair</button>
       `;
 
-      document.getElementById("sidebarUserStatus").innerHTML = `Conectado como: <strong>${usuarioLogado.email}</strong>`;
+      document.getElementById("sidebarUserStatus").innerHTML = `Conectado: <strong>${usuarioLogado.email}</strong>`;
       document.getElementById("formAlterarEmailContainer").style.display = "block";
     }
 
@@ -679,7 +661,7 @@
         <button class="btn-secondary" onclick="irParaTela('login')">Entrar</button>
         <button class="btn-primary" onclick="irParaTela('cadastro')" style="margin-left: 6px;">Cadastrar</button>
       `;
-      document.getElementById("sidebarUserStatus").textContent = "Faça login para gerenciar seu e-mail e exames.";
+      document.getElementById("sidebarUserStatus").textContent = "Faça login para gerenciar suas preferências.";
       document.getElementById("formAlterarEmailContainer").style.display = "none";
       irParaTela('home');
     }
