@@ -38,12 +38,13 @@
     .filter-wrapper { flex: 1; min-width: 160px; border-left: 1px solid #eee; padding-left: 8px; }
     .filter-wrapper select { width: 100%; border: none; outline: none; background: transparent; font-size: 0.9rem; color: #495057; cursor: pointer; padding: 6px 4px; }
 
-    /* CARDS */
+    /* CARDS & CONTADOR */
     .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
     .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); border: 1px solid #eef2f0; display: flex; flex-direction: column; justify-content: space-between; }
     .card h4 { color: #0d5c46; font-size: 1.1rem; margin-bottom: 6px; }
     .card-category { display: inline-block; background: #eef8f3; color: #0d5c46; font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; font-weight: 600; margin-bottom: 8px; }
     .card-info { font-size: 0.88rem; color: #666; margin-bottom: 4px; }
+    .results-counter { font-size: 0.9rem; color: #4a6158; margin-bottom: 15px; font-weight: 600; }
 
     /* SIDEBAR */
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: 1000; }
@@ -132,7 +133,7 @@
     
     <div class="sidebar-body">
       
-      <!-- PERFIL & SEGURA - TROCA DE EMAIL -->
+      <!-- PERFIL & SEGURANÇA - TROCA DE EMAIL -->
       <div id="sidebarPerfilSection" class="sidebar-section">
         <h4>👤 Perfil do Paciente</h4>
         <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;" id="sidebarUserStatus">Faça login para gerenciar suas preferências.</p>
@@ -255,7 +256,7 @@
           
           <div class="filter-wrapper">
             <select id="categoriaFilter" onchange="filtrarProfissionais()">
-              <option value="">Todas as Categoria</option>
+              <option value="">Todas as Categorias</option>
               <option value="Saúde & Medicina">Saúde & Medicina</option>
               <option value="Odontologia">Odontologia</option>
               <option value="Estética & Bem-Estar">Estética & Bem-Estar</option>
@@ -277,7 +278,7 @@
     </section>
 
     <main class="container" style="padding: 30px 16px;">
-      <h3 style="color: #0d5c46; margin-bottom: 20px;">Profissionais em Destaque</h3>
+      <div class="results-counter" id="resultsCounter">Exibindo 50 profissionais disponíveis</div>
       <div id="profissionaisGrid" class="cards-grid"></div>
     </main>
   </div>
@@ -363,13 +364,65 @@
   </div>
 
   <script>
+    // LISTA COMPLETA COM 50 PROFISSIONAIS
     const profissionais = [
+      // SAÚDE & MEDICINA (15)
       { id: 1, nome: "Dra. Camila Santos", categoria: "Saúde & Medicina", especialidade: "Cardiologia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 250" },
       { id: 2, nome: "Dr. Roberto Oliveira", categoria: "Saúde & Medicina", especialidade: "Pediatria", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 200" },
       { id: 3, nome: "Dra. Juliana Lima", categoria: "Saúde & Medicina", especialidade: "Dermatologia Médica", cidade: "Belo Horizonte", atendimento: "Presencial e Online", preco: "R$ 280" },
-      { id: 4, nome: "Dr. Gustavo Alencar", categoria: "Odontologia", especialidade: "Ortodontia", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 180" },
-      { id: 5, nome: "Dra. Aline Ferraz", categoria: "Estética & Bem-Estar", especialidade: "Harmonização Facial", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 450" },
-      { id: 6, nome: "Dr. André Martins", categoria: "Veterinária", especialidade: "Clínico Geral Vet", cidade: "São Paulo", atendimento: "Presencial e Domiciliar", preco: "R$ 160" }
+      { id: 4, nome: "Dra. Patricia Mendes", categoria: "Saúde & Medicina", especialidade: "Ginecologia & Obstetrícia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 300" },
+      { id: 5, nome: "Dr. Marcelo Siqueira", categoria: "Saúde & Medicina", especialidade: "Ortopedia & Traumatologia", cidade: "Curitiba", atendimento: "Presencial e Online", preco: "R$ 260" },
+      { id: 6, nome: "Dr. Fernando Castro", categoria: "Saúde & Medicina", especialidade: "Neurologia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 350" },
+      { id: 7, nome: "Dra. Helena Vasconcelos", categoria: "Saúde & Medicina", especialidade: "Endocrinologia", cidade: "Rio de Janeiro", atendimento: "Presencial e Online", preco: "R$ 290" },
+      { id: 8, nome: "Dr. Ricardo Almeida", categoria: "Saúde & Medicina", especialidade: "Psiquiatria", cidade: "Belo Horizonte", atendimento: "Online", preco: "R$ 320" },
+      { id: 9, nome: "Dra. Vanessa Guimarães", categoria: "Saúde & Medicina", especialidade: "Oftalmologia", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 240" },
+      { id: 10, nome: "Dr. Gabriel Pires", categoria: "Saúde & Medicina", especialidade: "Otorrinolaringologia", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 270" },
+      { id: 11, nome: "Dra. Renata Silveira", categoria: "Saúde & Medicina", especialidade: "Nutrologia", cidade: "Rio de Janeiro", atendimento: "Presencial e Online", preco: "R$ 310" },
+      { id: 12, nome: "Dr. Thiago Nogueira", categoria: "Saúde & Medicina", especialidade: "Urologia", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 280" },
+      { id: 13, nome: "Dra. Mariana Paiva", categoria: "Saúde & Medicina", especialidade: "Gastroenterologia", cidade: "Curitiba", atendimento: "Presencial e Online", preco: "R$ 260" },
+      { id: 14, nome: "Dr. Eduardo Fonseca", categoria: "Saúde & Medicina", especialidade: "Pneumologia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 290" },
+      { id: 15, nome: "Dra. Clarice Prado", categoria: "Saúde & Medicina", especialidade: "Reumatologia", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 300" },
+
+      // ODONTOLOGIA (12)
+      { id: 16, nome: "Dr. Gustavo Alencar", categoria: "Odontologia", especialidade: "Ortodontia", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 180" },
+      { id: 17, nome: "Dr. Lucas Barbosa", categoria: "Odontologia", especialidade: "Implantodontia", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 220" },
+      { id: 18, nome: "Dr. Rodrigo Xavier", categoria: "Odontologia", especialidade: "Endodontia (Canal)", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 210" },
+      { id: 19, nome: "Dra. Sofia Martins", categoria: "Odontologia", especialidade: "Odontopediatria", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 190" },
+      { id: 20, nome: "Dr. André Lemos", categoria: "Odontologia", especialidade: "Periodontia (Gengiva)", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 200" },
+      { id: 21, nome: "Dra. Larissa Ramos", categoria: "Odontologia", especialidade: "Prótese Dentária", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 250" },
+      { id: 22, nome: "Dr. Bruno Viana", categoria: "Odontologia", especialidade: "Cirurgia Bucomaxilofacial", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 350" },
+      { id: 23, nome: "Dra. Isabela Faria", categoria: "Odontologia", especialidade: "Dentística Estética", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 230" },
+      { id: 24, nome: "Dr. Caio Henrique", categoria: "Odontologia", especialidade: "Clínico Geral Odonto", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 150" },
+      { id: 25, nome: "Dra. Natalia Duarte", categoria: "Odontologia", especialidade: "Harmonização Orofacial", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 380" },
+      { id: 26, nome: "Dr. Vinicius Rocha", categoria: "Odontologia", especialidade: "Ortodontia Invisível", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 290" },
+      { id: 27, nome: "Dra. Leticia Resende", categoria: "Odontologia", especialidade: "Radiologia Odontológica", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 160" },
+
+      // ESTÉTICA & BEM-ESTAR (12)
+      { id: 28, nome: "Dra. Aline Ferraz", categoria: "Estética & Bem-Estar", especialidade: "Harmonização Facial", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 450" },
+      { id: 29, nome: "Dra. Fernanda Rocha", categoria: "Estética & Bem-Estar", especialidade: "Dermatologia Estética", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 380" },
+      { id: 30, nome: "Dra. Carolina Freitas", categoria: "Estética & Bem-Estar", especialidade: "Biomedicina Estética", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 320" },
+      { id: 31, nome: "Dra. Paula Torres", categoria: "Estética & Bem-Estar", especialidade: "Fisioterapia Dermato-Funcional", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 220" },
+      { id: 32, nome: "Dr. Daniel Cardoso", categoria: "Estética & Bem-Estar", especialidade: "Terapia Corporal & Massoterapia", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 180" },
+      { id: 33, nome: "Dra. Amanda Campos", categoria: "Estética & Bem-Estar", especialidade: "Nutrição Estética & Esportiva", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 210" },
+      { id: 34, nome: "Dr. Hugo Antunes", categoria: "Estética & Bem-Estar", especialidade: "Terapia Capilar & Tricologia", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 290" },
+      { id: 35, nome: "Dra. Sabrina Bueno", categoria: "Estética & Bem-Estar", especialidade: "Estética Avançada", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 400" },
+      { id: 36, nome: "Dr. Leonardo Maia", categoria: "Estética & Bem-Estar", especialidade: "Acupuntura & Bem-Estar", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 190" },
+      { id: 37, nome: "Dra. Tatiana Neves", categoria: "Estética & Bem-Estar", especialidade: "Design de Sobrancelhas & Micropigmentação", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 250" },
+      { id: 38, nome: "Dr. Alex Moraes", categoria: "Estética & Bem-Estar", especialidade: "Podologia & Cuidados dos Pés", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 140" },
+      { id: 39, nome: "Dra. Bianca Figueiredo", categoria: "Estética & Bem-Estar", especialidade: "Cosmetologia Aplicada", cidade: "Belo Horizonte", atendimento: "Presencial e Online", preco: "R$ 270" },
+
+      // VETERINÁRIA (11)
+      { id: 40, nome: "Dr. André Martins", categoria: "Veterinária", especialidade: "Clínico Geral Vet", cidade: "São Paulo", atendimento: "Presencial e Domiciliar", preco: "R$ 160" },
+      { id: 41, nome: "Dra. Beatriz Costa", categoria: "Veterinária", especialidade: "Dermatologia Veterinária", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 190" },
+      { id: 42, nome: "Dr. Igor Peixoto", categoria: "Veterinária", especialidade: "Cirurgia Veterinária", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 300" },
+      { id: 43, nome: "Dra. Camila Toledo", categoria: "Veterinária", especialidade: "Cardiologia Veterinária", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 220" },
+      { id: 44, nome: "Dr. Samuel Marques", categoria: "Veterinária", especialidade: "Oftalmologia Veterinária", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 210" },
+      { id: 45, nome: "Dra. Alicia Godoy", categoria: "Veterinária", especialidade: "Odontologia Veterinária", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 250" },
+      { id: 46, nome: "Dr. Marcos Vinicius", categoria: "Veterinária", especialidade: "Ortopedia Veterinária", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 280" },
+      { id: 47, nome: "Dra. Débora Sales", categoria: "Veterinária", especialidade: "Medicina de Felinos (Gatos)", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 180" },
+      { id: 48, nome: "Dr. Fabricio Dias", categoria: "Veterinária", especialidade: "Animais Silvestres & Exóticos", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 240" },
+      { id: 49, nome: "Dra. Luana Teixeira", categoria: "Veterinária", especialidade: "Neurologia Veterinária", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 270" },
+      { id: 50, nome: "Dr. Paulo Esteves", categoria: "Veterinária", especialidade: "Oncologia Veterinária", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 310" }
     ];
 
     const agendaExemplo = [
@@ -411,7 +464,16 @@
 
     function renderizarCards(lista) {
       const grid = document.getElementById("profissionaisGrid");
+      const counter = document.getElementById("resultsCounter");
       grid.innerHTML = "";
+      
+      counter.textContent = `Exibindo ${lista.length} profissional(is) encontrado(s)`;
+
+      if (lista.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #888; padding: 40px 0;">Nenhum profissional encontrado com os filtros selecionados.</p>`;
+        return;
+      }
+
       lista.forEach((prof) => {
         const card = document.createElement("div");
         card.className = "card";
