@@ -96,8 +96,8 @@
     .badge-laudo { background: #fff3e0; color: #e65100; }
     .exame-item { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; margin-top: 10px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; }
 
-    /* MENSAGENS DE ERRO */
-    .error-msg { display: none; color: #d9534f; font-size: 0.8rem; margin-top: 4px; font-weight: 600; }
+    /* MENSAGENS DE ERRO DESTACADAS */
+    .error-msg { display: none; color: #d9534f; font-size: 0.82rem; margin-top: 6px; font-weight: 700; background: #fdf7f7; padding: 6px 10px; border-radius: 6px; border: 1px solid #f5c6cb; }
 
     /* AUTH & PERFIL CONTAINER */
     .auth-page-container { min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; padding: 30px 16px; background: linear-gradient(135deg, #eef8f3 0%, #f8faf9 100%); }
@@ -246,10 +246,10 @@
         <img src="logo_aplus_.png" alt="AgendaPlus">
         <h2>Entrar no Sistema</h2>
         <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Faça login para gerenciar consultas e anexar documentos</p>
-        <form id="formLogin" onsubmit="executarLogin(event)">
+        <form id="formLogin" onsubmit="executarLogin(event)" novalidate>
           <div class="input-group">
             <label>E-mail</label>
-            <input type="email" id="loginEmail" placeholder="seuemail@gmail.com" required autocomplete="off">
+            <input type="text" id="loginEmail" placeholder="seuemail@gmail.com" required autocomplete="off">
             <span id="loginEmailError" class="error-msg">⚠️ Por favor, insira um e-mail válido (@gmail, @outlook, @yahoo, @hotmail, etc).</span>
           </div>
           <div class="input-group">
@@ -272,7 +272,7 @@
         <img src="logo_aplus_.png" alt="AgendaPlus">
         <h2>Nova Conta</h2>
         <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Cadastre-se no AgendaPlus</p>
-        <form id="formCadastro" onsubmit="executarCadastro(event)">
+        <form id="formCadastro" onsubmit="executarCadastro(event)" novalidate>
           <div class="input-group">
             <label>Nome Completo</label>
             <input type="text" id="cadNome" placeholder="Seu nome" required autocomplete="off">
@@ -283,7 +283,7 @@
           </div>
           <div class="input-group">
             <label>E-mail</label>
-            <input type="email" id="cadEmail" placeholder="seuemail@gmail.com" required autocomplete="off">
+            <input type="text" id="cadEmail" placeholder="seuemail@gmail.com" required autocomplete="off">
             <span id="cadEmailError" class="error-msg">⚠️ Por favor, insira um e-mail válido (@gmail, @outlook, @yahoo, @hotmail, etc).</span>
           </div>
           <div class="input-group">
@@ -313,7 +313,7 @@
         </div>
 
         <div id="tabContentPerfil" class="tab-content active">
-          <form id="formAtualizarPerfil" onsubmit="atualizarPerfilPaciente(event)">
+          <form id="formAtualizarPerfil" onsubmit="atualizarPerfilPaciente(event)" novalidate>
             <div class="input-group">
               <label>Nome Completo</label>
               <input type="text" id="perfilNome" required>
@@ -326,7 +326,7 @@
 
             <div class="input-group">
               <label>E-mail de Cadastro</label>
-              <input type="email" id="perfilEmail" required>
+              <input type="text" id="perfilEmail" required>
               <span id="perfilEmailError" class="error-msg">⚠️ Por favor, insira um e-mail válido (@gmail, @outlook, @yahoo, @hotmail, etc).</span>
             </div>
 
@@ -482,16 +482,14 @@
     let usuarioLogado = JSON.parse(localStorage.getItem("agendaplus_sessao")) || null;
     let profissionalAtual = null;
 
-    // VALIDAÇÃO ESTRITA DE EMAIL VÁLIDO
+    // FUNÇÃO VALIDADORA DE EMAIL REAL
     function validarEmailReal(email) {
       if (!email) return false;
       const emailLower = email.trim().toLowerCase();
       
-      // Valida estrutura básica usuario@dominio.extensao
       const regexEstrutura = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!regexEstrutura.test(emailLower)) return false;
 
-      // Domínios válidos permitidos
       const dominiosValidos = [
         "@gmail.com", "@yahoo.com", "@yahoo.com.br", 
         "@hotmail.com", "@outlook.com", "@outlook.com.br", 
@@ -522,7 +520,7 @@
       
       if (nomeTela === 'perfil') {
         if (!usuarioLogado) {
-          alert("🔒 Acesso restrito! Por favor, insira um e-mail válido e faça login.");
+          alert("🔒 Acesso restrito! Por favor, faça login para gerenciar seu perfil.");
           irParaTela('login');
           return;
         }
@@ -779,7 +777,7 @@
 
       if (!validarEmailReal(novoEmail)) {
         errSpan.style.display = "block";
-        alert("⚠️ Por favor, insira um e-mail válido!");
+        alert("⚠️ Por favor, insira um e-mail válido (@gmail, @outlook, @yahoo, @hotmail, etc).");
         return;
       }
 
@@ -884,7 +882,7 @@
 
       if (!validarEmailReal(email)) {
         errSpan.style.display = "block";
-        alert("⚠️ Por favor, insira um e-mail válido!");
+        alert("⚠️ Por favor, insira um e-mail válido (@gmail, @outlook, @yahoo, @hotmail, etc).");
         return;
       }
       
@@ -915,7 +913,7 @@
 
       if (!validarEmailReal(email)) {
         errSpan.style.display = "block";
-        alert("⚠️ Por favor, insira um e-mail válido!");
+        alert("⚠️ Por favor, insira um e-mail válido (@gmail, @outlook, @yahoo, @hotmail, etc).");
         return;
       }
 
