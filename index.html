@@ -248,7 +248,7 @@
         <form id="formLogin" onsubmit="executarLogin(event)">
           <div class="input-group">
             <label>E-mail</label>
-            <input type="email" id="loginEmail" placeholder="seu@email.com" required autocomplete="off">
+            <input type="email" id="loginEmail" placeholder="seu@gmail.com, outlook, etc." required autocomplete="off">
           </div>
           <div class="input-group">
             <label>Senha</label>
@@ -280,8 +280,8 @@
             <input type="date" id="cadNascimento" required autocomplete="off">
           </div>
           <div class="input-group">
-            <label>E-mail</label>
-            <input type="email" id="cadEmail" placeholder="seu@email.com" required autocomplete="off">
+            <label>E-mail (Gmail, Yahoo, Outlook, Hotmail, etc.)</label>
+            <input type="email" id="cadEmail" placeholder="seuemail@gmail.com" required autocomplete="off">
           </div>
           <div class="input-group">
             <label>Crie uma Senha</label>
@@ -482,6 +482,27 @@
     let bancoUsuarios = JSON.parse(localStorage.getItem("agendaplus_usuarios")) || [];
     let usuarioLogado = JSON.parse(localStorage.getItem("agendaplus_sessao")) || null;
     let profissionalAtual = null;
+
+    // VALIDADOR RIGOROSO DE EMAIL
+    function validarEmailReal(email) {
+      // RegEx para estrutura básica válida
+      const regexEstrutura = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!regexEstrutura.test(email)) return false;
+
+      // Lista de domínios ou sufixos válidos permitidos
+      const emailLower = email.toLowerCase();
+      const provedoresConhecidos = [
+        "@gmail.com", "@yahoo.com", "@yahoo.com.br", 
+        "@hotmail.com", "@outlook.com", "@outlook.com.br", 
+        "@live.com", "@icloud.com", "@bol.com.br", "@uol.com.br"
+      ];
+
+      // Verifica se termina com um provedor famoso ou com um domínio institucional legítimo (.com, .com.br, .org, .edu, etc)
+      const eProvedorConhecido = provedoresConhecidos.some(p => emailLower.endsWith(p));
+      const eDominioCorporativoValido = emailLower.includes(".com") || emailLower.includes(".br") || emailLower.includes(".org") || emailLower.includes(".edu");
+
+      return eProvedorConhecido || eDominioCorporativoValido;
+    }
 
     function salvarBanco() {
       localStorage.setItem("agendaplus_usuarios", JSON.stringify(bancoUsuarios));
@@ -687,7 +708,6 @@
         preco: profissionalAtual.preco
       });
 
-      // Atualiza usuário no banco simulado
       const idx = bancoUsuarios.findIndex(u => u.email === usuarioLogado.email);
       if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
 
@@ -751,8 +771,13 @@
       e.preventDefault();
       const novoNome = document.getElementById("perfilNome").value;
       const novoNascimento = document.getElementById("perfilNascimento").value;
-      const novoEmail = document.getElementById("perfilEmail").value;
+      const novoEmail = document.getElementById("perfilEmail").value.trim();
       const senhaInformada = document.getElementById("perfilSenhaAtual").value;
+
+      if (!validarEmailReal(novoEmail)) {
+        alert("⚠️ Por favor, insira um e-mail válido (ex: @gmail.com, @yahoo.com, @outlook.com, @hotmail.com).");
+        return;
+      }
 
       if (senhaInformada !== usuarioLogado.senha) {
         alert("❌ Senha incorreta! As alterações do perfil NÃO foram salvas.");
@@ -847,8 +872,14 @@
 
     function executarLogin(e) {
       e.preventDefault();
-      const email = document.getElementById("loginEmail").value;
+      const email = document.getElementById("loginEmail").value.trim();
       const senha = document.getElementById("loginSenha").value;
+
+      // Validação de e-mail real
+      if (!validarEmailReal(email)) {
+        alert("⚠️ Por favor, informe um endereço de e-mail válido (ex: seuemail@gmail.com, outlook, yahoo, hotmail).");
+        return;
+      }
       
       const usuarioEncontrado = bancoUsuarios.find(u => u.email === email && u.senha === senha);
 
@@ -869,8 +900,14 @@
       e.preventDefault();
       const nome = document.getElementById("cadNome").value;
       const nascimento = document.getElementById("cadNascimento").value;
-      const email = document.getElementById("cadEmail").value;
+      const email = document.getElementById("cadEmail").value.trim();
       const senha = document.getElementById("cadSenha").value;
+
+      // Validação de e-mail real
+      if (!validarEmailReal(email)) {
+        alert("⚠️ Por favor, informe um e-mail válido (ex: @gmail.com, @yahoo.com, @outlook.com, @hotmail.com).");
+        return;
+      }
 
       const existeEmail = bancoUsuarios.some(u => u.email === email);
       if (existeEmail) {
@@ -922,7 +959,6 @@
       renderizarCards(profissionais);
       atualizarNavUsuario();
 
-      // REDIRECIONAMENTO INICIAL: Se não houver usuário logado, abre direto no Login
       if (!usuarioLogado) {
         irParaTela('login');
       } else {
