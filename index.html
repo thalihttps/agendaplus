@@ -18,6 +18,7 @@
     .brand-text p { font-size: 0.75rem; color: #666; }
     .nav-menu { display: flex; align-items: center; gap: 15px; }
     .nav-link { text-decoration: none; color: #4a6158; font-weight: 600; font-size: 0.95rem; cursor: pointer; }
+    .nav-link:hover { color: #0d5c46; }
     .btn-primary { background-color: #0d5c46; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: 0.2s; }
     .btn-primary:hover { background-color: #094736; }
     .btn-secondary { background-color: transparent; color: #0d5c46; border: 1.5px solid #0d5c46; padding: 8px 18px; border-radius: 20px; font-weight: 600; cursor: pointer; }
@@ -75,13 +76,15 @@
     .badge-laudo { background: #fff3e0; color: #e65100; }
     .exame-item { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px; margin-top: 8px; font-size: 0.82rem; display: flex; justify-content: space-between; align-items: flex-start; }
 
-    /* AUTH & MODAL */
+    /* AUTH & PERFIL CONTAINER */
     .auth-page-container { min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; padding: 30px 16px; background: linear-gradient(135deg, #eef8f3 0%, #f8faf9 100%); }
-    .auth-card { background: white; border-radius: 18px; padding: 36px 30px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e0f2e9; text-align: center; }
+    .auth-card { background: white; border-radius: 18px; padding: 36px 30px; width: 100%; max-width: 480px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e0f2e9; text-align: center; }
     .auth-card img { height: 50px; margin-bottom: 12px; }
     .input-group { margin-bottom: 16px; text-align: left; }
     .input-group label { display: block; font-size: 0.85rem; color: #444; margin-bottom: 6px; font-weight: 600; }
     .input-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 0.95rem; outline: none; }
+    
+    /* MODAL */
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.55); justify-content: center; align-items: center; z-index: 1000; padding: 16px; }
     .modal-content { background: white; padding: 28px; border-radius: 16px; width: 100%; max-width: 650px; position: relative; }
     .close-btn { position: absolute; top: 14px; right: 18px; font-size: 1.5rem; cursor: pointer; color: #888; border: none; background: none; }
@@ -110,9 +113,10 @@
       <nav class="nav-menu">
         <span onclick="irParaTela('home')" class="nav-link">Profissionais</span>
         <span id="navMeusAgendamentosLink" onclick="irParaTela('meusAgendamentos')" class="nav-link" style="display: none;">Meus Agendamentos</span>
-        
+        <span id="navMeuPerfilLink" onclick="irParaTela('perfil')" class="nav-link" style="display: none;">👤 Meu Perfil</span>
+
         <button class="btn-sidebar" onclick="abrirSidebar()">
-          ⚙️ <span id="btnSidebarLabel">Menu & Unidades</span>
+          ⚙️ <span id="btnSidebarLabel">Unidades & Documentos</span>
         </button>
 
         <div id="navUserArea">
@@ -123,37 +127,16 @@
     </div>
   </header>
 
-  <!-- SIDEBAR -->
+  <!-- SIDEBAR (UNIDADES DE EXAMES E UPLOAD) -->
   <div id="sidebarOverlay" class="sidebar-overlay" onclick="fecharSidebar()"></div>
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">
-      <h3 style="font-size:1.1rem;">Central do Paciente & Unidades</h3>
+      <h3 style="font-size:1.1rem;">Unidades & Documentos</h3>
       <button class="sidebar-close" onclick="fecharSidebar()">&times;</button>
     </div>
     
     <div class="sidebar-body">
-      
-      <!-- PERFIL & SEGURANÇA - TROCA DE EMAIL -->
-      <div id="sidebarPerfilSection" class="sidebar-section">
-        <h4>👤 Perfil do Paciente</h4>
-        <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;" id="sidebarUserStatus">Faça login para gerenciar suas preferências.</p>
-
-        <div id="formAlterarEmailContainer" style="display: none;">
-          <form onsubmit="alterarEmail(event)">
-            <div class="input-group-sm">
-              <label>Novo E-mail</label>
-              <input type="email" id="novoEmailInput" placeholder="novo@email.com" required>
-            </div>
-            <div class="input-group-sm">
-              <label>Confirme com sua Senha Atual</label>
-              <input type="password" id="senhaConfirmacaoInput" placeholder="••••••••" required>
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem;">Salvar Alteração</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- EXAMES E PEDIDOS MÉDICOS -->
+      <!-- UPLOAD DE EXAMES E PEDIDOS MÉDICOS -->
       <div id="sidebarExamesSection" class="sidebar-section">
         <h4>📋 Anexar Exame / Pedido Médico</h4>
         <p style="font-size: 0.8rem; color: #666; margin-bottom: 12px;">Envie arquivos para análise da equipe clínica.</p>
@@ -185,7 +168,7 @@
 
           <div class="input-group-sm">
             <label>Observações Adicionais</label>
-            <input type="text" id="obsExameInput" placeholder="Ex: Jejum de 8 horas, medicação contínua">
+            <input type="text" id="obsExameInput" placeholder="Ex: Jejum de 8 horas">
           </div>
 
           <button type="submit" class="btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem; background: #074735;">
@@ -237,7 +220,6 @@
         </div>
 
       </div>
-
     </div>
   </aside>
 
@@ -283,7 +265,7 @@
     </main>
   </div>
 
-  <!-- AUTH -->
+  <!-- AUTH: LOGIN -->
   <div id="pageLogin" class="page-section">
     <div class="auth-page-container">
       <div class="auth-card">
@@ -293,11 +275,11 @@
         <form id="formLogin" onsubmit="executarLogin(event)">
           <div class="input-group">
             <label>E-mail</label>
-            <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+            <input type="email" id="loginEmail" placeholder="seu@email.com" required autocomplete="off">
           </div>
           <div class="input-group">
             <label>Senha</label>
-            <input type="password" id="loginSenha" placeholder="••••••••" required>
+            <input type="password" id="loginSenha" placeholder="••••••••" required autocomplete="off">
           </div>
           <button type="submit" class="btn-primary" style="width: 100%; padding: 12px;">Acessar Conta</button>
         </form>
@@ -305,6 +287,7 @@
     </div>
   </div>
 
+  <!-- AUTH: CADASTRO -->
   <div id="pageCadastro" class="page-section">
     <div class="auth-page-container">
       <div class="auth-card">
@@ -314,17 +297,55 @@
         <form id="formCadastro" onsubmit="executarCadastro(event)">
           <div class="input-group">
             <label>Nome Completo</label>
-            <input type="text" id="cadNome" placeholder="Seu nome" required>
+            <input type="text" id="cadNome" placeholder="Seu nome" required autocomplete="off">
+          </div>
+          <div class="input-group">
+            <label>Data de Nascimento</label>
+            <input type="date" id="cadNascimento" required autocomplete="off">
           </div>
           <div class="input-group">
             <label>E-mail</label>
-            <input type="email" id="cadEmail" placeholder="seu@email.com" required>
+            <input type="email" id="cadEmail" placeholder="seu@email.com" required autocomplete="off">
           </div>
           <div class="input-group">
             <label>Crie uma Senha</label>
-            <input type="password" id="cadSenha" placeholder="Crie sua senha" required>
+            <input type="password" id="cadSenha" placeholder="Crie sua senha" required autocomplete="off">
           </div>
           <button type="submit" class="btn-primary" style="width: 100%; padding: 12px;">Concluir Cadastro</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PÁGINA 2º REQUISITO: MEU PERFIL DEDICADO E CLICÁVEL -->
+  <div id="pagePerfil" class="page-section">
+    <div class="auth-page-container">
+      <div class="auth-card">
+        <h2 style="color:#0d5c46;">👤 Meu Perfil</h2>
+        <p style="color:#666; font-size: 0.9rem; margin-bottom: 24px;">Gerencie suas informações cadastrais</p>
+
+        <form id="formAtualizarPerfil" onsubmit="atualizarPerfilPaciente(event)">
+          <div class="input-group">
+            <label>Nome Completo</label>
+            <input type="text" id="perfilNome" required>
+          </div>
+
+          <div class="input-group">
+            <label>Data de Nascimento</label>
+            <input type="date" id="perfilNascimento" required>
+          </div>
+
+          <div class="input-group">
+            <label>E-mail de Cadastro</label>
+            <input type="email" id="perfilEmail" required>
+          </div>
+
+          <div class="input-group" style="border-top: 1px solid #eee; padding-top: 12px; margin-top: 12px;">
+            <label style="color:#d9534f;">Confirme sua Senha Atual para Salvar</label>
+            <input type="password" id="perfilSenhaAtual" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; padding: 12px;">Salvar Alterações</button>
         </form>
       </div>
     </div>
@@ -364,7 +385,6 @@
   </div>
 
   <script>
-    // LISTA COMPLETA COM 50 PROFISSIONAIS
     const profissionais = [
       // SAÚDE & MEDICINA (15)
       { id: 1, nome: "Dra. Camila Santos", categoria: "Saúde & Medicina", especialidade: "Cardiologia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 250" },
@@ -431,6 +451,8 @@
       { data: "Qua (16/09)", horarios: ["08:30", "14:40", "16:20"] }
     ];
 
+    // BANCO DE DADOS SIMULADO DE USUÁRIOS REGISTRADOS
+    let bancoUsuarios = [];
     let usuarioLogado = null;
     let profissionalAtual = null;
     let listaAgendamentos = [];
@@ -438,13 +460,26 @@
 
     function irParaTela(nomeTela) {
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+      
       if (nomeTela === 'home') document.getElementById('pageHome').classList.add('active');
       if (nomeTela === 'login') document.getElementById('pageLogin').classList.add('active');
       if (nomeTela === 'cadastro') document.getElementById('pageCadastro').classList.add('active');
+      
       if (nomeTela === 'meusAgendamentos') {
         renderizarMeusAgendamentos();
         document.getElementById('pageMeusAgendamentos').classList.add('active');
       }
+      
+      if (nomeTela === 'perfil') {
+        if (!usuarioLogado) {
+          alert("🔒 Faça login para acessar seu perfil!");
+          irParaTela('login');
+          return;
+        }
+        carregarDadosPerfil();
+        document.getElementById('pagePerfil').classList.add('active');
+      }
+      
       window.scrollTo(0, 0);
     }
 
@@ -605,26 +640,41 @@
       renderizarMeusAgendamentos();
     }
 
-    function alterarEmail(e) {
-      e.preventDefault();
-      const novoEmail = document.getElementById("novoEmailInput").value;
-      const senhaInformada = document.getElementById("senhaConfirmacaoInput").value;
-
-      if (!usuarioLogado) {
-        alert("🔒 Faça login para alterar suas informações.");
-        return;
+    // 2º REQUISITO: GERENCIAR DADOS DO PERFIL DEDICADO
+    function carregarDadosPerfil() {
+      if (usuarioLogado) {
+        document.getElementById("perfilNome").value = usuarioLogado.nome;
+        document.getElementById("perfilNascimento").value = usuarioLogado.nascimento || "";
+        document.getElementById("perfilEmail").value = usuarioLogado.email;
+        document.getElementById("perfilSenhaAtual").value = "";
       }
+    }
+
+    function atualizarPerfilPaciente(e) {
+      e.preventDefault();
+      const novoNome = document.getElementById("perfilNome").value;
+      const novoNascimento = document.getElementById("perfilNascimento").value;
+      const novoEmail = document.getElementById("perfilEmail").value;
+      const senhaInformada = document.getElementById("perfilSenhaAtual").value;
 
       if (senhaInformada !== usuarioLogado.senha) {
-        alert("❌ Senha incorreta! O e-mail não foi alterado.");
+        alert("❌ Senha incorreta! As alterações do perfil NÃO foram salvas.");
         return;
       }
 
+      // Se o e-mail mudou, verifica se o novo e-mail já não pertence a outro usuário
+      if (novoEmail !== usuarioLogado.email && bancoUsuarios.some(u => u.email === novoEmail)) {
+        alert("⚠️ Este e-mail já está sendo utilizado por outra conta!");
+        return;
+      }
+
+      usuarioLogado.nome = novoNome;
+      usuarioLogado.nascimento = novoNascimento;
       usuarioLogado.email = novoEmail;
+
       atualizarNavUsuario();
-      document.getElementById("novoEmailInput").value = "";
-      document.getElementById("senhaConfirmacaoInput").value = "";
-      alert(`✅ E-mail alterado para: ${novoEmail}`);
+      document.getElementById("perfilSenhaAtual").value = "";
+      alert("✅ Perfil atualizado com sucesso!");
     }
 
     function salvarExame(e) {
@@ -684,47 +734,84 @@
       renderizarExames();
     }
 
+    // AUTH: LOGIN
     function executarLogin(e) {
       e.preventDefault();
       const email = document.getElementById("loginEmail").value;
       const senha = document.getElementById("loginSenha").value;
       
-      usuarioLogado = { nome: email.split('@')[0], email: email, senha: senha };
+      // Procura no banco de dados simulado
+      const usuarioEncontrado = bancoUsuarios.find(u => u.email === email && u.senha === senha);
+
+      if (!usuarioEncontrado) {
+        alert("❌ E-mail ou senha incorretos! Verifique suas credenciais.");
+        return;
+      }
+
+      usuarioLogado = usuarioEncontrado;
       atualizarNavUsuario();
+      document.getElementById("formLogin").reset();
       irParaTela('home');
     }
 
+    // 3º REQUISITO: CADASTRAR COM VERIFICAÇÃO DE EMAIL ÚNICO
     function executarCadastro(e) {
       e.preventDefault();
       const nome = document.getElementById("cadNome").value;
+      const nascimento = document.getElementById("cadNascimento").value;
       const email = document.getElementById("cadEmail").value;
       const senha = document.getElementById("cadSenha").value;
 
-      usuarioLogado = { nome: nome, email: email, senha: senha };
+      // Validação de e-mail duplicado
+      const existeEmail = bancoUsuarios.some(u => u.email === email);
+      if (existeEmail) {
+        alert("⚠️ Este e-mail já está cadastrado em nosso sistema! Faça login ou utilize outro e-mail.");
+        return;
+      }
+
+      const novoUsuario = { nome, nascimento, email, senha };
+      bancoUsuarios.push(novoUsuario);
+      
+      usuarioLogado = novoUsuario;
       atualizarNavUsuario();
+      document.getElementById("formCadastro").reset();
+      alert("🎉 Cadastro realizado com sucesso!");
       irParaTela('home');
     }
 
     function atualizarNavUsuario() {
       document.getElementById("navMeusAgendamentosLink").style.display = "inline";
+      document.getElementById("navMeuPerfilLink").style.display = "inline";
+
       document.getElementById("navUserArea").innerHTML = `
-        <span style="font-weight: 600; color: #0d5c46; margin-right: 12px;">Olá, ${usuarioLogado.nome}</span>
+        <span style="font-weight: 600; color: #0d5c46; margin-right: 12px; cursor: pointer;" onclick="irParaTela('perfil')">Olá, ${usuarioLogado.nome.split(' ')[0]}</span>
         <button class="btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="deslogar()">Sair</button>
       `;
-
-      document.getElementById("sidebarUserStatus").innerHTML = `Conectado: <strong>${usuarioLogado.email}</strong>`;
-      document.getElementById("formAlterarEmailContainer").style.display = "block";
     }
 
+    // 1º REQUISITO: LIMPEZA COMPLETA AO SAIR
     function deslogar() {
       usuarioLogado = null;
+      listaAgendamentos = [];
+      listaExames = [];
+
+      // Oculta menus privados
       document.getElementById("navMeusAgendamentosLink").style.display = "none";
+      document.getElementById("navMeuPerfilLink").style.display = "none";
+
       document.getElementById("navUserArea").innerHTML = `
         <button class="btn-secondary" onclick="irParaTela('login')">Entrar</button>
         <button class="btn-primary" onclick="irParaTela('cadastro')" style="margin-left: 6px;">Cadastrar</button>
       `;
-      document.getElementById("sidebarUserStatus").textContent = "Faça login para gerenciar suas preferências.";
-      document.getElementById("formAlterarEmailContainer").style.display = "none";
+
+      // Limpa os valores de todos os formulários da aplicação
+      document.getElementById("formLogin").reset();
+      document.getElementById("formCadastro").reset();
+      document.getElementById("formAtualizarPerfil").reset();
+      document.getElementById("formUploadExame").reset();
+
+      renderizarExames();
+      alert("Você saiu da sua conta. Todos os dados temporários da sessão foram limpos.");
       irParaTela('home');
     }
 
