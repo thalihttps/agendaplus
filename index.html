@@ -9,7 +9,7 @@
     body { background-color: #f8faf9; color: #333; overflow-x: hidden; }
     .container { max-width: 1200px; margin: 0 auto; }
     
-    /* HEADER REORGANIZADO E LIMPO */
+    /* HEADER */
     .header { background: #ffffff; border-bottom: 1px solid #e0f2e9; padding: 12px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); }
     .header-content { display: flex; justify-content: space-between; align-items: center; }
     .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; }
@@ -27,7 +27,7 @@
     .btn-secondary:hover { background-color: #eef8f3; }
     .btn-danger { background-color: #d9534f; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.8rem; }
 
-    /* MENU TRÊS PONTINHOS (MORE OPTIONS) */
+    /* MENU TRÊS PONTINHOS */
     .more-options-container { position: relative; display: inline-block; }
     .btn-dots { background: none; border: none; font-size: 1.4rem; color: #0d5c46; cursor: pointer; padding: 4px 8px; border-radius: 50%; font-weight: bold; line-height: 1; transition: background 0.2s; }
     .btn-dots:hover { background: #eef8f3; }
@@ -61,13 +61,13 @@
     .results-counter { font-size: 0.9rem; color: #4a6158; margin-bottom: 15px; font-weight: 600; }
 
     /* ABAS DO PERFIL */
-    .profile-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; border-bottom: 2px solid #e0f2e9; padding-bottom: 10px; }
-    .tab-btn { background: none; border: none; font-size: 1rem; font-weight: 700; color: #666; padding: 8px 16px; cursor: pointer; border-radius: 20px; transition: 0.2s; }
+    .profile-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; border-bottom: 2px solid #e0f2e9; padding-bottom: 10px; flex-wrap: wrap; }
+    .tab-btn { background: none; border: none; font-size: 0.95rem; font-weight: 700; color: #666; padding: 8px 16px; cursor: pointer; border-radius: 20px; transition: 0.2s; }
     .tab-btn.active { background: #0d5c46; color: white; }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* SIDEBAR (BARRA LATERAL SLIDE) */
+    /* SIDEBAR (BARRA LATERAL SLIDE PARA UNIDADES) */
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.4); z-index: 1000; }
     .sidebar-overlay.active { display: block; }
     .sidebar { position: fixed; top: 0; right: -420px; width: 100%; max-width: 400px; height: 100vh; background: #ffffff; z-index: 1001; box-shadow: -5px 0 25px rgba(0,0,0,0.15); transition: right 0.3s ease-in-out; display: flex; flex-direction: column; overflow-y: auto; }
@@ -76,16 +76,16 @@
     .sidebar-close { background: none; border: none; color: white; font-size: 1.6rem; cursor: pointer; }
     .sidebar-body { padding: 20px; flex: 1; }
 
-    /* COMPONENTES SIDEBAR */
-    .sidebar-section { background: #f8faf9; border: 1px solid #e1f0e8; border-radius: 12px; padding: 16px; margin-bottom: 20px; }
-    .sidebar-section h4 { color: #0d5c46; font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    /* COMPONENTES DE DOCUMENTOS E FORMULÁRIOS */
+    .section-box { background: #f8faf9; border: 1px solid #e1f0e8; border-radius: 12px; padding: 20px; margin-bottom: 20px; text-align: left; }
+    .section-box h4 { color: #0d5c46; font-size: 1.05rem; margin-bottom: 12px; }
     .input-group-sm { margin-bottom: 12px; text-align: left; }
-    .input-group-sm label { display: block; font-size: 0.8rem; color: #555; margin-bottom: 4px; font-weight: 600; }
-    .input-group-sm input, .input-group-sm select { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.88rem; outline: none; }
+    .input-group-sm label { display: block; font-size: 0.85rem; color: #555; margin-bottom: 4px; font-weight: 600; }
+    .input-group-sm input, .input-group-sm select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.9rem; outline: none; }
 
     /* ACCORDION */
     .accordion-item { border: 1px solid #d1e7dd; border-radius: 8px; margin-bottom: 8px; overflow: hidden; background: white; }
-    .accordion-btn { width: 100%; padding: 10px 14px; text-align: left; background: #eef8f3; border: none; font-weight: 700; color: #0d5c46; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+    .accordion-btn { width: 100%; padding: 12px 14px; text-align: left; background: #eef8f3; border: none; font-weight: 700; color: #0d5c46; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
     .accordion-content { display: none; padding: 12px; font-size: 0.85rem; color: #555; background: white; line-height: 1.4; border-top: 1px solid #eef8f3; }
     .accordion-content.open { display: block; }
 
@@ -94,11 +94,11 @@
     .badge-pedido { background: #e3f2fd; color: #0d47a1; }
     .badge-exame { background: #e8f5e9; color: #1b5e20; }
     .badge-laudo { background: #fff3e0; color: #e65100; }
-    .exame-item { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px; margin-top: 8px; font-size: 0.82rem; display: flex; justify-content: space-between; align-items: flex-start; }
+    .exame-item { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; margin-top: 10px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; }
 
     /* AUTH & PERFIL CONTAINER */
     .auth-page-container { min-height: calc(100vh - 80px); display: flex; align-items: center; justify-content: center; padding: 30px 16px; background: linear-gradient(135deg, #eef8f3 0%, #f8faf9 100%); }
-    .auth-card { background: white; border-radius: 18px; padding: 36px 30px; width: 100%; max-width: 600px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e0f2e9; text-align: center; }
+    .auth-card { background: white; border-radius: 18px; padding: 36px 30px; width: 100%; max-width: 650px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #e0f2e9; text-align: center; }
     .auth-card img { height: 50px; margin-bottom: 12px; }
     .input-group { margin-bottom: 16px; text-align: left; }
     .input-group label { display: block; font-size: 0.85rem; color: #444; margin-bottom: 6px; font-weight: 600; }
@@ -119,7 +119,7 @@
 </head>
 <body>
 
-  <!-- HEADER MODERNO -->
+  <!-- HEADER -->
   <header class="header">
     <div class="container header-content">
       <div class="logo-area" onclick="irParaTela('home')">
@@ -132,93 +132,42 @@
       
       <nav class="nav-menu">
         <span onclick="irParaTela('home')" class="nav-link">Profissionais</span>
-        <span id="navMeuPerfilLink" onclick="irParaTela('perfil')" class="nav-link" style="display: none;">Meu Perfil</span>
 
-        <!-- BOTÕES DE AUTH NO MEIO -->
+        <!-- BOTÕES DE AUTENTICAÇÃO -->
         <div id="navUserArea" style="display: flex; align-items: center; gap: 8px;">
           <button class="btn-secondary" onclick="irParaTela('login')">Entrar</button>
           <button class="btn-primary" onclick="irParaTela('cadastro')">Cadastrar</button>
         </div>
 
-        <!-- MENU DE TRÊS PONTINHOS DISCRETO -->
+        <!-- MENU DE TRÊS PONTINHOS -->
         <div class="more-options-container">
           <button class="btn-dots" onclick="toggleDropdownMenu(event)" title="Mais opções">⋮</button>
           <div id="dropdownMenu" class="dropdown-menu">
-            <a class="dropdown-item" onclick="abrirSidebarSection('unidades')">Unidades de Atendimento</a>
-            <a class="dropdown-item" onclick="abrirSidebarSection('exames')">Anexar Documentos</a>
+            <a class="dropdown-item" onclick="acessarMeuPerfilOuLogin()">Meu Perfil</a>
+            <a class="dropdown-item" onclick="abrirUnidadesSidebar()">Unidades de Atendimento</a>
           </div>
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- SIDEBAR (UNIDADES DE EXAMES E UPLOAD) -->
+  <!-- SIDEBAR (UNIDADES DE ATENDIMENTO) -->
   <div id="sidebarOverlay" class="sidebar-overlay" onclick="fecharSidebar()"></div>
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">
-      <h3 style="font-size:1.1rem;" id="sidebarTitle">Unidades & Documentos</h3>
+      <h3 style="font-size:1.1rem;">Unidades de Atendimento</h3>
       <button class="sidebar-close" onclick="fecharSidebar()">&times;</button>
     </div>
     
     <div class="sidebar-body">
-      <!-- UPLOAD DE EXAMES E PEDIDOS MÉDICOS -->
-      <div id="sidebarExamesSection" class="sidebar-section">
-        <h4>Anexar Exame / Pedido Médico</h4>
-        <p style="font-size: 0.8rem; color: #666; margin-bottom: 12px;">Envie arquivos para análise da equipe clínica.</p>
-
-        <form id="formUploadExame" onsubmit="salvarExame(event)">
-          <div class="input-group-sm">
-            <label>Tipo do Documento</label>
-            <select id="tipoDocSelect" required>
-              <option value="Pedido Médico">Pedido Médico</option>
-              <option value="Resultado de Exame">Resultado de Exame</option>
-              <option value="Laudo / Atestado">Laudo / Atestado</option>
-            </select>
-          </div>
-
-          <div class="input-group-sm">
-            <label>Especialidade / Descrição</label>
-            <input type="text" id="nomeExameInput" placeholder="Ex: Hemograma, Tomografia, Exame de Sangue" required>
-          </div>
-
-          <div class="input-group-sm">
-            <label>Data do Pedido/Exame</label>
-            <input type="date" id="dataExameInput" required>
-          </div>
-
-          <div class="input-group-sm">
-            <label>Anexo (Imagem ou PDF)</label>
-            <input type="file" id="arquivoInput" accept="image/*,.pdf" required>
-          </div>
-
-          <div class="input-group-sm">
-            <label>Observações Adicionais</label>
-            <input type="text" id="obsExameInput" placeholder="Ex: Jejum de 8 horas">
-          </div>
-
-          <button type="submit" class="btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem; background: #074735;">
-            Enviar para Prontuário
-          </button>
-        </form>
-
-        <div style="margin-top: 15px;">
-          <h5 style="font-size: 0.85rem; color: #0d5c46; margin-bottom: 6px;">Documentos Enviados:</h5>
-          <div id="listaExamesAnexados">
-            <p style="font-size: 0.78rem; color: #888;">Nenhum documento anexado.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- UNIDADES DE ATENDIMENTO -->
-      <div id="sidebarUnidadesSection" class="sidebar-section">
-        <h4>Unidades de Atendimento</h4>
-        <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Endereços completos para exames presenciais:</p>
+      <div class="sidebar-section">
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px;">Endereços das nossas unidades para atendimento presencial e exames:</p>
 
         <div class="accordion-item">
           <button class="accordion-btn" onclick="toggleAccordion('unidadeBH')">Belo Horizonte (BH) <span>▼</span></button>
           <div id="unidadeBH" class="accordion-content">
             <p><strong>Unidade Savassi</strong></p>
-            <p>Rua Av. Getúlio Vargas, 1420 - Savassi</p>
+            <p>Av. Getúlio Vargas, 1420 - Savassi</p>
             <p>CEP: 30112-021 • Belo Horizonte - MG</p>
             <p>Tel: (31) 3344-5566</p>
           </div>
@@ -247,8 +196,8 @@
     </div>
   </aside>
 
-  <!-- HOME -->
-  <div id="pageHome" class="page-section active">
+  <!-- HOME (PROFISSIONAIS) -->
+  <div id="pageHome" class="page-section">
     <section class="hero-section">
       <div class="container hero-content">
         <h2>Encontre profissionais de saúde e estética</h2>
@@ -290,12 +239,12 @@
   </div>
 
   <!-- AUTH: LOGIN -->
-  <div id="pageLogin" class="page-section">
+  <div id="pageLogin" class="page-section active">
     <div class="auth-page-container">
       <div class="auth-card" style="max-width: 440px;">
         <img src="logo_aplus_.png" alt="AgendaPlus">
         <h2>Entrar no Sistema</h2>
-        <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Acesse para agendar e visualizar exames</p>
+        <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Faça login para gerenciar consultas e anexar documentos</p>
         <form id="formLogin" onsubmit="executarLogin(event)">
           <div class="input-group">
             <label>E-mail</label>
@@ -307,6 +256,9 @@
           </div>
           <button type="submit" class="btn-primary" style="width: 100%; padding: 12px;">Acessar Conta</button>
         </form>
+        <p style="font-size: 0.85rem; color: #666; margin-top: 15px;">
+          Ainda não tem conta? <a href="#" onclick="irParaTela('cadastro')" style="color: #0d5c46; font-weight: bold;">Cadastre-se</a>
+        </p>
       </div>
     </div>
   </div>
@@ -337,24 +289,28 @@
           </div>
           <button type="submit" class="btn-primary" style="width: 100%; padding: 12px;">Concluir Cadastro</button>
         </form>
+        <p style="font-size: 0.85rem; color: #666; margin-top: 15px;">
+          Já tem conta? <a href="#" onclick="irParaTela('login')" style="color: #0d5c46; font-weight: bold;">Faça Login</a>
+        </p>
       </div>
     </div>
   </div>
 
-  <!-- PÁGINA CENTRALIZADA: MEU PERFIL (COM MEUS AGENDAMENTOS DENTRO) -->
+  <!-- PÁGINA CENTRALIZADA: MEU PERFIL -->
   <div id="pagePerfil" class="page-section">
     <div class="auth-page-container">
       <div class="auth-card">
         <h2 style="color:#0d5c46; margin-bottom: 6px;">Central do Paciente</h2>
-        <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Gerencie suas informações e consultas agendadas</p>
+        <p style="color:#666; font-size: 0.9rem; margin-bottom: 20px;">Gerencie suas informações, exames e consultas agendadas</p>
 
         <!-- ABAS NAVEGÁVEIS DO PERFIL -->
         <div class="profile-tabs">
-          <button class="tab-btn active" id="tabBtnPerfil" onclick="alternarAbaPerfil('perfil')">Dados Cadastrais</button>
+          <button class="tab-btn active" id="tabBtnPerfil" onclick="alternarAbaPerfil('perfil')">Editar Dados</button>
           <button class="tab-btn" id="tabBtnAgendamentos" onclick="alternarAbaPerfil('agendamentos')">Meus Agendamentos</button>
+          <button class="tab-btn" id="tabBtnDocumentos" onclick="alternarAbaPerfil('documentos')">Anexar Documentos</button>
         </div>
 
-        <!-- ABA 1: PERFIL DO PACIENTE -->
+        <!-- ABA 1: EDITAR DADOS CADASTRAIS -->
         <div id="tabContentPerfil" class="tab-content active">
           <form id="formAtualizarPerfil" onsubmit="atualizarPerfilPaciente(event)">
             <div class="input-group">
@@ -384,6 +340,54 @@
         <!-- ABA 2: AGENDAMENTOS DO PACIENTE -->
         <div id="tabContentAgendamentos" class="tab-content">
           <div id="meusAgendamentosGrid" class="cards-grid" style="grid-template-columns: 1fr;"></div>
+        </div>
+
+        <!-- ABA 3: ANEXAR DOCUMENTOS E EXAMES -->
+        <div id="tabContentDocumentos" class="tab-content">
+          <div class="section-box">
+            <h4>Anexar Novo Documento / Exame</h4>
+            <form id="formUploadExame" onsubmit="salvarExame(event)">
+              <div class="input-group-sm">
+                <label>Tipo do Documento</label>
+                <select id="tipoDocSelect" required>
+                  <option value="Pedido Médico">Pedido Médico</option>
+                  <option value="Resultado de Exame">Resultado de Exame</option>
+                  <option value="Laudo / Atestado">Laudo / Atestado</option>
+                </select>
+              </div>
+
+              <div class="input-group-sm">
+                <label>Especialidade / Descrição</label>
+                <input type="text" id="nomeExameInput" placeholder="Ex: Hemograma, Tomografia, Exame de Sangue" required>
+              </div>
+
+              <div class="input-group-sm">
+                <label>Data do Pedido/Exame</label>
+                <input type="date" id="dataExameInput" required>
+              </div>
+
+              <div class="input-group-sm">
+                <label>Anexo (Imagem ou PDF)</label>
+                <input type="file" id="arquivoInput" accept="image/*,.pdf" required>
+              </div>
+
+              <div class="input-group-sm">
+                <label>Observações Adicionais</label>
+                <input type="text" id="obsExameInput" placeholder="Ex: Jejum de 8 horas">
+              </div>
+
+              <button type="submit" class="btn-primary" style="width: 100%; padding: 10px; font-size: 0.9rem;">
+                Enviar para Prontuário
+              </button>
+            </form>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <h4 style="font-size: 1rem; color: #0d5c46; margin-bottom: 10px; text-align: left;">Meus Documentos Enviados:</h4>
+            <div id="listaExamesAnexados">
+              <p style="font-size: 0.85rem; color: #888;">Nenhum documento anexado ainda.</p>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -416,7 +420,6 @@
 
   <script>
     const profissionais = [
-      // SAÚDE & MEDICINA (15)
       { id: 1, nome: "Dra. Camila Santos", categoria: "Saúde & Medicina", especialidade: "Cardiologia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 250" },
       { id: 2, nome: "Dr. Roberto Oliveira", categoria: "Saúde & Medicina", especialidade: "Pediatria", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 200" },
       { id: 3, nome: "Dra. Juliana Lima", categoria: "Saúde & Medicina", especialidade: "Dermatologia Médica", cidade: "Belo Horizonte", atendimento: "Presencial e Online", preco: "R$ 280" },
@@ -432,8 +435,6 @@
       { id: 13, nome: "Dra. Mariana Paiva", categoria: "Saúde & Medicina", especialidade: "Gastroenterologia", cidade: "Curitiba", atendimento: "Presencial e Online", preco: "R$ 260" },
       { id: 14, nome: "Dr. Eduardo Fonseca", categoria: "Saúde & Medicina", especialidade: "Pneumologia", cidade: "São Paulo", atendimento: "Presencial e Online", preco: "R$ 290" },
       { id: 15, nome: "Dra. Clarice Prado", categoria: "Saúde & Medicina", especialidade: "Reumatologia", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 300" },
-
-      // ODONTOLOGIA (12)
       { id: 16, nome: "Dr. Gustavo Alencar", categoria: "Odontologia", especialidade: "Ortodontia", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 180" },
       { id: 17, nome: "Dr. Lucas Barbosa", categoria: "Odontologia", especialidade: "Implantodontia", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 220" },
       { id: 18, nome: "Dr. Rodrigo Xavier", categoria: "Odontologia", especialidade: "Endodontia (Canal)", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 210" },
@@ -446,8 +447,6 @@
       { id: 25, nome: "Dra. Natalia Duarte", categoria: "Odontologia", especialidade: "Harmonização Orofacial", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 380" },
       { id: 26, nome: "Dr. Vinicius Rocha", categoria: "Odontologia", especialidade: "Ortodontia Invisível", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 290" },
       { id: 27, nome: "Dra. Leticia Resende", categoria: "Odontologia", especialidade: "Radiologia Odontológica", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 160" },
-
-      // ESTÉTICA & BEM-ESTAR (12)
       { id: 28, nome: "Dra. Aline Ferraz", categoria: "Estética & Bem-Estar", especialidade: "Harmonização Facial", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 450" },
       { id: 29, nome: "Dra. Fernanda Rocha", categoria: "Estética & Bem-Estar", especialidade: "Dermatologia Estética", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 380" },
       { id: 30, nome: "Dra. Carolina Freitas", categoria: "Estética & Bem-Estar", especialidade: "Biomedicina Estética", cidade: "São Paulo", atendimento: "Presencial", preco: "R$ 320" },
@@ -460,8 +459,6 @@
       { id: 37, nome: "Dra. Tatiana Neves", categoria: "Estética & Bem-Estar", especialidade: "Design de Sobrancelhas & Micropigmentação", cidade: "Curitiba", atendimento: "Presencial", preco: "R$ 250" },
       { id: 38, nome: "Dr. Alex Moraes", categoria: "Estética & Bem-Estar", especialidade: "Podologia & Cuidados dos Pés", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 140" },
       { id: 39, nome: "Dra. Bianca Figueiredo", categoria: "Estética & Bem-Estar", especialidade: "Cosmetologia Aplicada", cidade: "Belo Horizonte", atendimento: "Presencial e Online", preco: "R$ 270" },
-
-      // VETERINÁRIA (11)
       { id: 40, nome: "Dr. André Martins", categoria: "Veterinária", especialidade: "Clínico Geral Vet", cidade: "São Paulo", atendimento: "Presencial e Domiciliar", preco: "R$ 160" },
       { id: 41, nome: "Dra. Beatriz Costa", categoria: "Veterinária", especialidade: "Dermatologia Veterinária", cidade: "Rio de Janeiro", atendimento: "Presencial", preco: "R$ 190" },
       { id: 42, nome: "Dr. Igor Peixoto", categoria: "Veterinária", especialidade: "Cirurgia Veterinária", cidade: "Belo Horizonte", atendimento: "Presencial", preco: "R$ 300" },
@@ -481,11 +478,19 @@
       { data: "Qua (16/09)", horarios: ["08:30", "14:40", "16:20"] }
     ];
 
-    let bancoUsuarios = [];
-    let usuarioLogado = null;
+    // BANCO DE DADOS LOCAL PERSISTENTE
+    let bancoUsuarios = JSON.parse(localStorage.getItem("agendaplus_usuarios")) || [];
+    let usuarioLogado = JSON.parse(localStorage.getItem("agendaplus_sessao")) || null;
     let profissionalAtual = null;
-    let listaAgendamentos = [];
-    let listaExames = [];
+
+    function salvarBanco() {
+      localStorage.setItem("agendaplus_usuarios", JSON.stringify(bancoUsuarios));
+      if (usuarioLogado) {
+        localStorage.setItem("agendaplus_sessao", JSON.stringify(usuarioLogado));
+      } else {
+        localStorage.removeItem("agendaplus_sessao");
+      }
+    }
 
     function irParaTela(nomeTela) {
       document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
@@ -496,16 +501,27 @@
       
       if (nomeTela === 'perfil') {
         if (!usuarioLogado) {
-          alert("🔒 Faça login para acessar seu perfil!");
+          alert("🔒 Acesso restrito! Faça login para gerenciar seu perfil e anexar documentos.");
           irParaTela('login');
           return;
         }
         carregarDadosPerfil();
         renderizarMeusAgendamentos();
+        renderizarExames();
         document.getElementById('pagePerfil').classList.add('active');
       }
       
       window.scrollTo(0, 0);
+    }
+
+    function acessarMeuPerfilOuLogin() {
+      document.getElementById('dropdownMenu').classList.remove('show');
+      if (!usuarioLogado) {
+        alert("🔒 Faça login ou cadastre-se para acessar seu Perfil e Documentos!");
+        irParaTela('login');
+      } else {
+        irParaTela('perfil');
+      }
     }
 
     function toggleDropdownMenu(e) {
@@ -513,7 +529,6 @@
       document.getElementById('dropdownMenu').classList.toggle('show');
     }
 
-    // Fecha o menu suspenso ao clicar fora
     window.onclick = function(event) {
       if (!event.target.matches('.btn-dots')) {
         const dropdowns = document.getElementsByClassName("dropdown-menu");
@@ -526,28 +541,28 @@
       }
     }
 
-    function abrirSidebarSection(secao) {
+    function abrirUnidadesSidebar() {
       document.getElementById('dropdownMenu').classList.remove('show');
       abrirSidebar();
-      if(secao === 'unidades') {
-        document.getElementById('sidebarTitle').textContent = "Unidades de Atendimento";
-      } else {
-        document.getElementById('sidebarTitle').textContent = "Anexar Documentos";
-      }
     }
 
     function alternarAbaPerfil(aba) {
       document.getElementById('tabBtnPerfil').classList.remove('active');
       document.getElementById('tabBtnAgendamentos').classList.remove('active');
+      document.getElementById('tabBtnDocumentos').classList.remove('active');
       document.getElementById('tabContentPerfil').classList.remove('active');
       document.getElementById('tabContentAgendamentos').classList.remove('active');
+      document.getElementById('tabContentDocumentos').classList.remove('active');
 
       if (aba === 'perfil') {
         document.getElementById('tabBtnPerfil').classList.add('active');
         document.getElementById('tabContentPerfil').classList.add('active');
-      } else {
+      } else if (aba === 'agendamentos') {
         document.getElementById('tabBtnAgendamentos').classList.add('active');
         document.getElementById('tabContentAgendamentos').classList.add('active');
+      } else {
+        document.getElementById('tabBtnDocumentos').classList.add('active');
+        document.getElementById('tabContentDocumentos').classList.add('active');
       }
     }
 
@@ -660,7 +675,9 @@
         modalidade = document.getElementById("selectModalidade").value;
       }
 
-      listaAgendamentos.push({
+      if(!usuarioLogado.agendamentos) usuarioLogado.agendamentos = [];
+
+      usuarioLogado.agendamentos.push({
         id: Date.now(),
         profissional: profissionalAtual.nome,
         especialidade: profissionalAtual.especialidade,
@@ -670,6 +687,11 @@
         preco: profissionalAtual.preco
       });
 
+      // Atualiza usuário no banco simulado
+      const idx = bancoUsuarios.findIndex(u => u.email === usuarioLogado.email);
+      if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
+
+      salvarBanco();
       alert(`🎉 Consulta agendada com sucesso com ${profissionalAtual.nome}!`);
       fecharModalAgendamento();
       irParaTela('perfil');
@@ -679,11 +701,15 @@
     function renderizarMeusAgendamentos() {
       const grid = document.getElementById("meusAgendamentosGrid");
       grid.innerHTML = "";
-      if (listaAgendamentos.length === 0) {
-        grid.innerHTML = "<p style='color: #888; text-align: center; padding: 20px 0;'>Você ainda não possui consultas ou exames agendados.</p>";
+      
+      const agendamentos = usuarioLogado ? (usuarioLogado.agendamentos || []) : [];
+
+      if (agendamentos.length === 0) {
+        grid.innerHTML = "<p style='color: #888; text-align: center; padding: 20px 0;'>Você ainda não possui consultas agendadas.</p>";
         return;
       }
-      listaAgendamentos.forEach((ag) => {
+
+      agendamentos.forEach((ag) => {
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
@@ -705,7 +731,10 @@
     }
 
     function cancelarAgendamento(id) {
-      listaAgendamentos = listaAgendamentos.filter(a => a.id !== id);
+      usuarioLogado.agendamentos = usuarioLogado.agendamentos.filter(a => a.id !== id);
+      const idx = bancoUsuarios.findIndex(u => u.email === usuarioLogado.email);
+      if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
+      salvarBanco();
       renderizarMeusAgendamentos();
     }
 
@@ -735,10 +764,15 @@
         return;
       }
 
+      const emailAntigo = usuarioLogado.email;
       usuarioLogado.nome = novoNome;
       usuarioLogado.nascimento = novoNascimento;
       usuarioLogado.email = novoEmail;
 
+      const idx = bancoUsuarios.findIndex(u => u.email === emailAntigo);
+      if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
+
+      salvarBanco();
       atualizarNavUsuario();
       document.getElementById("perfilSenhaAtual").value = "";
       alert("✅ Perfil atualizado com sucesso!");
@@ -748,7 +782,6 @@
       e.preventDefault();
       if (!usuarioLogado) {
         alert("🔒 Faça login para salvar seus documentos!");
-        fecharSidebar();
         irParaTela('login');
         return;
       }
@@ -760,23 +793,31 @@
       const fileInput = document.getElementById("arquivoInput");
       const nomeArquivo = fileInput.files[0] ? fileInput.files[0].name : "documento.pdf";
 
-      listaExames.push({ id: Date.now(), tipo, nome, data, obs, arquivo: nomeArquivo });
+      if(!usuarioLogado.exames) usuarioLogado.exames = [];
 
+      usuarioLogado.exames.push({ id: Date.now(), tipo, nome, data, obs, arquivo: nomeArquivo });
+
+      const idx = bancoUsuarios.findIndex(u => u.email === usuarioLogado.email);
+      if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
+
+      salvarBanco();
       document.getElementById("formUploadExame").reset();
       renderizarExames();
-      alert(`✅ ${tipo} salvo com sucesso!`);
+      alert(`✅ ${tipo} salvo com sucesso no seu perfil!`);
     }
 
     function renderizarExames() {
       const container = document.getElementById("listaExamesAnexados");
       container.innerHTML = "";
       
-      if (listaExames.length === 0) {
-        container.innerHTML = `<p style="font-size: 0.78rem; color: #888;">Nenhum documento anexado.</p>`;
+      const exames = usuarioLogado ? (usuarioLogado.exames || []) : [];
+
+      if (exames.length === 0) {
+        container.innerHTML = `<p style="font-size: 0.85rem; color: #888;">Nenhum documento anexado ainda.</p>`;
         return;
       }
 
-      listaExames.forEach(ex => {
+      exames.forEach(ex => {
         let classBadge = "badge-pedido";
         if(ex.tipo.includes("Exame")) classBadge = "badge-exame";
         if(ex.tipo.includes("Laudo")) classBadge = "badge-laudo";
@@ -797,7 +838,10 @@
     }
 
     function removerExame(id) {
-      listaExames = listaExames.filter(e => e.id !== id);
+      usuarioLogado.exames = usuarioLogado.exames.filter(e => e.id !== id);
+      const idx = bancoUsuarios.findIndex(u => u.email === usuarioLogado.email);
+      if(idx !== -1) bancoUsuarios[idx] = usuarioLogado;
+      salvarBanco();
       renderizarExames();
     }
 
@@ -814,8 +858,10 @@
       }
 
       usuarioLogado = usuarioEncontrado;
+      salvarBanco();
       atualizarNavUsuario();
       document.getElementById("formLogin").reset();
+      alert(`Seja bem-vindo(a), ${usuarioLogado.nome.split(' ')[0]}!`);
       irParaTela('home');
     }
 
@@ -832,10 +878,11 @@
         return;
       }
 
-      const novoUsuario = { nome, nascimento, email, senha };
+      const novoUsuario = { nome, nascimento, email, senha, agendamentos: [], exames: [] };
       bancoUsuarios.push(novoUsuario);
-      
       usuarioLogado = novoUsuario;
+      salvarBanco();
+
       atualizarNavUsuario();
       document.getElementById("formCadastro").reset();
       alert("🎉 Cadastro realizado com sucesso!");
@@ -843,38 +890,44 @@
     }
 
     function atualizarNavUsuario() {
-      document.getElementById("navMeuPerfilLink").style.display = "inline";
-
-      document.getElementById("navUserArea").innerHTML = `
-        <span style="font-weight: 600; color: #0d5c46; cursor: pointer;" onclick="irParaTela('perfil')">Olá, ${usuarioLogado.nome.split(' ')[0]}</span>
-        <button class="btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="deslogar()">Sair</button>
-      `;
+      if (usuarioLogado) {
+        document.getElementById("navUserArea").innerHTML = `
+          <span style="font-weight: 600; color: #0d5c46; cursor: pointer;" onclick="irParaTela('perfil')">Olá, ${usuarioLogado.nome.split(' ')[0]}</span>
+          <button class="btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="deslogar()">Sair</button>
+        `;
+      } else {
+        document.getElementById("navUserArea").innerHTML = `
+          <button class="btn-secondary" onclick="irParaTela('login')">Entrar</button>
+          <button class="btn-primary" onclick="irParaTela('cadastro')">Cadastrar</button>
+        `;
+      }
     }
 
     function deslogar() {
       usuarioLogado = null;
-      listaAgendamentos = [];
-      listaExames = [];
+      salvarBanco();
 
-      document.getElementById("navMeuPerfilLink").style.display = "none";
-
-      document.getElementById("navUserArea").innerHTML = `
-        <button class="btn-secondary" onclick="irParaTela('login')">Entrar</button>
-        <button class="btn-primary" onclick="irParaTela('cadastro')">Cadastrar</button>
-      `;
+      atualizarNavUsuario();
 
       document.getElementById("formLogin").reset();
       document.getElementById("formCadastro").reset();
       document.getElementById("formAtualizarPerfil").reset();
       document.getElementById("formUploadExame").reset();
 
-      renderizarExames();
-      alert("Você saiu da sua conta. Todos os dados temporários da sessão foram limpos.");
-      irParaTela('home');
+      alert("Você saiu da sua conta.");
+      irParaTela('login');
     }
 
     document.addEventListener("DOMContentLoaded", () => {
       renderizarCards(profissionais);
+      atualizarNavUsuario();
+
+      // REDIRECIONAMENTO INICIAL: Se não houver usuário logado, abre direto no Login
+      if (!usuarioLogado) {
+        irParaTela('login');
+      } else {
+        irParaTela('home');
+      }
     });
   </script>
 </body>
